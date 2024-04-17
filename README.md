@@ -6,7 +6,7 @@ Vault Developer Toolbox is a Chrome Extension designed to make the everyday life
 
 Vault Developer Toolbox is available for installation via the [Chrome Web Store](https://chromewebstore.google.com/detail/vault-developer-toolbox/mnhgljfhifhchamigkieeghmcdjaahdg). 
 
-For information on the technical architecture and instructions on entending or self-hosting this project, please refer to the [project wiki](https://github.com/veeva/Vault-Developer-Toolbox/wiki).
+For information on the technical architecture and instructions for extending or self-hosting this project, please refer to the [project wiki](https://github.com/veeva/Vault-Developer-Toolbox/wiki).
 
 ## Features
 

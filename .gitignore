@@ -1,0 +1,26 @@
+target/
+*.class
+*.ear
+*.logs
+*.iml
+test.properties
+vault.properties
+frontend/node_modules/*
+frontend/dist
+backend/.gitkeep
+
+# Mac Files
+.DS_Store
+
+#IntelliJ
+.idea/
+
+#Eclipse
+.eclipse
+.settings/
+.project/
+.settings
+.project
+
+# Log file
+*.log

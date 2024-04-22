@@ -11,13 +11,19 @@ For information on the technical architecture and instructions for extending or 
 ## Features
 
 ### Login
-Vault Developer Toolbox requires you to authenticate into a Vault. You can do this using the <b>Vault DNS</b> (```your_vault_name.veevavault.com```) and either the combination of your <b>Username</b> and <b>Password</b> or you can supply an active <b>Session ID</b>. SSO Authentication is possible by obtaining the <b>Session ID</b> via the Vault REST API using [OAuth 2.0 / OpenID Connect](https://developer.veevavault.com/api/23.3/#oauth-2-0-openid-connect) (see [Vault Help](https://platform.veevavault.help/en/gr/43329/) for more information).
+Developer Toolbox requires you to authenticate into a Vault. You can do this using the <b>Vault DNS</b> 
+(```yourvaultname.veevavault.com```) and either the combination of your <b>Username</b> and <b>Password</b> or you can
+supply an active <b>Session ID</b>. 
 
-#### Login: Vault-aware Login Form
-If you open Developer Toolbox from a Vault, it will automatically copy the <b>Vault DNS</b> into the Login Form for you.
+<i>SSO Authentication</i> is possible by obtaining the <b>Session ID</b> via the Vault 
+REST API using [OAuth 2.0 / OpenID Connect](https://developer.veevavault.com/api/23.3/#oauth-2-0-openid-connect) (see 
+[Vault Help](https://platform.veevavault.help/en/gr/43329/) for more information).
 
-#### Login: Environment Manager
-The tool allows you to save up to 100 environments and 1 default with their <b>Vault DNS</b> and <b>Username</b>.
+The <i>Login Form</i> will automatically copy the <b>Vault DNS</b> into the <i>Login Form</i> for you if you open the
+plugin from a tab where you are logged into a Vault. It also lets you save up to 100 environments' <b>Vault DNS</b> and
+<b>Username</b>, including setting one of them as the default.
+
+![Login.png](uploads%2FLogin.png)
 
 ***
 ### Component Editor
@@ -26,7 +32,7 @@ The <b>Component Editor</b> lets you get the [MDL](https://developer.veevavault.
 </br>
 If you are in a <i>non-production</i> environment, the <b>Component Editor</b> also allows you to <b>Send</b> [MDL Commands](https://developer.veevavault.com/mdl/#mdl-commands-1) to Vault. This enables you to <b>Get</b> a component, make quick modifications, and then <b>Send</b> it back to Vault, allowing for faster configuration changes.
 
-![alt text](</uploads/Component Editor.png>)
+![Component Editor.png](uploads%2FComponent%20Editor.png)
 
 #### Component Editor: Component Directory
 Developer Toolbox will get all MDL-based components from the system and load them into the right-hand-side <b>Component Directory</b>.
@@ -44,7 +50,7 @@ You can <b>Zoom In/Out</b> to set the desired display size by <i>Ctrl/Command + 
 ### VQL Editor
 The VQL Editor lets you send [VQL Queries](https://developer.veevavault.com/vql/) to Vault and retrieve the data, which you can view in <b>Table</b> or <b>JSON</b> format. The <b>Download CSV</b> button will generate a CSV file of the <i>entire query result</i>, including all pages. <i>Subquery Pagination</i> ([Object](https://developer.veevavault.com/vql/#left-outer-join-parent-to-child-1-m") or [Document](https://developer.veevavault.com/vql/#left-outer-join-document-to-product-m-m)) is not supported in the current version, so results will be limited to the first page of subquery results.
 
-![alt text](</uploads/VQL Editor.png>)
+![VQL Editor.png](uploads%2FVQL%20Editor.png)
 
 #### VQL Editor: Pagination
 The VQL results are retrieved according to the default [PAGESIZE](https://developer.veevavault.com/vql/#pagesize) which can be reduced by adding the <b>PAGESIZE</b> parameter to the query.
@@ -61,7 +67,7 @@ On <i>non-production</i> environments, the tool will also allow developers to in
 
 Once a job is completed, a summary of the results will be posted on the Vault's [File Staging Server](https://platform.veevavault.help/en/gr/38653/) and displayed in the results window.
 
-![alt text](</uploads/Vault Data Tools.png>)
+![Vault Data Tools.png](uploads%2FVault%20Data%20Tools.png)
 
 ## Required Permissions
 Vault Developer Toolbox uses the published and validated API endpoints, and does not provide any overrides to documented functionalities.

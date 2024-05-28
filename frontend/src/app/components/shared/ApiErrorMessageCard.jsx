@@ -4,7 +4,7 @@ export default function ApiErrorMessageCard({ content, errorMessage }) {
     const alertTitleText = content ? (`retrieving ${content}`) : 'processing your request';
 
     return (
-        <Card>
+        <Card backgroundColor='white.color_mode'>
             <CardBody>
                 <Alert status='error' variant='left-accent'>
                     <AlertIcon />

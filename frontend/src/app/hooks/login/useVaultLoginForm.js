@@ -37,10 +37,11 @@ export default function useVaultLoginForm({ setSessionId }) {
      */
     const handleSubmit = async () => {
         setError({ hasError: false, errorMessage: '' });
+        const cleanVaultDNS = vaultDNS.replace(/^https?:\/\// ,'') // Remove http(s)://
         const params = {
             userName,
             password,
-            vaultDNS,
+            vaultDNS: cleanVaultDNS,
             sessionId: loginSessionId
         };
 
@@ -56,7 +57,7 @@ export default function useVaultLoginForm({ setSessionId }) {
             } else { // Session auth
                 setSessionId(loginSessionId);
             }
-            sessionStorage.setItem('vaultDNS', vaultDNS);
+            sessionStorage.setItem('vaultDNS', cleanVaultDNS);
         } else {
             let errMessage = '';
             // Vault errors

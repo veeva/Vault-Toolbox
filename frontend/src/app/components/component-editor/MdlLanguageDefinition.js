@@ -88,7 +88,7 @@ const mdlLanguage = {
     }
 };
 
-export const MdlTheme = {
+export const MdlLightModeTheme = {
     base: 'vs',
     inherit: true,
     rules: [
@@ -128,4 +128,48 @@ export const MdlTheme = {
         }
     ],
     colors: {}
+};
+
+export const MdlDarkModeTheme = {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [
+        {
+            token: 'keyword',
+            foreground: 'FFAC41'
+        },
+        {
+            token: 'type.mdl.componenttype',
+            foreground: '449FD7',
+            fontStyle: 'bold'
+        },
+        {
+            token: 'variable.mdl.componentrecord',
+            foreground: '449FD7',
+            fontStyle: 'italic'
+        },
+        {
+            token: 'entity.mdl.property',
+            foreground: 'F2F2F2'
+        },
+        {
+            token: 'entity.mdl.checksum',
+            foreground: '1B2F54'
+        },
+        {
+            token: 'entity.mdl.boolean',
+            foreground: 'FF7927'
+        },
+        {
+            token: 'string',
+            foreground: '8EB88B'
+        },
+        {
+            token: 'entity.mdl.defaulttext',
+            foreground: 'F2F2F2'
+        }
+    ],
+    colors: {
+        'editor.background': '#303841'
+    }
 };

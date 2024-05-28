@@ -33,7 +33,7 @@ export default function useComponentTree() {
         }
 
         const queryString = 'SELECT label__v,component_name__v, component_type__v, status__v FROM vault_component__v';
-        let queryResponse = await query(queryString);
+        let { queryResponse } = await query(queryString);
         if (queryResponse?.responseStatus === 'FAILURE') {
             let error = '';
             if (queryResponse?.errors?.length > 0) {
@@ -49,7 +49,7 @@ export default function useComponentTree() {
 
             let next_page = queryResponse?.responseDetails?.next_page;
             while (next_page) {
-                queryResponse = await queryByPage(next_page);
+                const { queryResponse } = await queryByPage(next_page);
                 if (queryResponse?.responseStatus === 'FAILURE') {
                     let error = '';
                     if (queryResponse?.errors?.length > 0) {

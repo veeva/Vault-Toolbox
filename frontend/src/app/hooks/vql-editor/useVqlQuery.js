@@ -12,6 +12,7 @@ export default function useVqlQuery() {
     const [isExecutingQuery, setIsExecutingQuery] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
     const [queryEditorTabIndex, setQueryEditorTabIndex] = useState(0);
+    const [queryTelemetryData, setQueryTelemetryData] = useState({});
 
     const OBJECT = 'object';
     const PICKLIST = 'Picklist';
@@ -21,22 +22,24 @@ export default function useVqlQuery() {
      */
     const submitVqlQuery = async () => {
         setIsExecutingQuery(true);
-        const response = await query(code);
+        const { queryResponse, responseTelemetry } = await query(code);
 
         // Display the result in console output
-        if (response) {
+        if (queryResponse) {
             setConsoleOutput((previousConsoleOutput) => {
                 const tmpArray = [...previousConsoleOutput];
-                tmpArray[queryEditorTabIndex] = response;
+                tmpArray[queryEditorTabIndex] = queryResponse;
                 return tmpArray;
             });
 
-            if (response.queryDescribe) {
-                setQueryDescribe(response.queryDescribe);
+            if (queryResponse.queryDescribe) {
+                setQueryDescribe(queryResponse.queryDescribe);
             } else {
                 setQueryDescribe();
             }
         }
+
+        setQueryTelemetryData(responseTelemetry ? responseTelemetry : {})
 
         setIsExecutingQuery(false);
     };
@@ -70,16 +73,18 @@ export default function useVqlQuery() {
      */
     const queryNextPage = async () => {
         setIsExecutingQuery(true);
-        const response = await queryByPage(nextPage);
+        const { queryResponse, responseTelemetry } = await queryByPage(nextPage);
 
         // Display the result in console output
-        if (response) {
+        if (queryResponse) {
             setConsoleOutput((previousConsoleOutput) => {
                 const tmpArray = [...previousConsoleOutput];
-                tmpArray[queryEditorTabIndex] = response;
+                tmpArray[queryEditorTabIndex] = queryResponse;
                 return tmpArray;
             });
         }
+
+        setQueryTelemetryData(responseTelemetry ? responseTelemetry : {});
 
         setIsExecutingQuery(false);
     };
@@ -89,16 +94,18 @@ export default function useVqlQuery() {
      */
     const queryPreviousPage = async () => {
         setIsExecutingQuery(true);
-        const response = await queryByPage(previousPage);
+        const { queryResponse, responseTelemetry } = await queryByPage(previousPage);
 
         // Display the result in console output
-        if (response) {
+        if (queryResponse) {
             setConsoleOutput((previousConsoleOutput) => {
                 const tmpArray = [...previousConsoleOutput];
-                tmpArray[queryEditorTabIndex] = response;
+                tmpArray[queryEditorTabIndex] = queryResponse;
                 return tmpArray;
             });
         }
+
+        setQueryTelemetryData(responseTelemetry ? responseTelemetry : {});
 
         setIsExecutingQuery(false);
     };
@@ -163,7 +170,7 @@ export default function useVqlQuery() {
 
             // If we have a previousPage, start by resetting us to the first page of the query
             while (tempPreviousPage) {
-                queryResponse = await queryByPage(tempPreviousPage);
+                let { queryResponse } = await queryByPage(tempPreviousPage);
                 tempPreviousPage = queryResponse?.responseDetails?.previous_page
                     ? queryResponse?.responseDetails?.previous_page
                     : '';
@@ -172,13 +179,13 @@ export default function useVqlQuery() {
             // Loop through every page of results and add them to the csvData array
             let tempNextPage = queryResponse?.responseDetails?.next_page;
             while (tempNextPage) {
-                appendQueryDataToCsvArray(queryResponse, csvData);
+                await appendQueryDataToCsvArray(queryResponse, csvData);
 
-                queryResponse = await queryByPage(tempNextPage);
+                let { queryResponse } = await queryByPage(tempNextPage);
                 tempNextPage = queryResponse?.responseDetails?.next_page;
             }
 
-            appendQueryDataToCsvArray(queryResponse, csvData);
+            await appendQueryDataToCsvArray(queryResponse, csvData);
         } else {
             // Default message if there's no query data
             csvData.push('No results to display');
@@ -198,9 +205,7 @@ export default function useVqlQuery() {
                 // Picklists and standard field headers
                 if (
                     isPicklist(dataKey)
-                    || typeof consoleOutput[queryEditorTabIndex].data[0][
-                        dataKey
-                    ] !== OBJECT
+                    || typeof consoleOutput[queryEditorTabIndex].data[0][dataKey] !== OBJECT
                     || consoleOutput[queryEditorTabIndex].data[0][dataKey] === null
                 ) {
                     headers.push(dataKey);
@@ -222,26 +227,30 @@ export default function useVqlQuery() {
      * Adds query data (field values) to the provided array.
      * @param {Array} csvData
      */
-    const appendQueryDataToCsvArray = (queryResponse, csvData) => {
-        queryResponse?.data?.map((queryRow) => {
+    const appendQueryDataToCsvArray = async (queryResponse, csvData) => {
+        for (let rowCount = 0; rowCount < queryResponse?.data?.length; rowCount += 1) {
+            const queryRow = queryResponse?.data[rowCount];
             // Build a CSV row for each row of subquery data
-            const queryRowSize = getMaxRowSize(queryRow);
+            //const queryRowSize = getMaxRowSize(queryRow); // TODO - convert to total size
+            const queryRowSize = getTotalSubqueryRowSize(queryRow);
+
+            // For each subquery on this row, get all the subquery data, including paginated data
+            const subqueryData = await getPaginatedSubqueryDataForRow(queryRow);
+
             for (let rowIndex = 0; rowIndex < queryRowSize; rowIndex += 1) {
                 const dataRow = [];
 
                 Object.keys(queryRow).map((dataRowKey) => {
                     const dataRowValue = queryRow[dataRowKey];
 
-                    if (
-                        typeof dataRowValue === OBJECT
+                    if (typeof dataRowValue === OBJECT
                         && dataRowValue !== null
                     ) {
                         // Print the appropriate row of subquery results
-                        if (
-                            dataRowValue?.data?.length > 0
-                            && rowIndex < dataRowValue?.data?.length
-                        ) {
-                            const subqueryDataRow = dataRowValue?.data[rowIndex];
+                        if (dataRowValue?.data?.length > 0
+                            && rowIndex < subqueryData[dataRowKey]?.length
+                        ) { 
+                            const subqueryDataRow = subqueryData[dataRowKey][rowIndex];
 
                             Object.values(subqueryDataRow).map(
                                 (subqueryDataField) => {
@@ -260,13 +269,9 @@ export default function useVqlQuery() {
                             // Picklist field values
                             dataRow.push(dataRowValue.join(','));
                         } else {
-                            // Print empty rows
+                            // Print empty cells
                             const subqueryFieldCount = getSubqueryFieldCount(dataRowKey);
-                            for (
-                                let count = 0;
-                                count < subqueryFieldCount;
-                                count += 1
-                            ) {
+                            for (let count = 0; count < subqueryFieldCount; count += 1) {
                                 dataRow.push('');
                             }
                         }
@@ -277,8 +282,40 @@ export default function useVqlQuery() {
                 });
                 csvData.push(dataRow);
             }
-        });
+        }
     };
+
+    /**
+     * Given a query row, finds the subqueries and returns an object containing 
+     * all pages of that subquery's data. 
+     * @param {Object} queryRow 
+     * @returns subquery data object (e.g. subqueryData = { "subqueryKey" : [subqueryDataRow1, ...] })
+     */
+    const getPaginatedSubqueryDataForRow = async (queryRow) => {
+        let subqueryData = {}
+        for (const key of Object.keys(queryRow)) {
+            if (isSubqueryObject(key)) {
+                const dataRowValue = queryRow[key];
+                
+                let tempSubqueryResponseData = dataRowValue?.data;
+                let tempNextPage = dataRowValue?.responseDetails?.next_page;
+                
+                const tmpSubqueryDataArray = new Array();
+                while (tempNextPage) {
+                    tmpSubqueryDataArray.push(...tempSubqueryResponseData);
+                    
+                    const { queryResponse } = await queryByPage(tempNextPage);
+                    tempSubqueryResponseData = queryResponse?.data;
+                    tempNextPage = queryResponse?.responseDetails?.next_page;
+                }
+
+                tmpSubqueryDataArray.push(...tempSubqueryResponseData);
+
+                subqueryData[key] = tmpSubqueryDataArray;
+            }
+        }
+        return subqueryData;
+    }
 
     /**
      * Determines the number of fields in a subquery
@@ -363,9 +400,9 @@ export default function useVqlQuery() {
     }
 
     /**
-     * Determines the maximum size of any subqueries in a row of VQL response data.
+     * Determines the MAX size of any subqueries in a row of VQL response data. Only accounts for the first page of subquery results.
      * @param {Object} row of VQL data
-     * @returns maximum subquery size
+     * @returns maximum subquery size (for this page of results)
      */
     const getMaxRowSize = (row) => {
         let maxRowSize = 1; // Default to 1 row size
@@ -379,6 +416,25 @@ export default function useVqlQuery() {
         });
 
         return maxRowSize;
+    };
+
+    /**
+     * Determines the TOTAL size of any subqueries in a row of VQL response data across all pages.
+     * @param {Object} row of VQL data
+     * @returns total subquery size across all pages of results
+     */
+    const getTotalSubqueryRowSize = (row) => {
+        let totalSubqueryRowSize = 1; // Default to 1 row size
+
+        Object.values(row).forEach((rowDataValue) => {
+            if (typeof rowDataValue === OBJECT) {
+                if (rowDataValue?.responseDetails?.total > totalSubqueryRowSize) {
+                    totalSubqueryRowSize = rowDataValue.responseDetails.total;
+                }
+            }
+        });
+
+        return totalSubqueryRowSize;
     };
 
     /**
@@ -402,7 +458,7 @@ export default function useVqlQuery() {
 
     return {
         code, setCode, consoleOutput, queryEditorTabIndex, previousPage, nextPage, queryDescribe,
-        isExecutingQuery, isDownloading, submitVqlQuery, downloadQueryResults,
+        isExecutingQuery, isDownloading, queryTelemetryData, submitVqlQuery, downloadQueryResults,
         queryNextPage, queryPreviousPage, canDownload, getSubqueryFieldCount, isPicklist,
         isPrimaryFieldRichText, getMaxRowSize, isPrimaryFieldString, isSubqueryObject
     }

@@ -1,4 +1,11 @@
 import { Table, TableContainer, Tr, Td, Tbody, Card, CardBody, Box, Heading } from '@chakra-ui/react';
+import {
+    getVaultDns,
+    getVaultDomainType,
+    getVaultId,
+    getVaultName,
+    getVaultUsername
+} from '../../services/SharedServices';
 
 export default function VaultInfoTable() {
     return (
@@ -13,23 +20,23 @@ export default function VaultInfoTable() {
                             <Tbody>
                                 <Tr>
                                     <Td {...TableColumnStyle}>Vault DNS: </Td>
-                                    <Td>{sessionStorage.getItem('vaultDNS')}</Td>
+                                    <Td>{getVaultDns()}</Td>
                                 </Tr>
                                 <Tr>
                                     <Td {...TableColumnStyle}>Vault ID: </Td>
-                                    <Td>{sessionStorage.getItem('vaultId')}</Td>
+                                    <Td>{getVaultId()}</Td>
                                 </Tr>
                                 <Tr>
                                     <Td {...TableColumnStyle}>Vault Name: </Td>
-                                    <Td>{sessionStorage.getItem('vaultName')}</Td>
+                                    <Td>{getVaultName()}</Td>
                                 </Tr>
                                 <Tr>
                                     <Td {...TableColumnStyle}>Domain Type: </Td>
-                                    <Td>{sessionStorage.getItem('domainType')}</Td>
+                                    <Td>{getVaultDomainType()}</Td>
                                 </Tr>
                                 <Tr>
                                     <Td {...TableColumnStyle}>User: </Td>
-                                    <Td>{sessionStorage.getItem('userName')}</Td>
+                                    <Td>{getVaultUsername()}</Td>
                                 </Tr>
                             </Tbody>
                         </Table>
@@ -41,6 +48,7 @@ export default function VaultInfoTable() {
 }
 
 const VaultInfoCardStyle = {
+    backgroundColor: 'white.color_mode',
     marginY: '25',
     boxShadow: '0 0 5px rgba(0,0,0,0.2)'
 };

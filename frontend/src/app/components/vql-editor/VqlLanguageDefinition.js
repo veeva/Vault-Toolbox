@@ -81,7 +81,7 @@ const vqlLanguage = {
 	},
 }
 
-export const VqlTheme = {
+export const VqlLightModeTheme = {
 	base: 'vs',
 	inherit: true,
 	rules: [
@@ -103,4 +103,30 @@ export const VqlTheme = {
 		}
 	],
 	colors: {}
+}
+
+export const VqlDarkModeTheme = {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [
+        {
+            token: "keyword",
+            foreground: "449FD7"
+        },
+        {
+            token: "entity.vql.function",
+            foreground: "FF00FF"
+        },
+        {
+            token: "entity.vql.option",
+            foreground: "009999"
+        },
+        {
+            token: "string",
+            foreground: "6aa84f"
+        }
+    ],
+    colors: {
+        'editor.background': '#303841'
+    }
 }

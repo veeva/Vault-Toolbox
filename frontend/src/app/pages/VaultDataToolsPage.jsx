@@ -1,5 +1,6 @@
 import { VStack, Flex, Box } from '@chakra-ui/react';
 import { PanelGroup, Panel } from 'react-resizable-panels';
+import VaultInfoIsland from '../components/shared/VaultInfoIsland';
 import DataToolsHeaderRow from '../components/vault-data-tools/DataToolsHeaderRow';
 import DataToolsIsland from '../components/vault-data-tools/DataToolsIand';
 import useVaultDataTools from '../hooks/vault-data-tools/useVaultDataTools';
@@ -35,6 +36,7 @@ export default function VaultDataToolsPage() {
                             selectedOptions={selectedOptions}
                             setSelectedOptions={setSelectedOptions}
                         />
+                        <VaultInfoIsland />
                     </VStack>
                 </Panel>
             </PanelGroup>
@@ -45,7 +47,8 @@ export default function VaultDataToolsPage() {
 
 const DataToolsStackStyle = {
     height: '100%',
-    backgroundColor: 'veeva_light_gray.100',
+    backgroundColor: 'veeva_light_gray.color_mode',
     flex: 1,
-    boxShadow: 'inset -5px 0 8px -8px gray, inset 5px 0 8px -8px gray'
+    boxShadow: 'inset -5px 0 8px -8px rgba(0,0,0,0.3), inset 5px 0 8px -8px rgba(0,0,0,0.3)',
+    spacing: 0
 };

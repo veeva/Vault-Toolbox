@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Flex, Box, FormControl, FormLabel, Input, Stack, Button, Tabs, Tab, TabList, TabPanels, TabPanel, FormErrorMessage, ButtonGroup } from '@chakra-ui/react';
+import { Flex, Box, FormControl, FormLabel, Input, Stack, Button, Tabs, Tab, TabList, TabPanels, TabPanel, FormErrorMessage, ButtonGroup, useColorMode } from '@chakra-ui/react';
 import { useAuth } from '../../context/AuthContext';
 import SavedVaultsPopover from './SavedVaultsPopover';
 import useVaultLoginForm from '../../hooks/login/useVaultLoginForm';
@@ -10,6 +10,7 @@ import useSavedVaultData from '../../hooks/login/useSavedVaultData';
 export default function LoginCard() {
     const { sessionId, setSessionId } = useAuth();
     const navigate = useNavigate();
+    const { colorMode } = useColorMode();
 
     const {
         loading,
@@ -65,8 +66,12 @@ export default function LoginCard() {
                 </FormControl>
                 <Tabs isFitted variant='enclosed' onChange={(index) => handleAuthTypeChange(index)}>
                     <TabList>
-                        <Tab {...TabStyle}>Basic</Tab>
-                        <Tab {...TabStyle}>Session</Tab>
+                        <Tab {...TabStyle}>
+                            Basic
+                        </Tab>
+                        <Tab {...TabStyle}>
+                            Session
+                        </Tab>
                     </TabList>
                     <Flex minH='14vh'>
                         <TabPanels>
@@ -81,9 +86,9 @@ export default function LoginCard() {
                                         onKeyDown={handleKeyDown}
                                     />
                                 </FormControl>
-                                <FormControl id='password' isRequired isInvalid={error.hasError}>
+                                <FormControl id='password' isRequired isInvalid={error.hasError} marginTop='8px'>
                                     <FormLabel>Password</FormLabel>
-                                    <Input 
+                                    <Input
                                         type='password'
                                         value={password} 
                                         onChange={(event) => setPassword(event.currentTarget.value)} 
@@ -125,18 +130,18 @@ export default function LoginCard() {
     );
 }
 
-const LoginCardBoxStyle = {
-    borderRadius: '8px',
-    backgroundColor: 'white',
-    boxShadow: '0 0 5px rgba(0,0,0,0.2)',
-    padding: 8
-};
-
 const TabStyle = {
     _selected: {
-        bg: 'gray.200',
+        backgroundColor: 'gray.background.color_mode',
         fontWeight: 'bold'
-    }
+    },
+}
+
+const LoginCardBoxStyle = {
+    borderRadius: '8px',
+    backgroundColor: 'white.color_mode',
+    boxShadow: '0 0 5px rgba(0,0,0,0.2)',
+    padding: 8
 };
 
 const ButtonStyle = {

@@ -1,5 +1,6 @@
 import { getAuthorizationHeader } from '../ApiService.js';
-import { HTTP_CONTENT_TYPE_XFORM, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_CONTENT_TYPE, RequestMethod, VAULT_API_VERSION, getAPIEndpoint, request } from './VaultRequest.js';
+import { getVaultApiVersion } from '../SharedServices';
+import { HTTP_CONTENT_TYPE_XFORM, HTTP_HEADER_AUTHORIZATION, HTTP_HEADER_CONTENT_TYPE, RequestMethod, getAPIEndpoint, request } from './VaultRequest.js';
 
 const URL_API = '';
 const URL_AUTH = '/auth';
@@ -50,7 +51,7 @@ export async function retrieveApiVersions(sessionId, vaultDNS = null) {
 export async function login(username, password, vaultDNS = null) {
     let url = null;
     if (vaultDNS) {
-        url = `https://${vaultDNS}/api/${VAULT_API_VERSION}${URL_AUTH}`
+        url = `https://${vaultDNS}/api/${getVaultApiVersion()}${URL_AUTH}`
     } else {
         url = getAPIEndpoint(URL_AUTH);
     }
@@ -121,7 +122,7 @@ async function validateLoginResponse(response, userSuppliedApiEndpoint = null) {
 
         response?.vaultIds?.forEach((vault) => {
             if (authenticatedVaultId === vault?.id) {
-                responseUrl = vault?.url + '/' + VAULT_API_VERSION;
+                responseUrl = vault?.url + '/' + getVaultApiVersion();
                 if (userSuppliedApiEndpoint.startsWith(responseUrl)){
                     validatedLoginResponse = true;
                     return;

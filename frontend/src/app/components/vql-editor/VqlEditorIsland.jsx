@@ -1,13 +1,14 @@
-import { Flex, Box, Tabs, TabList, Tab, TabIndicator, Divider, Skeleton, Text } from '@chakra-ui/react';
+import { Flex, Box, Tabs, TabList, Tab, TabIndicator, Divider, Skeleton, Text, useColorMode } from '@chakra-ui/react';
 import { PanelGroup, Panel } from 'react-resizable-panels';
 import { useState } from 'react';
 import CodeEditor from '../shared/CodeEditor';
-import { setupVqlLanguage, vqlLanguageID, VqlTheme } from './VqlLanguageDefinition';
+import { setupVqlLanguage, vqlLanguageID, VqlLightModeTheme, VqlDarkModeTheme } from './VqlLanguageDefinition';
 import HorizontalResizeHandle from '../shared/HorizontalResizeHandle';
 import VqlConsole from './VqlConsole';
 
 export default function VqlEditorIsland({ consoleOutput, code, setCode, queryDescribe, getSubqueryFieldCount, isPicklist, isPrimaryFieldRichText, getMaxRowSize, isDownloading, isExecutingApiCall, nextPage, previousPage, queryNextPage, queryPreviousPage, isPrimaryFieldString, isSubqueryObject }) {
     const [isConsoleCollapsed, setIsConsoleCollapsed] = useState(false);
+    const { colorMode } = useColorMode();
 
     // Setup the VQL Language
     setupVqlLanguage();
@@ -15,7 +16,7 @@ export default function VqlEditorIsland({ consoleOutput, code, setCode, queryDes
     return (
         <Flex {...ParentFlexStyle}>
             <PanelGroup direction='vertical'>
-                <Panel defaultSizePercentage={20} minSizePercentage={10}>
+                <Panel defaultSizePercentage={40} minSizePercentage={10}>
                     <Flex flexDirection='column' height='100%' width='100%'>
                         <Tabs {...TabsStyle}>
                             <TabList {...TabListStyle}>
@@ -32,7 +33,7 @@ export default function VqlEditorIsland({ consoleOutput, code, setCode, queryDes
                                 code={code}
                                 setCode={setCode}
                                 language={vqlLanguageID}
-                                theme={VqlTheme}
+                                theme={colorMode === 'light' ? VqlLightModeTheme : VqlDarkModeTheme}
                             />
                         </Box>
                     </Flex>
@@ -44,7 +45,7 @@ export default function VqlEditorIsland({ consoleOutput, code, setCode, queryDes
                 />
                 <Panel collapsible collapsedSizePercentage={0} minSizePercentage={10} onCollapse={() => setIsConsoleCollapsed(true)} onExpand={() => setIsConsoleCollapsed(false)}>
                     <Flex flexDirection='column' height='100%'>
-                        <Box style={ConsoleBoxStyle}>
+                        <Box {...ConsoleBoxStyle}>
                             <Skeleton isLoaded={!isExecutingApiCall} height='100%'>
                                 <VqlConsole
                                     consoleOutput={consoleOutput}
@@ -74,9 +75,9 @@ export default function VqlEditorIsland({ consoleOutput, code, setCode, queryDes
 const ParentFlexStyle = {
     height: '100%',
     width: 'calc(100% - 20px)',
-    margin: '-10px 0px 10px',
+    margin: '0px',
     borderRadius: '8px',
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     boxShadow: '0 0 5px rgba(0,0,0,0.3)'
 };
 
@@ -95,7 +96,7 @@ const TabListStyle = {
 };
 
 const TabStyle = {
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     fontSize: 'xl',
     width: '180px'
 };
@@ -103,12 +104,12 @@ const TabStyle = {
 const TabIndicatorStyle = {
     marginTop: '-3px',
     height: '3px',
-    backgroundColor: 'veeva_orange.500'
+    backgroundColor: 'veeva_orange.color_mode'
 };
 
 const ConsoleBoxStyle = {
     flex: 1,
-    backgroundColor: 'white.100',
+    backgroundColor: 'white.color_mode',
     fontSize: 'medium',
     position: 'relative',
     overflow: 'auto',

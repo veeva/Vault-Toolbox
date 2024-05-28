@@ -14,7 +14,7 @@ const SidebarItems = [
     {
         name: 'VQL Editor',
         icon: PiMagnifyingGlass,
-        route: 'vql'
+        route: 'vql-editor'
     },
     {
         name: 'Vault Data Tools',

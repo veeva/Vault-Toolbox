@@ -1,19 +1,28 @@
 const { DEVELOPER_TOOLBOX_LAMBDA_URL } = process.env;
 
+import { getVaultApiVersion } from './SharedServices';
+import {
+    login as vapilLogin,
+    retrieveApiVersions,
+    sessionKeepAlive as vapilSessionKeepAlive
+} from './vapil/AuthenticationRequest'
 import { retrieveAllDocumentTypes as vapilRetrieveAllDocumentTypes } from './vapil/DocumentRequest';
 import { retrieveDomainInformation as vapilRetrieveDomainInformation } from './vapil/DomainRequest';
-import { listItemsAtAPath as vapilListItemsAtAPath, downloadItemContent as vapilDownloadItemContent, createFolderOrFile as vapilCreateFolderOrFile } from './vapil/FileStagingRequest';
-import { query as vapilQuery, queryByPage as vapilQueryByPage } from './vapil/QueryRequest';
 import {
-    retrieveComponentRecordMdl as vapilRetrieveComponentRecordMdl,
+    createFolderOrFile as vapilCreateFolderOrFile,
+    downloadItemContent as vapilDownloadItemContent,
+    listItemsAtAPath as vapilListItemsAtAPath
+} from './vapil/FileStagingRequest';
+import {
     executeMdlScript as vapilExecuteMdlScript,
     executeMdlScriptAsync as vapilExecuteMdlScriptAsync,
+    retrieveAllComponentMetadata as vapilRetrieveAllComponentMetadata,
     retrieveAsyncMdlScriptResults as vapilRetrieveAsyncMdlScriptResults,
-    retrieveObjectCollection as vapilRetrieveObjectCollection,
-    retrieveAllComponentMetadata as vapilRetrieveAllComponentMetadata
- } from './vapil/MetaDataRequest'
-import { sessionKeepAlive as vapilSessionKeepAlive, login as vapilLogin, retrieveApiVersions } from './vapil/AuthenticationRequest'
-import { HTTP_HEADER_AUTHORIZATION, VAULT_API_VERSION, getAPIEndpoint } from './vapil/VaultRequest';
+    retrieveComponentRecordMdl as vapilRetrieveComponentRecordMdl,
+    retrieveObjectCollection as vapilRetrieveObjectCollection
+} from './vapil/MetaDataRequest'
+import { query as vapilQuery, queryByPage as vapilQueryByPage } from './vapil/QueryRequest';
+import { getAPIEndpoint, HTTP_HEADER_AUTHORIZATION } from './vapil/VaultRequest';
 
 export const VAULT_CLIENT_ID = 'veeva-vault-developer-toolbox';
 
@@ -75,8 +84,18 @@ export async function retrieveDomainInformation() {
  */
 export async function query(queryString) {
     try {
-        const { response } = await vapilQuery(queryString);
-        return response;
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus } = await vapilQuery(queryString);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime
+        });
+
+        return { queryResponse: response, responseTelemetry };
     } catch(error) {
         return handleErrors(error);
     }
@@ -88,8 +107,18 @@ export async function query(queryString) {
  */
 export async function queryByPage(pageUrl) {
     try {
-        const { response } = await vapilQueryByPage(pageUrl);
-        return response;
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus } = await vapilQueryByPage(pageUrl);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime
+        });
+
+        return { queryResponse: response, responseTelemetry };
     } catch(error) {
         return handleErrors(error);
     }
@@ -140,8 +169,18 @@ export async function createFolderOrFile(kind, path) {
  */
 export async function retrieveComponentRecordMdl(selectedComponent) {
     try {
-        const { response } = await vapilRetrieveComponentRecordMdl(selectedComponent);
-        return response;
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus } = await vapilRetrieveComponentRecordMdl(selectedComponent);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime
+        });
+
+        return { response, responseTelemetry };
     } catch(error) {
         return handleErrors(error);
     }
@@ -153,8 +192,18 @@ export async function retrieveComponentRecordMdl(selectedComponent) {
  */
 export async function executeMdlScript(mdlScript) {
     try {
-        const { response } = await vapilExecuteMdlScript(mdlScript);
-        return response;
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus } = await vapilExecuteMdlScript(mdlScript);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime
+        });
+
+        return { response, responseTelemetry };
     } catch(error) {
         return handleErrors(error);
     }
@@ -166,8 +215,18 @@ export async function executeMdlScript(mdlScript) {
  */
 export async function executeMdlScriptAsync(mdlScript) {
     try {
-        const { response } = await vapilExecuteMdlScriptAsync(mdlScript);
-        return response;
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus } = await vapilExecuteMdlScriptAsync(mdlScript);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime
+        });
+
+        return { response, responseTelemetry };
     } catch(error) {
         return handleErrors(error);
     }
@@ -179,8 +238,18 @@ export async function executeMdlScriptAsync(mdlScript) {
  */
 export async function retrieveAsyncMdlScriptResults(jobId) {
     try {
-        const { response } = await vapilRetrieveAsyncMdlScriptResults(jobId);
-        return response;
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus } = await vapilRetrieveAsyncMdlScriptResults(jobId);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime
+        });
+
+        return { response, responseTelemetry };
     } catch(error) {
         return handleErrors(error);
     }
@@ -238,7 +307,7 @@ export async function login(params) {
             
                 if (response?.responseStatus === 'SUCCESS') {
                     if (Object.keys(response?.values)?.length > 0) {
-                        const responseUrl = response.values[VAULT_API_VERSION];
+                        const responseUrl = response.values[getVaultApiVersion()];
                         isValid = responseUrl === getAPIEndpoint('', true, params.vaultDNS);
 
                         if (isValid) {
@@ -326,4 +395,22 @@ export function handleErrors(error) {
     };
 
     return response;
+}
+
+/**
+ *
+ * @param response
+ * @param responseStatus
+ * @param apiExecutionStartTime
+ * @param apiExecutionEndTime
+ */
+function getTelemetryData({ response, responseStatus, apiExecutionStartTime, apiExecutionEndTime }) {
+    const responseSizeInKB = (new TextEncoder().encode(JSON.stringify(response)).length / 1024).toFixed(1);
+    const executionTimeInMS = (apiExecutionEndTime - apiExecutionStartTime).toFixed(1);
+
+    return {
+        responseStatus,
+        responseSizeInKB,
+        executionTimeInMS
+    };
 }

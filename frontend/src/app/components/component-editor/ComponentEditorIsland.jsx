@@ -1,13 +1,14 @@
-import { Flex, Box, Tabs, TabList, Tab, TabIndicator, Divider, Skeleton, Text } from '@chakra-ui/react';
+import { Flex, Box, Tabs, TabList, Tab, TabIndicator, Divider, Skeleton, Text , useColorMode} from '@chakra-ui/react';
 import { PanelGroup, Panel } from 'react-resizable-panels';
 import { useState } from 'react';
 import CodeEditor from '../shared/CodeEditor';
-import { setupMdlLanguage, mdlLanguageID, MdlTheme } from './MdlLanguageDefinition';
+import { setupMdlLanguage, mdlLanguageID, MdlLightModeTheme, MdlDarkModeTheme } from './MdlLanguageDefinition';
 import ComponentConsole from './ComponentConsole';
 import HorizontalResizeHandle from '../shared/HorizontalResizeHandle';
 
 export default function ComponentEditorIsland({ consoleOutput, code, setCode, isExecutingApiCall }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const { colorMode } = useColorMode();
 
     // Setup the MDL Language
     setupMdlLanguage();
@@ -32,7 +33,7 @@ export default function ComponentEditorIsland({ consoleOutput, code, setCode, is
                                 code={code}
                                 setCode={setCode}
                                 language={mdlLanguageID}
-                                theme={MdlTheme}
+                                theme={colorMode === 'light' ? MdlLightModeTheme : MdlDarkModeTheme}
                             />
                         </Box>
                     </Flex>
@@ -44,7 +45,7 @@ export default function ComponentEditorIsland({ consoleOutput, code, setCode, is
                 />
                 <Panel collapsible collapsedSizePercentage={0} minSizePercentage={10} onCollapse={() => setIsCollapsed(true)} onExpand={() => setIsCollapsed(false)}>
                     <Flex flexDirection='column' height='100%'>
-                        <Box style={ConsoleBoxStyle}>
+                        <Box {...ConsoleBoxStyle}>
                             <Skeleton isLoaded={!isExecutingApiCall} height='100%'>
                                 <ComponentConsole consoleOutput={consoleOutput} />
                             </Skeleton>
@@ -60,9 +61,9 @@ export default function ComponentEditorIsland({ consoleOutput, code, setCode, is
 const ParentFlexStyle = {
     height: '100%',
     width: 'calc(100% - 20px)',
-    margin: '-10px 0px 10px',
+    margin: '0px',
     borderRadius: '8px',
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     boxShadow: '0 0 5px rgba(0,0,0,0.3)'
 };
 
@@ -81,7 +82,7 @@ const TabListStyle = {
 };
 
 const TabStyle = {
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     fontSize: 'xl',
     width: '180px'
 };
@@ -89,16 +90,16 @@ const TabStyle = {
 const TabIndicatorStyle = {
     marginTop: '-3px',
     height: '3px',
-    backgroundColor: 'veeva_orange.500'
+    backgroundColor: 'veeva_orange.color_mode'
 };
 
 const ConsoleBoxStyle = {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     fontSize: 'medium',
     position: 'relative',
     overflow: 'auto',
-    borderRadius: '8px'
+    borderBottomRadius: '8px'
 };
 
 const SendingRequestTextStyle = {

@@ -10,11 +10,13 @@ export default function ComponentEditorHeaderRow({ setSelectedComponent, execute
         <Flex width='100%' margin='10px' alignItems='center'>
             <Heading {...HeadingStyle}>Component Editor</Heading>
             <InputGroup {...InputGroupStyle}>
-                <InputLeftElement backgroundColor='0000000'>
+                <InputLeftElement backgroundColor='transparent'>
                     <PiMagnifyingGlass size={24} />
                 </InputLeftElement>
                 <Input
-                    backgroundColor='white'
+                    boxShadow='0 0 5px rgba(0,0,0,0.25)'
+                    backgroundColor='white.color_mode'
+                    color='text.color_mode'
                     value={userInputComponent}
                     onChange={(event) => setUserInputComponent(event.currentTarget.value)}
                     placeholder='Componenttype.component_name__c'
@@ -33,7 +35,11 @@ export default function ComponentEditorHeaderRow({ setSelectedComponent, execute
                         Send
                     </Button>
                     <Menu>
-                        <MenuButton as={IconButton} icon={<PiCaretDownBold />} minWidth={8} _hover={{ backgroundColor: 'veeva_sunset_red.fifty_percent_opacity' }} />
+                        <MenuButton
+                            as={IconButton}
+                            icon={<PiCaretDownBold />}
+                            {...ExecuteMdlMenuButtonStyle}
+                        />
                         <MenuList>
                             <MenuItem 
                                 {...AsyncMdlButtonStyle} 
@@ -57,7 +63,7 @@ export default function ComponentEditorHeaderRow({ setSelectedComponent, execute
 }
 
 const HeadingStyle = {
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     minWidth: 'max-content',
     marginLeft: '25px',
     marginRight: '5px',
@@ -65,18 +71,20 @@ const HeadingStyle = {
 };
 
 const InputGroupStyle = {
-    backgroundColor: 'veeva_light_gray.100',
+    borderColor: 'transparent',
+    backgroundColor: 'veeva_light_gray.color_mode',
     marginX: '5px'
 };
 
 const GetComponentButtonStyle = {
-    backgroundColor: 'veeva_twighlight_blue.500',
+    backgroundColor: 'veeva_twilight_blue.500',
     color: 'white',
     _hover: {
-        backgroundColor: 'veeva_twighlight_blue.fifty_percent_opacity'
+        backgroundColor: 'veeva_twilight_blue.fifty_percent_opacity'
     },
     marginRight: '5px',
-    minWidth: '120px'
+    minWidth: '120px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.25)'
 };
 
 const ButtonGroupStyle = {
@@ -84,10 +92,11 @@ const ButtonGroupStyle = {
     borderRadius: '8px',
     marginRight: '10px',
     minWidth: '120px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.25)'
 };
 
 const ExecuteMdlButtonStyle = {
-    backgroundColor: 'veeva_sunset_red.500',
+    backgroundColor: 'veeva_sunset_red.color_mode',
     color: 'white',
     _hover: {
         backgroundColor: 'veeva_sunset_red.fifty_percent_opacity'
@@ -101,10 +110,22 @@ const ExecuteMdlButtonStyle = {
     flex: 1
 };
 
+const ExecuteMdlMenuButtonStyle = {
+    backgroundColor: 'veeva_sunset_red.color_mode',
+    color: 'white',
+    _hover: {
+        backgroundColor: 'veeva_sunset_red.fifty_percent_opacity'
+    },
+    _active: {
+        backgroundColor: 'veeva_sunset_red.eighty_percent_opacity'
+    },
+    minWidth: 8
+}
+
 const AsyncMdlButtonStyle = {
     fontSize: 'medium',
     _hover: {
-        backgroundColor: 'veeva_sunset_red.500',
+        backgroundColor: 'veeva_sunset_red.color_mode',
         color: 'white'
     }
 };

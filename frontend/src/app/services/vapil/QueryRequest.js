@@ -1,5 +1,6 @@
 import { getAuthorizationHeader, getVaultDNS } from '../ApiService.js';
-import { getAPIEndpoint, HTTP_CONTENT_TYPE_JSON, HTTP_CONTENT_TYPE_XFORM, HTTP_HEADER_ACCEPT, HTTP_HEADER_CONTENT_TYPE, request, RequestMethod, VAULT_API_VERSION } from './VaultRequest.js';
+import {getVaultApiVersion} from '../SharedServices';
+import { getAPIEndpoint, HTTP_CONTENT_TYPE_JSON, HTTP_CONTENT_TYPE_XFORM, HTTP_HEADER_ACCEPT, HTTP_HEADER_CONTENT_TYPE, request, RequestMethod } from './VaultRequest.js';
 
 const URL_QUERY = '/query';
 
@@ -32,9 +33,10 @@ export async function query(query) {
 
     const queryResponse = await request(url, requestOptions);
     const responseHeaders = queryResponse?.headers;
+    const responseStatus = queryResponse?.status;
     const response = await queryResponse.json();
 
-    return { response, responseHeaders };
+    return { response, responseHeaders, responseStatus };
 }
 
 /**
@@ -61,9 +63,10 @@ export async function queryByPage(pageUrl) {
 
     const queryResponse = await request(url, requestOptions);
     const responseHeaders = queryResponse?.headers;
+    const responseStatus = queryResponse?.status;
     const response = await queryResponse.json();
 
-    return { response, responseHeaders };
+    return { response, responseHeaders, responseStatus };
 }
 
 /**
@@ -78,8 +81,8 @@ function getPaginationEndpoint(pageUrl) {
     if (pageUrl.startsWith('https://' + vaultDNS))
     return pageUrl;
 
-    if (pageUrl.startsWith('/api/' + VAULT_API_VERSION))
-        return getAPIEndpoint(pageUrl.substring(VAULT_API_VERSION.length + 5), true);
+    if (pageUrl.startsWith('/api/' + getVaultApiVersion()))
+        return getAPIEndpoint(pageUrl.substring(getVaultApiVersion().length + 5), true);
 
     if (pageUrl.startsWith('/api/'))
         return getAPIEndpoint(pageUrl.substring(5), false);

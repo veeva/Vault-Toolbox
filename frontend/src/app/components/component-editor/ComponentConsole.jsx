@@ -1,7 +1,8 @@
-import { Flex, Box, TabIndicator, Tabs, TabList, Tab, TabPanels, TabPanel, Spacer } from '@chakra-ui/react';
+import { Flex, Box, TabIndicator, Tabs, TabList, Tab, TabPanels, TabPanel, Spacer, useColorMode } from '@chakra-ui/react';
 import JsonSyntaxHighlighter from '../shared/JsonSyntaxHighlighter';
 
 export default function ComponentConsole({ consoleOutput }) {
+    const { colorMode } = useColorMode();
     return (
         <Tabs {...ComponentConsoleTabsStyle}>
             <Flex flexDirection='column' height='100%'>
@@ -45,7 +46,7 @@ const TabListStyle = {
 };
 
 const TabBoxStyle = {
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     position: 'sticky',
     bottom: '0',
     borderBottomRadius: '8px'
@@ -53,7 +54,7 @@ const TabBoxStyle = {
 
 const TabLabelStyle = {
     fontSize: 'xl',
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     borderBottom: 'none',
     borderBottomRadius: '8px',
     width: '180px'
@@ -62,5 +63,5 @@ const TabLabelStyle = {
 const TabIndicatorStyle = {
     marginTop: '-3px',
     height: '3px',
-    backgroundColor: 'veeva_orange.500'
+    backgroundColor: 'veeva_orange.color_mode'
 };

@@ -19,7 +19,10 @@ export default function useVaultInfo() {
             const vaults = domainInfoResponse?.domain__v?.vaults__v;
             vaults.forEach((vault) => {
                 if (vault.id === vaultId) {
-                    sessionStorage.setItem('vaultName', vault.vault_name__v);
+                    sessionStorage.setItem('vaultName', vault?.vault_name__v);
+
+                    // Rename the tab with the Vault name
+                    document.title = `VDT - ${vault?.vault_name__v}`;
                 }
             });
             sessionStorage.setItem('domainType', domainInfoResponse?.domain__v?.domain_type__v);
@@ -32,13 +35,13 @@ export default function useVaultInfo() {
         }
 
         if (!vaultInfoError.hasError) {
-            const vqlResponse = await query(`SELECT username__sys FROM user__sys WHERE id = '${sessionStorage.getItem('userId')}'`);
-            if (vqlResponse?.responseStatus !== 'FAILURE') {
-                sessionStorage.setItem('userName', vqlResponse?.data[0]?.username__sys);
+            const { queryResponse } = await query(`SELECT username__sys FROM user__sys WHERE id = '${sessionStorage.getItem('userId')}'`);
+            if (queryResponse?.responseStatus !== 'FAILURE') {
+                sessionStorage.setItem('userName', queryResponse?.data[0]?.username__sys);
             } else {
                 let error = '';
-                if (vqlResponse?.errors?.length > 0) {
-                    error = `${vqlResponse.errors[0].type} : ${vqlResponse.errors[0].message}`
+                if (queryResponse?.errors?.length > 0) {
+                    error = `${queryResponse.errors[0].type} : ${queryResponse.errors[0].message}`
                 }
                 setVaultInfoError({ hasError: true, errorMessage: error });
             }

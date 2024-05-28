@@ -12,7 +12,10 @@ export default function SavedVaultsPopover({ setVaultDNS, setUsername, setFocusT
     return (
         <Popover placement='right-start' isOpen={isOpen} onOpen={onOpen} onClose={handlePopoverClosed} isLazy>
             <PopoverTrigger>
-                <IconButton icon={<PiCaretDownBold />} {...IconButtonStyle} />
+                <IconButton
+                    icon={<PiCaretDownBold />}
+                    {...IconButtonStyle}
+                />
             </PopoverTrigger>
             <PopoverContent {...PopoverContentStyle}>
                 <PopoverHeader {...PopoverHeaderStyle}>
@@ -20,14 +23,14 @@ export default function SavedVaultsPopover({ setVaultDNS, setUsername, setFocusT
                         <Text fontSize='md'>Saved Vaults</Text>
                         <Button {...ToggleEditModeButtonStyle} onClick={toggleEditMode}>
                             {isEditable
-                                ? <Icon as={PiFloppyDisk} boxSize={6} color={isEditable && 'blue.500'} />
+                                ? <Icon as={PiFloppyDisk} boxSize={6} color={'blue.color_mode'} />
                                 : <Icon as={PiNotePencil} boxSize={6} />}
                         </Button>
                         <Spacer />
                         <Button {...CloseButtonStyle} onClick={handlePopoverClosed}><PiX /></Button>
                     </Flex>
                 </PopoverHeader>
-                <PopoverArrow backgroundColor='gray.200' />
+                <PopoverArrow backgroundColor='gray.background.color_mode' />
                 <PopoverBody>
                     <SavedVaultsTable
                         savedVaultData={savedVaultData}
@@ -45,30 +48,32 @@ export default function SavedVaultsPopover({ setVaultDNS, setUsername, setFocusT
 }
 
 const IconButtonStyle = {
-    marginLeft: '5px',
-    backgroundColor: 'gray.200'
-};
+    backgroundColor: 'gray.background.color_mode',
+    marginLeft: '5px'
+}
 
 const PopoverContentStyle = {
     minW: { base: '100%', lg: 'max-content' },
-    borderRadius: 'md'
+    borderRadius: 'md',
+    backgroundColor: 'white.color_mode',
 };
 
 const PopoverHeaderStyle = {
     fontWeight: 'semibold',
-    backgroundColor: 'gray.200',
+    backgroundColor: 'gray.background.color_mode',
     borderTopRadius: 'md',
     padding: '8px'
 };
 
 const ToggleEditModeButtonStyle = {
-    variant: 'outline',
     size: 'sm',
     marginLeft: '5px',
-    padding: '0'
+    padding: '0',
+    backgroundColor: 'gray.background.color_mode',
 };
 
 const CloseButtonStyle = {
-    backgroundColor: 'gray.200',
-    _hover: { backgroundColor: 'gray.100' }
+    size: 'sm',
+    backgroundColor: 'gray.background.color_mode',
+    _hover: { backgroundColor: 'veeva_light_gray.color_mode' }
 };

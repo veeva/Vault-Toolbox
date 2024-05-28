@@ -53,9 +53,9 @@ export default function DataToolsIsland({ dataType, setDataType, selectedOptions
 const ParentFlexStyle = {
     height: '100%',
     width: 'calc(100% - 20px)',
-    margin: '-10px 0px 10px',
+    margin: '0px',
     borderRadius: '8px',
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     boxShadow: '0 0 5px rgba(0,0,0,0.3)'
 };
 
@@ -73,7 +73,7 @@ const TabListStyle = {
 };
 
 const TabStyle = {
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     fontSize: 'xl',
     width: '180px'
 };
@@ -81,7 +81,7 @@ const TabStyle = {
 const TabIndicatorStyle = {
     marginTop: '-3px',
     height: '3px',
-    backgroundColor: 'veeva_orange.500'
+    backgroundColor: 'veeva_orange.color_mode'
 };
 
 const ConsoleBoxStyle = {

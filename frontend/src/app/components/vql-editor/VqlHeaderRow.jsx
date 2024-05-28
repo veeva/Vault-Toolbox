@@ -25,7 +25,7 @@ const ParentFlexStyle = {
 };
 
 const HeadingStyle = {
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     minWidth: 'max-content',
     marginLeft: '25px',
     marginRight: '5px',
@@ -33,13 +33,23 @@ const HeadingStyle = {
 };
 
 const RunVqlButtonStyle = {
-    colorScheme: 'veeva_twighlight_blue',
+    backgroundColor: 'veeva_twilight_blue.500',
+    color: 'white',
+    _hover: {
+        backgroundColor: 'veeva_twilight_blue.fifty_percent_opacity'
+    },
     marginRight: '5px',
-    width: '180px'
+    width: '180px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.25)'
 };
 
 const DownloadCsvButtonStyle = {
-    colorScheme: 'veeva_green_pasture',
+    backgroundColor: 'veeva_green_pasture.500',
+    color: 'white',
+    _hover: {
+        backgroundColor: 'veeva_green_pasture.fifty_percent_opacity'
+    },
     marginRight: '10px',
-    width: '180px'
+    width: '180px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.25)'
 };

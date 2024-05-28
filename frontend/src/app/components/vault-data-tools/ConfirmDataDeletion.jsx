@@ -18,8 +18,8 @@ function ConfirmDataDeletion({ isOpen, onClose, onSubmit, dataType, selectedData
             <ModalContent {...ModalStyle}>
                 <Flex flexDirection='column'>
                     <ModalBody flex='0 0 90%'>
-                        <Alert status='error' marginBottom='10px' borderRadius='8px'>
-                            <AlertIcon />
+                        <Alert {...AlertStyle}>
+                            <AlertIcon color='white' />
                             <AlertTitle>Deleting Vault Data</AlertTitle>
                             <AlertDescription>You are about to delete Vault data. THIS CANNOT BE UNDONE.</AlertDescription>
                         </Alert>
@@ -65,7 +65,7 @@ function ConfirmDataDeletion({ isOpen, onClose, onSubmit, dataType, selectedData
                                     <FormHelperText margin='5px'>Enter the Vault ID to enable deletion:</FormHelperText>
                                     <Input
                                         isInvalid={!canDelete()}
-                                        backgroundColor='white'
+                                        backgroundColor='white.color_mode'
                                         value={deleteConfirmationText}
                                         onChange={(event) => setDeleteConfirmationText(event.currentTarget.value)}
                                         placeholder='Vault ID'
@@ -91,13 +91,22 @@ const ModalStyle = {
     minWidth: '50vw',
     minHeight: 'min-content',
     fontSize: 'md',
-    backgroundColor: 'veeva_light_gray.100'
+    backgroundColor: 'veeva_light_gray.color_mode'
 };
+
+const AlertStyle = {
+    backgroundColor: 'red.400',
+    color: 'white',
+    status: 'error',
+    marginBottom: '10px',
+    borderRadius: '8px'
+}
 
 const CardStyle = {
     marginTop: '10px',
     maxHeight: '30vh',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    backgroundColor: 'white.color_mode',
 };
 
 const TableContainerStyle = {

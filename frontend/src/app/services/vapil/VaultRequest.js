@@ -1,10 +1,13 @@
 import { VAULT_CLIENT_ID, getVaultDNS } from '../ApiService.js';
+import {getVaultApiVersion} from '../SharedServices';
 
 export const VAULT_API_VERSION = 'v24.1';
+export const VAULT_DEVELOPER_TOOLBOX_VERSION = 'v24.1.1';
 
 export const HTTP_HEADER_CONTENT_TYPE = 'Content-Type';
 export const HTTP_HEADER_ACCEPT = 'Accept';
 export const HTTP_HEADER_VAULT_CLIENT_ID = 'X-VaultAPI-ClientID';
+export const HTTP_HEADER_REFERENCE_ID = 'X-VaultAPI-ReferenceId';
 export const HTTP_HEADER_AUTHORIZATION = 'Authorization';
 
 export const HTTP_CONTENT_TYPE_JSON = 'application/json';
@@ -29,12 +32,13 @@ export async function request(url, options = {}) {
 }
 
 /**
- * Generates headers object containing the client ID
+ * Generates headers object containing the client ID and a reference ID with the current Toolbox version.
  * @returns headers object
  */
 const getDefaultHeaders = () => {
     return {
         [HTTP_HEADER_VAULT_CLIENT_ID]: VAULT_CLIENT_ID,
+        [HTTP_HEADER_REFERENCE_ID]: VAULT_DEVELOPER_TOOLBOX_VERSION
     };
 };
 
@@ -47,7 +51,7 @@ export function getAPIEndpoint(endpoint, includeVersion = true, vaultDNS = null)
     }
 
     if (includeVersion) {
-        return `https://${vaultDNS}/api/${VAULT_API_VERSION}${endpoint}`;
+        return `https://${vaultDNS}/api/${getVaultApiVersion()}${endpoint}`;
     } else {
         return `https://${vaultDNS}/api/${endpoint}`;
     }

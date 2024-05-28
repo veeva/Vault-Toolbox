@@ -39,7 +39,7 @@ const StackStyle = {
     align: 'left',
     padding: '10px',
     margin: '10px',
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     borderRadius: '8px',
     overflow: 'auto',
     width: '50%',

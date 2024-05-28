@@ -1,10 +1,13 @@
-import { List, ListItem, Flex, Text, Icon } from '@chakra-ui/react';
+import { List, ListItem, Flex, Text, Icon, useColorMode } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { UncontrolledTreeEnvironment, Tree, StaticTreeDataProvider, InteractionMode } from 'react-complex-tree';
 import 'react-complex-tree/lib/style-modern.css';
 import { PiFolder, PiCaretDownBold, PiCaretRightBold, PiGear, PiCode } from 'react-icons/pi';
 
 export default function ComponentTree({ componentTree, onSelect }) {
+    const { colorMode } = useColorMode();
+    const selectedColor = colorMode === 'light' ? 'blue.100' : 'gray.500';
+
     const handleItemClick = (item) => {
         onSelect(item.index)
     };
@@ -29,7 +32,7 @@ export default function ComponentTree({ componentTree, onSelect }) {
         : null);
 
     /**
-     * Provides custom syling and dynamically sets the appropriate icon for each item.
+     * Provides custom styling and dynamically sets the appropriate icon for each item.
      */
     const itemRenderer = ({ item, title, arrow, context, children }) => (
         <List whiteSpace='nowrap'>
@@ -38,7 +41,7 @@ export default function ComponentTree({ componentTree, onSelect }) {
                     alignItems='center'
                     justifyContent='left'
                     width='min-content'
-                    backgroundColor={(context.isSelected && !item.children.length > 0) ? 'blue.100' : undefined}
+                    backgroundColor={(context.isSelected && !item.children.length > 0) ? selectedColor : undefined}
                     {...(context.itemContainerWithoutChildrenProps)}
                     {...(context.interactiveElementProps)}
                 >

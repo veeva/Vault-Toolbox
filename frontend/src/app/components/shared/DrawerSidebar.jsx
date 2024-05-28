@@ -1,15 +1,31 @@
-import { Flex, Drawer, DrawerOverlay, DrawerContent, DrawerBody, Spacer, Image, Text, Stack, Button, Link } from '@chakra-ui/react';
-import { PiSignOut } from 'react-icons/pi';
+import {
+    Flex,
+    Drawer,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerBody,
+    Spacer,
+    Image,
+    Text,
+    Stack,
+    Button,
+    Link,
+    Divider,
+    Tooltip,
+    useColorMode
+} from '@chakra-ui/react';
+import {PiMoon, PiSignOut, PiSun} from 'react-icons/pi';
 import { Link as RouteLink } from 'react-router-dom';
 import SidebarItems from './SidebarItems';
 import SidebarItem from './SidebarItem';
 import logo from '../../../images/veeva-logo.png';
 
 export default function DrawerSidebar({ isOpen, onClose, currentRoute, logout }) {
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
             <DrawerOverlay />
-            <DrawerContent maxWidth='max-content'>
+            <DrawerContent maxWidth='max-content' backgroundColor={'white.color_mode'}>
                 <DrawerBody paddingY={0} paddingX={'10px'}>
                     <Flex flexDirection='column' height='100%'>
                         {/* Wrap header text in empty Link so it gets Drawer focus onOpen
@@ -32,6 +48,16 @@ export default function DrawerSidebar({ isOpen, onClose, currentRoute, logout })
                             }
                         </Stack>
                         <Spacer />
+                        <Tooltip placement='right' label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
+                            <Button
+                                {...ColorModeButtonStyle}
+                                onClick={toggleColorMode}
+                                leftIcon={colorMode === 'light' ? <PiMoon size={24}/> : <PiSun size={24}/>}
+                            >
+                                {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
+                            </Button>
+                        </Tooltip>
+                        <Divider />
                         <Button {...LogoutBtnStyle} onClick={logout}>
                             Logout
                         </Button>
@@ -54,7 +80,7 @@ const DevToolsFlexStyle = {
 const DevToolsTextStyle = {
     fontSize: '2xl',
     fontWeight: 'bold',
-    color: 'veeva_orange.500'
+    color: 'veeva_orange.color_mode'
 };
 
 const ToolboxIconStyle = {
@@ -63,13 +89,23 @@ const ToolboxIconStyle = {
     marginX: '5px'
 };
 
+const ColorModeButtonStyle = {
+    backgroundColor: 'transparent',
+    align: 'center',
+    height: '42px',
+    padding: '5px',
+    marginX: 0,
+    marginBottom: '10px',
+    borderRadius: '10px',
+}
+
 const LogoutBtnStyle = {
     leftIcon: <PiSignOut size={24} />,
     align: 'center',
     height: '42px',
     padding: '5px',
     marginX: 0,
-    marginBottom: '10px',
+    marginY: '10px',
     borderRadius: '10px',
     role: 'group',
     cursor: 'pointer',

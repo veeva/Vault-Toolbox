@@ -5,6 +5,8 @@ import OutstandingAsyncJobWarning from '../components/component-editor/Outstandi
 import ComponentEditorIsland from '../components/component-editor/ComponentEditorIsland';
 import ComponentEditorHeaderRow from '../components/component-editor/ComponentEditorHeaderRow';
 import ComponentDirectoryPanel from '../components/component-editor/ComponentDirectoryPanel';
+import TelemetryData from '../components/shared/TelemetryData';
+import VaultInfoIsland from '../components/shared/VaultInfoIsland';
 import useComponentTree from '../hooks/component-editor/useComponentTree';
 import useComponentEditor from '../hooks/component-editor/useComponentEditor';
 
@@ -23,6 +25,7 @@ export default function ComponentEditorPage() {
         updateSelectedComponent,
         closeOutstandingAsyncJobWarning,
         toggleComponentTree,
+        mdlTelemetryData,
         isExecutingApiCall,
         isExecutingMdl,
         asyncJobId,
@@ -51,6 +54,9 @@ export default function ComponentEditorPage() {
                                 setCode={setCode}
                                 isExecutingApiCall={isExecutingApiCall}
                             />
+                            <VaultInfoIsland>
+                                <TelemetryData telemetryData={mdlTelemetryData} />
+                            </VaultInfoIsland>
                         </VStack>
                     </Panel>
                     { displayComponentTree
@@ -74,8 +80,8 @@ export default function ComponentEditorPage() {
                         size='auto'
                         borderRadius='6px'
                         margin='5px'
-                        color={displayComponentTree ? 'white' : 'veeva_orange.500'}
-                        backgroundColor={displayComponentTree ? 'veeva_orange.500' : 'white'}
+                        color={displayComponentTree ? 'white' : 'veeva_orange.color_mode'}
+                        backgroundColor={displayComponentTree ? 'veeva_orange.color_mode' : 'transparent'}
                     />
                 </Box>
             </Flex>
@@ -86,7 +92,8 @@ export default function ComponentEditorPage() {
 
 const ComponentEditorStackStyle = {
     height: '100%',
-    backgroundColor: 'veeva_light_gray.100',
+    backgroundColor: 'veeva_light_gray.color_mode',
     flex: 1,
-    boxShadow: 'inset -5px 0 8px -8px gray, inset 5px 0 8px -8px gray'
+    boxShadow: 'inset -5px 0 8px -8px rgba(0,0,0,0.3), inset 5px 0 8px -8px rgba(0,0,0,0.3)',
+    spacing: 0,
 };

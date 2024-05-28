@@ -46,5 +46,5 @@ export default function ErrorBoundaryCard({ error, resetErrorBoundary }) {
 
 const HyperlinkStyle = {
     textDecoration: 'underline',
-    color: '#0000EE'
+    color: 'hyperlink_blue.color_mode'
 }

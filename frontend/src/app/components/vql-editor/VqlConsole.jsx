@@ -1,4 +1,4 @@
-import { Flex, Box, Spacer, Tabs, TabList, Tab, TabPanel, TabPanels, TabIndicator, TableContainer, Table, Button } from '@chakra-ui/react';
+import { Flex, Box, Spacer, Tabs, TabList, Tab, TabPanel, TabPanels, TabIndicator, TableContainer, Table, Button, Tag } from '@chakra-ui/react';
 import JsonSyntaxHighlighter from '../shared/JsonSyntaxHighlighter';
 import VqlTableHeader from './VqlTableHeader';
 import VqlTableBody from './VqlTableBody';
@@ -8,10 +8,12 @@ export default function VqlConsole({ consoleOutput, queryDescribe, getSubqueryFi
     const responseStatus = consoleOutput?.responseStatus;
     const hasSubqueries = queryDescribe?.subqueries?.length > 0;
     const headerRowSpan = hasSubqueries ? 2 : 1;
+    const currentPage = Math.floor(consoleOutput?.responseDetails?.pageoffset / consoleOutput?.responseDetails?.pagesize) + 1;
+    const totalPages = Math.ceil(consoleOutput?.responseDetails?.total / consoleOutput?.responseDetails?.pagesize);
 
     return (
         <Tabs {...VqlConsoleTabsStyle} defaultIndex={responseStatus === 'FAILURE' ? 1 : 0}>
-            <Flex flexDirection='column' height='100%' overflow='auto' backgroundColor='veeva_sunset_yellow.five_percent_opacity'>
+            <Flex flexDirection='column' height='100%' overflow='auto' backgroundColor='veeva_sunset_yellow.five_percent_opacity' borderBottomRadius='8px'>
                 { consoleOutput
                     ? (
                         <Flex overflow='auto' height='100%'>
@@ -69,6 +71,10 @@ export default function VqlConsole({ consoleOutput, queryDescribe, getSubqueryFi
                         <Button {...PaginationButtonStyle} isDisabled={!previousPage} onClick={queryPreviousPage}>
                             Previous Page
                         </Button>
+                        { totalPages ?
+                            <Tag {...PageNumberTagStyle}>{currentPage} / {totalPages}</Tag>
+                            : null
+                        }
                         <Button {...PaginationButtonStyle} isDisabled={!nextPage} onClick={queryNextPage}>
                             Next Page
                         </Button>
@@ -83,7 +89,7 @@ const TableContainerStyle = {
     maxWidth: '100%',
     overflowX: 'unset',
     overflowY: 'unset',
-    color: 'black'
+    color: 'text.color_mode'
 };
 
 const VqlConsoleTabsStyle = {
@@ -104,7 +110,7 @@ const TabListStyle = {
 };
 
 const TabBoxStyle = {
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     position: 'sticky',
     left: 0,
     bottom: 0,
@@ -113,7 +119,7 @@ const TabBoxStyle = {
 
 const TabLabelStyle = {
     fontSize: 'xl',
-    _selected: { color: 'veeva_orange.500' },
+    _selected: { color: 'veeva_orange.color_mode' },
     borderBottom: 'none',
     borderBottomRadius: '8px',
     width: '180px'
@@ -122,15 +128,27 @@ const TabLabelStyle = {
 const TabIndicatorStyle = {
     marginTop: '-3px',
     height: '3px',
-    backgroundColor: 'veeva_orange.500'
+    backgroundColor: 'veeva_orange.color_mode'
 };
 
 const PaginationButtonStyle = {
-    backgroundColor: 'veeva_light_gray.100',
-    color: 'veeva_dark_gray.500',
+    backgroundColor: 'veeva_light_gray.color_mode',
+    color: 'veeva_dark_gray.text.color_mode',
     boxShadow: '0 0 2px rgba(0,0,0,0.2)',
     marginLeft: '0px',
     marginRight: '10px',
     marginY: 'auto',
     width: '180px'
+};
+
+const PageNumberTagStyle = {
+    backgroundColor: 'white.color_mode',
+    fontSize: 'md',
+    color: 'veeva_dark_gray.text.color_mode',
+    boxShadow: '0 0 2px rgba(0,0,0,0.2)',
+    marginLeft: '0px',
+    marginRight: '10px',
+    marginY: 'auto',
+    width: 'auto',
+    height: '40px'
 };

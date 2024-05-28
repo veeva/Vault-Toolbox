@@ -6,6 +6,7 @@ export default function useLogout() {
 
     return useCallback(() => {
         setSessionId('');
-        sessionStorage.clear();        
+        sessionStorage.clear();
+        document.title = 'Vault Developer Toolbox';
     }, [setSessionId])
 }

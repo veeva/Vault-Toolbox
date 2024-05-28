@@ -44,5 +44,5 @@ const AlertDescriptionStyle = {
 
 const HyperlinkStyle = {
     textDecoration: 'underline',
-    color: '#0000EE'
+    color: 'hyperlink_blue.color_mode'
 };

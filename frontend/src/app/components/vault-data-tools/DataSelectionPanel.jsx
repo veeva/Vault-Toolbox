@@ -59,5 +59,5 @@ export default function DataSelectionPanel({ dataType, setDataType, selectedOpti
 const SelectionBoxStyle = {
     flexDirection: 'column',
     height: '100%',
-    backgroundColor: 'veeva_light_gray.100'
+    backgroundColor: 'veeva_light_gray.color_mode'
 };

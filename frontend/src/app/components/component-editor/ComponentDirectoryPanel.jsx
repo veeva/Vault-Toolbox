@@ -43,11 +43,11 @@ export default function ComponentDirectoryPanel({ retrieveComponentTree, loading
 const ParentStackStyle = {
     height: '100%',
     flex: '0 0',
-    backgroundColor: 'white'
+    backgroundColor: 'white.color_mode'
 };
 
 const HeadingStyle = {
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     size: 'md',
     margin: '5px'
 };

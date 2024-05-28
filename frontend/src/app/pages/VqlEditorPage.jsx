@@ -1,5 +1,7 @@
 import { Box, Flex, VStack } from '@chakra-ui/react';
 import { Panel, PanelGroup } from 'react-resizable-panels';
+import TelemetryData from '../components/shared/TelemetryData';
+import VaultInfoIsland from '../components/shared/VaultInfoIsland';
 import VqlHeaderRow from '../components/vql-editor/VqlHeaderRow';
 import VqlEditorIsland from '../components/vql-editor/VqlEditorIsland';
 import useVqlQuery from '../hooks/vql-editor/useVqlQuery';
@@ -14,7 +16,8 @@ export default function VqlEditorPage() {
         nextPage, 
         queryDescribe,
         isExecutingQuery, 
-        isDownloading, 
+        isDownloading,
+        queryTelemetryData,
         submitVqlQuery, 
         downloadQueryResults, 
         getMaxRowSize,
@@ -59,6 +62,9 @@ export default function VqlEditorPage() {
                             queryNextPage={queryNextPage}
                             queryPreviousPage={queryPreviousPage}
                         />
+                        <VaultInfoIsland>
+                            <TelemetryData telemetryData={queryTelemetryData} />
+                        </VaultInfoIsland>
                     </VStack>
                 </Panel>
             </PanelGroup>
@@ -69,7 +75,8 @@ export default function VqlEditorPage() {
 
 const VqlEditorStackStyle = {
     height: '100%',
-    backgroundColor: 'veeva_light_gray.100',
+    backgroundColor: 'veeva_light_gray.color_mode',
     flex: 1,
-    boxShadow: 'inset -5px 0 8px -8px gray, inset 5px 0 8px -8px gray'
+    boxShadow: 'inset -5px 0 8px -8px rgba(0,0,0,0.3), inset 5px 0 8px -8px rgba(0,0,0,0.3)',
+    spacing: 0
 };

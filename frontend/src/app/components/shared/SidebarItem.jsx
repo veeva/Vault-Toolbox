@@ -10,7 +10,7 @@ export default function SidebarItem({ item, currentRoute, children, onClose }) {
     return (
         <Tooltip label={item.name} placement='right'>
             <Link as={RouteLink} to={item.route} onClick={onClose} _hover={{ textDecoration: 'none' }}>
-                <Flex {...SidebarItemStyle} borderColor={thisItemsRoute === currentRoute ? 'veeva_orange.500' : 'transparent'}>
+                <Flex {...SidebarItemStyle} borderColor={thisItemsRoute === currentRoute ? 'veeva_orange.color_mode' : 'transparent'}>
                     {item.icon && (
                         <Icon {...IconStyle} as={item.icon} />
                     )}
@@ -32,10 +32,10 @@ const SidebarItemStyle = {
     role: 'group',
     cursor: 'pointer',
     _hover: {
-        bg: 'veeva_orange.500',
+        bg: 'veeva_orange.color_mode',
         color: 'white'
     },
-    borderColor: 'veeva_orange.500',
+    borderColor: 'veeva_orange.color_mode',
     fontSize: 'md'
 };
 

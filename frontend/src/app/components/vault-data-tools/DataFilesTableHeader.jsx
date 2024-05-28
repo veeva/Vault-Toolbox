@@ -1,4 +1,5 @@
 import { Thead, Tr, Th } from '@chakra-ui/react';
+import { isSandboxVault } from '../../services/SharedServices';
 
 export default function DataFilesTableHeader() {
     const headerData = ['Modified Date', 'Operation', 'File'];
@@ -8,7 +9,7 @@ export default function DataFilesTableHeader() {
             <Tr>
                 {
                     headerData.map((headerValue, headerCount) => (
-                        <Th key={headerCount} {...ThStyle} backgroundColor={(sessionStorage.getItem('domainType') === 'Sandbox') ? 'veeva_sandbox_green.500' : 'veeva_midnight_indigo.500'}>
+                        <Th key={headerCount} {...ThStyle} backgroundColor={isSandboxVault() ? 'veeva_sandbox_green.500' : 'veeva_midnight_indigo.500'}>
                             {headerValue}
                         </Th>
                     ))
@@ -20,7 +21,6 @@ export default function DataFilesTableHeader() {
 
 const ThStyle = {
     color: 'white',
-    backgroundColor: 'veeva_sandbox_green.500',
     textAlign: 'left',
     width: '1%',
     whiteSpace: 'nowrap',

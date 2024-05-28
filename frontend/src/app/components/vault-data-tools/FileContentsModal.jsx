@@ -15,13 +15,11 @@ export default function FileContentsModal({ isOpen, onClose, cellData }) {
                 <ModalBody>
                     <UnorderedList paddingBottom='10px'>
                         <ListItem>
-                            <Text {...ModalHeaderTextStyle}>File name</Text>
-                            :
+                            <Text {...ModalHeaderTextStyle}>File name: </Text>
                             {cellData.split('/')[4]}
                         </ListItem>
                         <ListItem>
-                            <Text {...ModalHeaderTextStyle}>File staging path</Text>
-                            :
+                            <Text {...ModalHeaderTextStyle}>File staging path: </Text>
                             {cellData}
                         </ListItem>
                     </UnorderedList>
@@ -40,7 +38,8 @@ const ModalContentStyle = {
     minW: '80vw',
     minH: '80vh',
     overflow: 'auto',
-    fontSize: 'md'
+    fontSize: 'md',
+    backgroundColor: 'white.color_mode'
 };
 
 const ModalHeaderTextStyle = {

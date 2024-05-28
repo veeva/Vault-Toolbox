@@ -1,4 +1,5 @@
 import { Box, Table, TableContainer, Tr, Td, Th, Thead, Tbody, Center, Spinner, Link } from '@chakra-ui/react';
+import {isSandboxVault} from '../../services/SharedServices';
 
 export default function FileContentTable({ size, headers, data, loading, type, handleClick }) {
     return (
@@ -11,7 +12,7 @@ export default function FileContentTable({ size, headers, data, loading, type, h
                                 <Thead {...THeadStyle}>
                                     <Tr>
                                         {
-                                            headers.map((value, i) => <Th key={i} {...TableHeaderStyle} backgroundColor={(sessionStorage.getItem('domainType') === 'Sandbox') ? 'veeva_sandbox_green.500' : 'veeva_midnight_indigo.500'}>{value}</Th>)
+                                            headers.map((value, i) => <Th key={i} {...TableHeaderStyle} backgroundColor={isSandboxVault() ? 'veeva_sandbox_green.500' : 'veeva_midnight_indigo.500'}>{value}</Th>)
                                         }
                                     </Tr>
                                 </Thead>
@@ -51,27 +52,25 @@ export default function FileContentTable({ size, headers, data, loading, type, h
 }
 
 const BoxStyle = {
-    borderRadius: '8px',
     borderWidth: '1px',
     fontSize: 'md'
 };
 
 const TableContainerStyle = {
     maxWidth: '100%',
-    borderRadius: '8px',
     overflowX: 'unset',
     overflowY: 'unset'
 };
 
 const TableStyle = {
     variant: 'striped',
-    width: 'auto'
+    width: 'auto',
 };
 
 const THeadStyle = {
     position: 'sticky',
     top: 0,
-    zIndex: 'docked'
+    zIndex: 'docked',
 };
 
 const TableHeaderStyle = {
@@ -81,10 +80,10 @@ const TableHeaderStyle = {
     _last: { width: '100%' },
     position: 'sticky',
     top: 0,
-    zIndex: 'docke'
+    zIndex: 'docked'
 };
 
 const HyperlinkStyle = {
     textDecoration: 'underline',
-    color: '#0000EE'
+    color: 'hyperlink_blue.color_mode'
 };

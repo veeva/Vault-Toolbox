@@ -17,7 +17,12 @@ export default function DataToolsHeaderRow({ countData, deleteData, submittingCo
                         Count Data
                     </Button>
                     <Tooltip placement='bottom-end' label={canDelete ? null : 'Read-only in Production'}>
-                        <Button onClick={() => setIsConfirmDeleteModalOpen(true)} isDisabled={!canDelete} isLoading={submittingDeleteJob} {...DeleteButtonStyle}>
+                        <Button
+                            onClick={() => setIsConfirmDeleteModalOpen(true)}
+                            isDisabled={!canDelete}
+                            isLoading={submittingDeleteJob}
+                            {...DeleteButtonStyle}
+                        >
                             Delete Data
                         </Button>
                     </Tooltip>
@@ -37,7 +42,7 @@ export default function DataToolsHeaderRow({ countData, deleteData, submittingCo
 }
 
 const HeadingStyle = {
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     minWidth: 'max-content',
     marginLeft: '25px',
     marginRight: '5px',
@@ -45,13 +50,23 @@ const HeadingStyle = {
 };
 
 const CountButtonStyle = {
-    colorScheme: 'veeva_twighlight_blue',
+    backgroundColor: 'veeva_twilight_blue.500',
+    color: 'white',
+    _hover: {
+        backgroundColor: 'veeva_twilight_blue.fifty_percent_opacity'
+    },
     marginRight: '5px',
-    width: '180px'
+    width: '180px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.25)'
 };
 
 const DeleteButtonStyle = {
-    colorScheme: 'veeva_sunset_red',
+    backgroundColor: 'veeva_sunset_red.color_mode',
+    color: 'white',
+    _hover: {
+        backgroundColor: 'veeva_sunset_red.fifty_percent_opacity'
+    },
     marginRight: '10px',
-    width: '180px'
+    width: '180px',
+    boxShadow: '0 0 5px rgba(0,0,0,0.25)'
 };

@@ -26,6 +26,7 @@ export async function retrieveComponentRecordMdl(selectedComponent) {
 
     const retrieveComponentRecordMdlResponse = await request(url, requestOptions);
     const responseHeaders = retrieveComponentRecordMdlResponse?.headers;
+    const responseStatus = retrieveComponentRecordMdlResponse?.status;
 
     let response = null;
     if (responseHeaders.get(HTTP_HEADER_CONTENT_TYPE)?.includes(HTTP_CONTENT_TYPE_PLAINTEXT)) {
@@ -34,7 +35,7 @@ export async function retrieveComponentRecordMdl(selectedComponent) {
         response = await retrieveComponentRecordMdlResponse.json();
     }
     
-    return { response, responseHeaders };
+    return { response, responseHeaders, responseStatus };
 }
 
 /**
@@ -56,9 +57,10 @@ export async function executeMdlScript(mdlScript) {
 
     const executeMdlScriptResponse = await request(url, requestOptions);
     const responseHeaders = executeMdlScriptResponse?.headers;
+    const responseStatus = executeMdlScriptResponse?.status;
     const response = await executeMdlScriptResponse.json();
 
-    return { response, responseHeaders };
+    return { response, responseHeaders, responseStatus };
 }
 
 /**
@@ -80,9 +82,10 @@ export async function executeMdlScriptAsync(mdlScript) {
 
     const executeMdlScriptAsyncResponse = await request(url, requestOptions);
     const responseHeaders = executeMdlScriptAsyncResponse?.headers;
+    const responseStatus = executeMdlScriptAsyncResponse?.status;
     const response = await executeMdlScriptAsyncResponse.json();
 
-    return { response, responseHeaders };
+    return { response, responseHeaders, responseStatus };
 }
 
 /**
@@ -103,9 +106,10 @@ export async function retrieveAsyncMdlScriptResults(jobId) {
 
     const retrieveAsyncMdlScriptResultsResponse = await request(url, requestOptions);
     const responseHeaders = retrieveAsyncMdlScriptResultsResponse?.headers;
+    const responseStatus = retrieveAsyncMdlScriptResultsResponse?.status;
     const response = await retrieveAsyncMdlScriptResultsResponse.json();
 
-    return { response, responseHeaders };
+    return { response, responseHeaders, responseStatus };
 }
 
 /**

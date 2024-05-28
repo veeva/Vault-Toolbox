@@ -23,7 +23,7 @@ const PageFlexStyle = {
     minHeight: '100vh',
     align: 'center',
     justify: 'center',
-    backgroundColor: 'veeva_light_gray.100',
+    backgroundColor: 'veeva_light_gray.color_mode',
     flexDirection: 'column'
 };
 
@@ -37,10 +37,10 @@ const PageStackStyle = {
 
 const PageHeaderStyle = {
     fontSize: '2xl',
-    color: 'veeva_orange.500'
+    color: 'veeva_orange.color_mode'
 };
 
 const TextStyle = {
     fontSize: 'lg',
-    color: 'black'
+    color: 'text.color_mode'
 };

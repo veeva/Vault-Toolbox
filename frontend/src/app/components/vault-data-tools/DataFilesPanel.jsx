@@ -82,7 +82,7 @@ const TableContainerStyle = {
     maxWidth: '100%',
     overflowX: 'unset',
     overflowY: 'unset',
-    color: 'black',
+    color: 'text.color_mode',
     backgroundColor: 'veeva_sunset_yellow.five_percent_opacity'
 };
 
@@ -95,7 +95,7 @@ const TabListStyle = {
 };
 
 const TabBoxStyle = {
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     position: 'sticky',
     left: '0',
     bottom: '0',
@@ -104,7 +104,7 @@ const TabBoxStyle = {
 
 const TabLabelStyle = {
     fontSize: 'xl',
-    color: 'veeva_orange.500',
+    color: 'veeva_orange.color_mode',
     borderBottom: 'none',
     borderBottomRadius: '8px',
     width: '180px'
@@ -113,7 +113,7 @@ const TabLabelStyle = {
 const TabIndicatorStyle = {
     marginTop: '-3px',
     height: '3px',
-    backgroundColor: 'veeva_orange.500'
+    backgroundColor: 'veeva_orange.color_mode'
 };
 
 const RefreshIconButtonStyle = {

@@ -48,5 +48,5 @@ const HyperlinkStyle = {
     borderColor: 'gray.300',
     verticalAlign: 'top',
     textDecoration: 'underline',
-    color: '#0000EE'
+    color: 'hyperlink_blue.color_mode'
 };

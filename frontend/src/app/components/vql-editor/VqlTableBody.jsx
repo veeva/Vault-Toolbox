@@ -1,5 +1,5 @@
-import { Tbody, Tr, Td, Box } from "@chakra-ui/react";
-import { Fragment } from "react";
+import { Tbody, Tr, Td, Box } from '@chakra-ui/react';
+import { Fragment } from 'react';
 
 export default function VqlTableBody({ consoleOutput, getMaxRowSize }) {
     const OBJECT = 'object';

@@ -16,7 +16,7 @@ function App() {
                     <Route element={<Layout />}>
                         <Route path='/' element={<VaultInfoPage />} />
                         <Route path='component-editor' element={<ComponentEditorPage />} />
-                        <Route path='vql' element={<VqlEditorPage />} />
+                        <Route path='vql-editor' element={<VqlEditorPage />} />
                         <Route path='vault-data-tools' element={<VaultDataToolsPage />} />
                     </Route>
                 </Route>

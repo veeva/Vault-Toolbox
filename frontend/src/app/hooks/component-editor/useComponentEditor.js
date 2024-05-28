@@ -11,12 +11,13 @@ export default function useComponentEditor() {
     const [showOutstandingAsyncJobWarning, setShowOutstandingAsyncJobWarning] = useState(false);
     const [selectedComponentPendingConfirmation, setSelectedComponentPendingConfirmation] = useState('');
     const [displayComponentTree, setDisplayComponentTree] = useState(true);
+    const [mdlTelemetryData, setMdlTelemetryData] = useState({});
 
     /**
      * Retrieve MDL code for current component record
      */
     const retrieveCode = async () => {
-        const response = await retrieveComponentRecordMdl(selectedComponent);
+        const { response, responseTelemetry } = await retrieveComponentRecordMdl(selectedComponent);
 
         if (typeof response === 'string') {
             setCode(response);
@@ -24,6 +25,8 @@ export default function useComponentEditor() {
             setConsoleOutput(response);
             setCode('Error. Could not retrieve MDL code for this component.');
         }
+
+        setMdlTelemetryData(responseTelemetry ? responseTelemetry : {})
     };
 
     /**
@@ -32,7 +35,7 @@ export default function useComponentEditor() {
     const executeMdl = async () => {
         setIsExecutingMdl(true);
         setIsExecutingApiCall(true);
-        const response = await executeMdlScript(code);
+        const { response, responseTelemetry } = await executeMdlScript(code);
         setIsExecutingApiCall(false);
         setIsExecutingMdl(false);
 
@@ -40,6 +43,8 @@ export default function useComponentEditor() {
         if (response) {
             setConsoleOutput(response);
         }
+
+        setMdlTelemetryData(responseTelemetry ? responseTelemetry : {})
     };
 
     /**
@@ -47,7 +52,7 @@ export default function useComponentEditor() {
      */
     const executeMdlAsync = async () => {
         setIsExecutingApiCall(true);
-        const response = await executeMdlScriptAsync(code);
+        const { response, responseTelemetry } = await executeMdlScriptAsync(code);
         setIsExecutingApiCall(false);
         setConsoleOutput(response);
 
@@ -55,6 +60,8 @@ export default function useComponentEditor() {
         if (response?.responseStatus === 'SUCCESS' && response?.job_id) {
             setAsyncJobId(response.job_id);
         }
+
+        setMdlTelemetryData(responseTelemetry ? responseTelemetry : {})
     };
 
     /**
@@ -62,7 +69,7 @@ export default function useComponentEditor() {
      */
     const retrieveMdlAsyncResults = async () => {
         setIsExecutingApiCall(true);
-        const response = await retrieveAsyncMdlScriptResults(asyncJobId);
+        const { response, responseTelemetry } = await retrieveAsyncMdlScriptResults(asyncJobId);
         setIsExecutingApiCall(false);
         setConsoleOutput(response);
 
@@ -70,6 +77,8 @@ export default function useComponentEditor() {
         if (response?.responseStatus === 'SUCCESS') {
             setAsyncJobId('');
         }
+
+        setMdlTelemetryData(responseTelemetry ? responseTelemetry : {})
     };
 
     // Store the currently selected component in state
@@ -122,6 +131,7 @@ export default function useComponentEditor() {
         updateSelectedComponent,
         closeOutstandingAsyncJobWarning,
         toggleComponentTree,
+        mdlTelemetryData,
         isExecutingApiCall,
         isExecutingMdl,
         asyncJobId,

@@ -123,7 +123,7 @@ const TableContainerStyle = {
     borderRadius: '8px',
     overflowX: 'unset',
     overflowY: 'unset',
-    backgroundColor: 'white'
+    backgroundColor: 'white.color_mode'
 };
 
 const TableStyle = {
@@ -134,7 +134,7 @@ const TableStyle = {
 };
 
 const ThStyle = {
-    backgroundColor: 'white',
+    backgroundColor: 'white.color_mode',
     position: 'sticky',
     top: 0,
     border: 'none',
@@ -143,14 +143,14 @@ const ThStyle = {
 
 const TrStyle = {
     _hover: {
-        bg: 'gray.100',
+        bg: 'gray.background.color_mode',
         cursor: 'pointer'
     }
 };
 
 const EditablePreviewStyle = {
     _hover: {
-        bg: 'gray.100',
+        bg: 'gray.background.color_mode',
         cursor: 'pointer'
     },
     minWidth: '150px'

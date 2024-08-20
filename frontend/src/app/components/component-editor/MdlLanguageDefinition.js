@@ -73,17 +73,23 @@ const mdlLanguage = {
             // whitespace
             { include: '@whitespace' },
             // strings
-            [/'.*?'/, 'string'],
-            [/".*?"/, 'string']
+            [/'/, { token: 'string', next: '@singleQuotedString' }],
+            [/"/, { token: 'string', next: '@doubleQuotedString' }]
         ],
         whitespace: [
             [/[ \t\r\n]+/, '']
         ],
-        string: [
+        singleQuotedString: [
+            [/[^\']+/, 'string'],
+            [/\'/, { token: 'string', next: '@pop' }],
+            [/\\./, 'string.escape'],
+            [/\\$/, 'string']
+        ],
+        doubleQuotedString: [
             [/[^\\"]+/, 'string'],
             [/@escapes/, 'string.escape'],
-            [/\\./, 'string.escape.invalid'],
-            [/"/, 'string', '@pop']
+            [/"/, { token: 'string', next: '@pop' }],
+            [/\\$/, 'string']
         ]
     }
 };

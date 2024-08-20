@@ -11,7 +11,7 @@ export default function NotOfficialVeevaProductAlert() {
                 </HStack>
                 <AlertDescription {...AlertDescriptionStyle}>
                     <Text>
-                        Vault Developer Toolbox consists of open-source tools maintained by the Vault Developer Support Team.
+                        Vault Toolbox consists of open-source tools maintained by the Vault Developer Support Team.
                         Support for these tools is handled exclusively through the
                         {' '}
                         <Link href='https://veevaconnect.com/communities/ATeJ3k8lgAA/about' isExternal {...HyperlinkStyle}>

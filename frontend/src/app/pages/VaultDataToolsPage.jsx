@@ -1,5 +1,6 @@
-import { VStack, Flex, Box } from '@chakra-ui/react';
+import {VStack, Flex, Box, Spacer} from '@chakra-ui/react';
 import { PanelGroup, Panel } from 'react-resizable-panels';
+import ContextualHelpButton from "../components/shared/ContextualHelpButton";
 import VaultInfoIsland from '../components/shared/VaultInfoIsland';
 import DataToolsHeaderRow from '../components/vault-data-tools/DataToolsHeaderRow';
 import DataToolsIsland from '../components/vault-data-tools/DataToolsIand';
@@ -19,7 +20,7 @@ export default function VaultDataToolsPage() {
 
     return (
         <Flex justify='flex-start' height='100%'>
-            <PanelGroup direction='horizontal'>
+            <PanelGroup direction='horizontal' autoSaveId='VaultDataToolsPage-PanelGroup'>
                 <Panel id='data-tools-panel' order={1}>
                     <VStack {...DataToolsStackStyle}>
                         <DataToolsHeaderRow
@@ -40,7 +41,15 @@ export default function VaultDataToolsPage() {
                     </VStack>
                 </Panel>
             </PanelGroup>
-            <Box height='100vh' flex='0 0' minWidth='38px' />
+            <Box height='100vh' flex='0 0' >
+                <Flex flexDirection='column' height='100%'>
+                    <Spacer />
+                    <ContextualHelpButton
+                        tooltip='Vault Data Tools Repo'
+                        url='https://github.com/veeva/Vault-Data-Tools'
+                    />
+                </Flex>
+            </Box>
         </Flex>
     );
 }

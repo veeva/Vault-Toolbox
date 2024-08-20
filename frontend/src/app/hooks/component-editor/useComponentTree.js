@@ -82,8 +82,12 @@ export default function useComponentTree() {
             });
         });
 
-        sessionStorage.setItem('componentTree', JSON.stringify(tmpComponentTree));
-        setComponentTree([JSON.parse(sessionStorage.getItem('componentTree'))]);
+        // Cache the component tree is storage if possible, otherwise simply keep it in memory
+        try {
+            sessionStorage.setItem('componentTree', JSON.stringify(tmpComponentTree));
+        } finally {
+            setComponentTree([tmpComponentTree]);
+        }
     };
 
     /**

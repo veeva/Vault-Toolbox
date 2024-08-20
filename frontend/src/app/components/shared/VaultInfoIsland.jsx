@@ -2,7 +2,7 @@ import {Flex, Spacer, Box, Link, Tooltip, useDisclosure} from '@chakra-ui/react'
 import {getVaultApiVersion, getVaultDns, getVaultName} from '../../services/SharedServices';
 import EditApiVersionModal from './EditApiVersionModal';
 
-export default function VaultInfoIsland({ children, isComponentEditor = false }) {
+export default function VaultInfoIsland({ children }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const fullVaultURL = `https://${getVaultDns()}`;
     const [vaultDomain] = getVaultDns().split('.'); // Remove .veevavault.com

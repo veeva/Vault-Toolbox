@@ -35,7 +35,8 @@ export default function CodeEditor({ code, setCode, language, theme }) {
         'bracketPairColorization.enabled': false,
         mouseWheelZoom: true,
         stickyScroll: { enabled: true },
-        scrollBeyondLastLine: false
+        scrollBeyondLastLine: false,
+        wordWrap: true,
     };
 
     useEffect(() => {

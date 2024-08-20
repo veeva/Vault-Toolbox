@@ -8,6 +8,12 @@ export default function useSavedVaultData({ setUserName, setVaultDNS, setFocusTo
     const DEFAULT = 'default';
     const VAULT_DNS = 'vaultDNS';
     const USERNAME = 'username';
+    const VAULT_SUBDOMAINS = [
+        'veevavault.com',
+        'veevavault.cn',
+        'vaultdev.com',
+        'vaultpvm.com'
+    ]
 
      /**
      * Loads the Saved Vaults table from Chrome storage into state.
@@ -42,7 +48,7 @@ export default function useSavedVaultData({ setUserName, setVaultDNS, setFocusTo
         // If launched from a Vault, load that DNS instead of default
         chrome.runtime.sendMessage({ action: 'getOriginatingUrl' }, (response) => {
             if (response && response.originatingUrl) {
-                if (response.originatingUrl.includes('veevavault.com')) {
+                if (VAULT_SUBDOMAINS.some(subdomain => response.originatingUrl.includes(subdomain))) {
                     const parsedURL = new URL(response.originatingUrl);
                     setVaultDNS(parsedURL.hostname.trim());
 

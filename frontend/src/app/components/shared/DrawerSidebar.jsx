@@ -1,53 +1,39 @@
-import {
-    Flex,
-    Drawer,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerBody,
-    Spacer,
-    Image,
-    Text,
-    Stack,
-    Button,
-    Link,
-    Divider,
-    Tooltip,
-    useColorMode
-} from '@chakra-ui/react';
-import {PiMoon, PiSignOut, PiSun} from 'react-icons/pi';
+import { Button, Divider, Drawer, DrawerBody, DrawerContent, DrawerOverlay, Flex, Image, Link, Spacer, Stack, Text, Tooltip, useColorMode } from '@chakra-ui/react';
+import { PiMoon, PiSignOut, PiSun } from 'react-icons/pi';
 import { Link as RouteLink } from 'react-router-dom';
-import SidebarItems from './SidebarItems';
-import SidebarItem from './SidebarItem';
 import logo from '../../../images/veeva-logo.png';
+import SidebarItem from './SidebarItem';
+import SidebarItems from './SidebarItems';
 
-export default function DrawerSidebar({ isOpen, onClose, currentRoute, logout }) {
-    const { colorMode, toggleColorMode } = useColorMode();
+export default function DrawerSidebar({isOpen, onClose, currentRoute, logout}) {
+    const {colorMode, toggleColorMode} = useColorMode();
     return (
         <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
-            <DrawerOverlay />
+            <DrawerOverlay/>
             <DrawerContent maxWidth='max-content' backgroundColor={'white.color_mode'}>
                 <DrawerBody paddingY={0} paddingX={'10px'}>
                     <Flex flexDirection='column' height='100%'>
                         {/* Wrap header text in empty Link so it gets Drawer focus onOpen
                             This prevents focus going to 1st sidebar item and triggering toolitp */}
-                        <Link as={RouteLink} _hover={{ textDecoration: 'none' }}>
+                        <Link as={RouteLink} _hover={{textDecoration: 'none'}}>
                             <Flex {...DevToolsFlexStyle}>
                                 <Image src={logo} {...ToolboxIconStyle} />
                                 <Text {...DevToolsTextStyle}>
-                                    Developer Tools
+                                    Vault Tools
                                 </Text>
                             </Flex>
                         </Link>
                         <Stack spacing={0} marginTop={0}>
                             {
                                 SidebarItems.map((tool) => (
-                                    <SidebarItem key={tool.name} item={tool} currentRoute={currentRoute} onClose={onClose}>
+                                    <SidebarItem key={tool.name} item={tool} currentRoute={currentRoute}
+                                                 onClose={onClose}>
                                         <Text marginLeft={4} fontSize='lg'>{tool.name}</Text>
                                     </SidebarItem>
                                 ))
                             }
                         </Stack>
-                        <Spacer />
+                        <Spacer/>
                         <Tooltip placement='right' label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
                             <Button
                                 {...ColorModeButtonStyle}
@@ -57,7 +43,7 @@ export default function DrawerSidebar({ isOpen, onClose, currentRoute, logout })
                                 {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
                             </Button>
                         </Tooltip>
-                        <Divider />
+                        <Divider/>
                         <Button {...LogoutBtnStyle} onClick={logout}>
                             Logout
                         </Button>
@@ -85,7 +71,7 @@ const DevToolsTextStyle = {
 
 const ToolboxIconStyle = {
     boxSize: '24px',
-    alt: 'Vault Developer Toolbox Icon',
+    alt: 'Vault Toolbox Icon',
     marginX: '5px'
 };
 
@@ -100,7 +86,7 @@ const ColorModeButtonStyle = {
 }
 
 const LogoutBtnStyle = {
-    leftIcon: <PiSignOut size={24} />,
+    leftIcon: <PiSignOut size={24}/>,
     align: 'center',
     height: '42px',
     padding: '5px',

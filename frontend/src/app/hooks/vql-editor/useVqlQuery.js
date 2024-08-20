@@ -16,6 +16,7 @@ export default function useVqlQuery() {
 
     const OBJECT = 'object';
     const PICKLIST = 'Picklist';
+    const OBJECT_REFERENCE = 'ObjectReference';
 
     /**
      * Executes VQL query
@@ -117,27 +118,25 @@ export default function useVqlQuery() {
         setIsDownloading(true);
         const csvData = await getCsvData();
 
-        let csvContent = 'data:text/csv;charset=utf-8,';
+        let csvContent = '';
         csvData.forEach((rowArray) => {
             if (typeof rowArray === 'string') {
                 csvContent += `${rowArray}\r\n`;
             } else {
-                const row = rowArray
+                const tmpRow = rowArray
                     .map((item) => {
                         if (item !== null) {
                             item = item.toString();
-                            if (item?.includes(',')) {
-                                return `'${item}'`;
-                            }
+                            item = item.replace(/"/g, '""') // Escape double quotes within a field
                         }
                         return item;
-                    })
-                    .join(',');
+                    });
+                const row = '"' + tmpRow.join('","') + '"'; // Wrap each value in double quotes
                 csvContent += `${row}\r\n`;
             }
         });
 
-        const encodedUri = encodeURI(csvContent);
+        const encodedUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
         const link = document.createElement('a');
         const filename = queryDescribe?.object?.name
             ? `query_results (${queryDescribe.object.name}).csv`
@@ -170,7 +169,7 @@ export default function useVqlQuery() {
 
             // If we have a previousPage, start by resetting us to the first page of the query
             while (tempPreviousPage) {
-                let { queryResponse } = await queryByPage(tempPreviousPage);
+                ({ queryResponse } = await queryByPage(tempPreviousPage));
                 tempPreviousPage = queryResponse?.responseDetails?.previous_page
                     ? queryResponse?.responseDetails?.previous_page
                     : '';
@@ -181,7 +180,7 @@ export default function useVqlQuery() {
             while (tempNextPage) {
                 await appendQueryDataToCsvArray(queryResponse, csvData);
 
-                let { queryResponse } = await queryByPage(tempNextPage);
+                ({ queryResponse } = await queryByPage(tempNextPage));
                 tempNextPage = queryResponse?.responseDetails?.next_page;
             }
 
@@ -205,6 +204,7 @@ export default function useVqlQuery() {
                 // Picklists and standard field headers
                 if (
                     isPicklist(dataKey)
+                    || isObjectReference(dataKey)
                     || typeof consoleOutput[queryEditorTabIndex].data[0][dataKey] !== OBJECT
                     || consoleOutput[queryEditorTabIndex].data[0][dataKey] === null
                 ) {
@@ -225,13 +225,13 @@ export default function useVqlQuery() {
 
     /**
      * Adds query data (field values) to the provided array.
+     * @param queryResponse
      * @param {Array} csvData
      */
     const appendQueryDataToCsvArray = async (queryResponse, csvData) => {
         for (let rowCount = 0; rowCount < queryResponse?.data?.length; rowCount += 1) {
             const queryRow = queryResponse?.data[rowCount];
             // Build a CSV row for each row of subquery data
-            //const queryRowSize = getMaxRowSize(queryRow); // TODO - convert to total size
             const queryRowSize = getTotalSubqueryRowSize(queryRow);
 
             // For each subquery on this row, get all the subquery data, including paginated data
@@ -349,6 +349,26 @@ export default function useVqlQuery() {
         }
 
         return isPicklist;
+    };
+
+    /**
+     * Determines if the provided field is a ObjectReference field from a document (either in the primary query or in a subquery).
+     * @param {string} fieldName
+     * @returns true if the field is a ObjectReference, otherwise false
+     */
+    const isObjectReference = (fieldName) => {
+        // Check if the field is a primary field ObjectReference
+        let isObjectReference = queryDescribe?.fields?.some(
+            (field) => field.name === fieldName && field.type === OBJECT_REFERENCE
+        );
+
+        if (!isObjectReference) {
+            isObjectReference = queryDescribe?.subqueries?.some((subquery) => subquery?.fields?.some(
+                (field) => field.name === fieldName && field.type === OBJECT_REFERENCE
+            ));
+        }
+
+        return isObjectReference;
     };
 
     /**

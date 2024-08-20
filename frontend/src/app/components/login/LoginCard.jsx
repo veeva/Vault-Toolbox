@@ -138,6 +138,7 @@ const TabStyle = {
 }
 
 const LoginCardBoxStyle = {
+    minWidth: '500px',
     borderRadius: '8px',
     backgroundColor: 'white.color_mode',
     boxShadow: '0 0 5px rgba(0,0,0,0.2)',

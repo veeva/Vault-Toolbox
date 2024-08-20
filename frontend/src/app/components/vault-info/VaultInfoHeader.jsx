@@ -7,7 +7,7 @@ export default function VaultInfoHeader() {
             <Flex alignItems='center'>
                 <Image src={logo} {...ToolboxIconStyle} />
                 <Heading {...PageHeaderStyle}>
-                    Welcome to the Vault Developer Toolbox
+                    Welcome to Vault Toolbox
                 </Heading>
             </Flex>
             <Text {...TextStyle}>
@@ -19,7 +19,7 @@ export default function VaultInfoHeader() {
 
 const ToolboxIconStyle = {
     boxSize: '42px',
-    alt: 'Vault Developer Toolbox Icon',
+    alt: 'Vault Toolbox Icon',
     marginRight: '10px'
 };
 

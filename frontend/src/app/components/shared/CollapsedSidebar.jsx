@@ -1,4 +1,4 @@
-import { Divider, Flex, IconButton, Spacer, Tooltip, useColorMode } from '@chakra-ui/react';
+import { Divider, Flex, IconButton, Spacer, Tooltip, useColorMode, Center } from '@chakra-ui/react';
 import { PiListBold, PiMoon, PiSignOut, PiSun } from 'react-icons/pi';
 import SidebarItems from './SidebarItems';
 import SidebarItem from './SidebarItem'
@@ -21,7 +21,9 @@ export default function CollapsedSidebar({ onOpen, onClose, currentRoute, logout
                     {...ColorModeButtonStyle}
                 />
             </Tooltip>
-            <Divider />
+            <Center {...LogoutCenterStyle}>
+                <Divider />
+            </Center>
             <Tooltip placement='right' label='Logout'>
                 <IconButton onClick={logout} icon={<PiSignOut size={24} />} {...LogoutIconButtonStyle} />
             </Tooltip> 
@@ -63,4 +65,9 @@ const LogoutIconButtonStyle = {
     padding: '5px',
     margin: '10px',
     borderRadius: '10px'
+};
+
+const LogoutCenterStyle = {
+    width: '100%',
+    paddingX: '10px'
 };

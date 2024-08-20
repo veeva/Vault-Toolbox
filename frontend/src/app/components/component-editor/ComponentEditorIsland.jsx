@@ -15,7 +15,7 @@ export default function ComponentEditorIsland({ consoleOutput, code, setCode, is
 
     return (
         <Flex {...ParentFlexStyle}>
-            <PanelGroup direction='vertical'>
+            <PanelGroup direction='vertical' autoSaveId='ComponentEditorIsland-PanelGroup'>
                 <Panel defaultSizePercentage={70} minSizePercentage={30}>
                     <Flex flexDirection='column' height='100%' width='100%'>
                         <Tabs {...TabsStyle}>

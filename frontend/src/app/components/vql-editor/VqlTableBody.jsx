@@ -10,7 +10,7 @@ export default function VqlTableBody({ consoleOutput, getMaxRowSize }) {
                 consoleOutput.data.map((row, i) => {
                     const maxRowSize = getMaxRowSize(row);
                     return (
-                        <Fragment key={i}>
+                        <Fragment key={`fragment-${i}`}>
                             <Tr key={i}>
                                 {
                                     Object.keys(row).map((dataRowKey, dataRowKeyCount) => {

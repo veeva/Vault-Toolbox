@@ -22,7 +22,7 @@ export default function useVaultInfo() {
                     sessionStorage.setItem('vaultName', vault?.vault_name__v);
 
                     // Rename the tab with the Vault name
-                    document.title = `VDT - ${vault?.vault_name__v}`;
+                    document.title = `VT - ${vault?.vault_name__v}`;
                 }
             });
             sessionStorage.setItem('domainType', domainInfoResponse?.domain__v?.domain_type__v);

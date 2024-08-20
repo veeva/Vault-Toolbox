@@ -1,10 +1,12 @@
-import { Flex, Box, Spacer, Tabs, TabList, Tab, TabPanel, TabPanels, TabIndicator, TableContainer, Table, Button, Tag } from '@chakra-ui/react';
+import { Flex, Box, Spacer, Tabs, TabList, Tab, TabPanel, TabPanels, TabIndicator, TableContainer, Table, Button, Tag, Text } from '@chakra-ui/react';
+import { memo } from 'react';
 import JsonSyntaxHighlighter from '../shared/JsonSyntaxHighlighter';
 import VqlTableHeader from './VqlTableHeader';
 import VqlTableBody from './VqlTableBody';
 
-export default function VqlConsole({ consoleOutput, queryDescribe, getSubqueryFieldCount, isPicklist, isPrimaryFieldRichText, getMaxRowSize, nextPage, previousPage, queryNextPage, queryPreviousPage,
-    isPrimaryFieldString, isSubqueryObject }) {
+// Memoized to improve performance for very large query results
+export default memo(({ consoleOutput, queryDescribe, getSubqueryFieldCount, isPicklist, isPrimaryFieldRichText, getMaxRowSize, nextPage, previousPage, queryNextPage, queryPreviousPage,
+    isPrimaryFieldString, isSubqueryObject }) => {
     const responseStatus = consoleOutput?.responseStatus;
     const hasSubqueries = queryDescribe?.subqueries?.length > 0;
     const headerRowSpan = hasSubqueries ? 2 : 1;
@@ -69,21 +71,21 @@ export default function VqlConsole({ consoleOutput, queryDescribe, getSubqueryFi
                         <TabIndicator {...TabIndicatorStyle} />
                         <Spacer />
                         <Button {...PaginationButtonStyle} isDisabled={!previousPage} onClick={queryPreviousPage}>
-                            Previous Page
+                            <Text isTruncated>Previous Page</Text>
                         </Button>
                         { totalPages ?
                             <Tag {...PageNumberTagStyle}>{currentPage} / {totalPages}</Tag>
                             : null
                         }
                         <Button {...PaginationButtonStyle} isDisabled={!nextPage} onClick={queryNextPage}>
-                            Next Page
+                            <Text isTruncated>Next Page</Text>
                         </Button>
                     </TabList>
                 </Box>
             </Flex>
         </Tabs>
     );
-}
+});
 
 const TableContainerStyle = {
     maxWidth: '100%',
@@ -150,5 +152,6 @@ const PageNumberTagStyle = {
     marginRight: '10px',
     marginY: 'auto',
     width: 'auto',
-    height: '40px'
+    height: '40px',
+    minWidth: 'max-content'
 };

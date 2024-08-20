@@ -1,22 +1,24 @@
 {
     "manifest_version": 3,
-    "name": "Vault Developer Toolbox",
-    "version": "24.1.1",
-    "description": "Vault Developer Toolbox",
+    "name": "Vault Toolbox",
+    "version": "24.1.2",
+    "description": "Vault Toolbox",
     "icons": {
         "16": "veeva-logo.png",
         "48": "veeva-logo.png",
         "128": "veeva-logo.png"
     },
     "action": {
-        "default_title": "Vault Developer Toolbox"
+        "default_title": "Vault Toolbox"
     },
     "permissions": [
         "storage"
     ],
     "host_permissions": [
         "https://*.veevavault.com/*",
-        "https://*.veevavault.cn/*"
+        "https://*.veevavault.cn/*",
+        "https://*.vaultdev.com/*",
+        "https://*.vaultpvm.com/*"
     ],
     "background": {
         "service_worker": "background.js"

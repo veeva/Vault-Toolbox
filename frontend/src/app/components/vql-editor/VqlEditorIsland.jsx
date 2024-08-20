@@ -1,7 +1,8 @@
-import { Flex, Box, Tabs, TabList, Tab, TabIndicator, Divider, Skeleton, Text, useColorMode } from '@chakra-ui/react';
+import { Flex, Box, Tabs, TabList, Tab, TabIndicator, Divider, Skeleton, Text, Spacer, useColorMode} from '@chakra-ui/react';
 import { PanelGroup, Panel } from 'react-resizable-panels';
 import { useState } from 'react';
 import CodeEditor from '../shared/CodeEditor';
+import VqlSavedQueriesContainer from './VqlSavedQueriesContainer';
 import { setupVqlLanguage, vqlLanguageID, VqlLightModeTheme, VqlDarkModeTheme } from './VqlLanguageDefinition';
 import HorizontalResizeHandle from '../shared/HorizontalResizeHandle';
 import VqlConsole from './VqlConsole';
@@ -15,19 +16,28 @@ export default function VqlEditorIsland({ consoleOutput, code, setCode, queryDes
 
     return (
         <Flex {...ParentFlexStyle}>
-            <PanelGroup direction='vertical'>
+            <PanelGroup direction='vertical' autoSaveId='VqlEditorIsland-PanelGroup'>
                 <Panel defaultSizePercentage={40} minSizePercentage={10}>
                     <Flex flexDirection='column' height='100%' width='100%'>
-                        <Tabs {...TabsStyle}>
-                            <TabList {...TabListStyle}>
-                                <Box width='180px'>
-                                    <Tab {...TabStyle}>
-                                        VQL
-                                    </Tab>
-                                </Box>
-                            </TabList>
-                            <TabIndicator {...TabIndicatorStyle} />
-                        </Tabs>
+                        <Flex alignItems='center' {...TabListStyle}>
+                            <Tabs {...TabsStyle}>
+                                <TabList>
+                                    <Flex flexGrow={1} alignItems='center'>
+                                        <Box width='180px'>
+                                            <Tab {...TabStyle}>
+                                                VQL
+                                            </Tab>
+                                        </Box>
+                                    </Flex>
+                                </TabList>
+                                <TabIndicator {...TabIndicatorStyle} />
+                            </Tabs>
+                            <Spacer />
+                            <VqlSavedQueriesContainer
+                                code={code}
+                                setCode={setCode}
+                            />
+                        </Flex>
                         <Box flex={1} overflow={'auto'}>
                             <CodeEditor
                                 code={code}
@@ -86,7 +96,8 @@ const TabsStyle = {
     position: 'relative',
     variant: 'unstyled',
     size: 'lg',
-    minHeight: 'auto'
+    minHeight: 'auto',
+    height: '100%'
 };
 
 const TabListStyle = {
@@ -102,7 +113,7 @@ const TabStyle = {
 };
 
 const TabIndicatorStyle = {
-    marginTop: '-3px',
+    marginTop: '3px',
     height: '3px',
     backgroundColor: 'veeva_orange.color_mode'
 };

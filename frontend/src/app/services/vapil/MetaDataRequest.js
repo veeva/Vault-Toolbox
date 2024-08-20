@@ -6,6 +6,7 @@ const URL_MDL_EXECUTE = '/mdl/execute';
 const URL_MDL_EXECUTE_ASYNC = '/mdl/execute_async'
 const URL_MDL_EXECUTE_ASYNC_JOB_STATUS = '/mdl/execute_async/{job_id}/results';
 const URL_OBJECTS = '/metadata/vobjects';
+const URL_OBJECT_NAME = '/metadata/vobjects/{OBJECT_NAME}';
 const URL_COMPONENTS = '/metadata/components';
 
 /**
@@ -152,6 +153,32 @@ export async function retrieveAllComponentMetadata() {
     const retrieveAllComponentMetadataResponse = await request(url, requestOptions);
     const responseHeaders = retrieveAllComponentMetadataResponse?.headers;
     const response = await retrieveAllComponentMetadataResponse.json();
+
+    return { response, responseHeaders };
+}
+
+/**
+ * Retrieve all metadata configured on a standard or custom Vault Object.
+ * @param {String} objectName - object to retrieve
+ * @returns MetaDataObjectResponse, ResponseHeaders
+ */
+export async function retrieveObjectMetadata(objectName) {
+    const url = getAPIEndpoint(URL_OBJECT_NAME.replace('{OBJECT_NAME}', objectName), true);
+
+    const headers = {
+        ...getAuthorizationHeader(),
+        [HTTP_HEADER_ACCEPT]: [HTTP_CONTENT_TYPE_JSON]
+    }
+    const method = RequestMethod.GET;
+
+    const requestOptions = {
+        headers,
+        method
+    };
+
+    const retrieveObjectMetadataResponse = await request(url, requestOptions);
+    const responseHeaders = retrieveObjectMetadataResponse?.headers;
+    const response = await retrieveObjectMetadataResponse.json();
 
     return { response, responseHeaders };
 }

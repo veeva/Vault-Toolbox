@@ -19,12 +19,16 @@ import {
     retrieveAllComponentMetadata as vapilRetrieveAllComponentMetadata,
     retrieveAsyncMdlScriptResults as vapilRetrieveAsyncMdlScriptResults,
     retrieveComponentRecordMdl as vapilRetrieveComponentRecordMdl,
-    retrieveObjectCollection as vapilRetrieveObjectCollection
+    retrieveObjectCollection as vapilRetrieveObjectCollection,
+    retrieveObjectMetadata as vapilRetrieveObjectMetadata
 } from './vapil/MetaDataRequest'
+import {
+    retrievePicklistValues as vapilRetrievePicklistValues,
+} from './vapil/PicklistRequest';
 import { query as vapilQuery, queryByPage as vapilQueryByPage } from './vapil/QueryRequest';
 import { getAPIEndpoint, HTTP_HEADER_AUTHORIZATION } from './vapil/VaultRequest';
 
-export const VAULT_CLIENT_ID = 'veeva-vault-developer-toolbox';
+export const VAULT_CLIENT_ID = 'veeva-vault-toolbox';
 
 /**
  * Invokes the AWS Lambda function backend.
@@ -282,6 +286,32 @@ export async function retrieveAllComponentMetadata() {
 }
 
 /**
+ * Calls the Vault API's Retrieve Object Metadata endpoint.
+ * @returns Vault Response
+ */
+export async function retrieveObjectMetadata(objectName) {
+    try {
+        const { response } = await vapilRetrieveObjectMetadata(objectName);
+        return { response };
+    } catch(error) {
+        return handleErrors(error);
+    }
+}
+
+/**
+ * Calls the Vault API's Retrieve Picklist Values endpoint.
+ * @returns Vault Response
+ */
+export async function retrievePicklistValues(picklistName) {
+    try {
+        const { response } = await vapilRetrievePicklistValues(picklistName);
+        return { response };
+    } catch(error) {
+        return handleErrors(error);
+    }
+}
+
+/**
  * Calls the Vault API's Session Keep Alive endpoint.
  * @returns Vault Response
  */
@@ -372,7 +402,7 @@ export const getVaultDNS = () => {
 
 /**
  * Converts Javascript Error object into the Vault API response format 
- * which Vault Developer Toolbox expects for errors.
+ * which Vault Toolbox expects for errors.
  * @param {Object} error object
  * @returns 
  */
@@ -398,7 +428,7 @@ export function handleErrors(error) {
 }
 
 /**
- *
+ * Calculates telemetry data for provided API response
  * @param response
  * @param responseStatus
  * @param apiExecutionStartTime

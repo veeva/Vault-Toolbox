@@ -7,7 +7,7 @@ export default function LoginPage() {
             <Stack {...PageStackStyle}>
                 <Stack align='center'>
                     <Heading {...PageHeaderStyle}>
-                        Welcome to the Vault Developer Toolbox
+                        Welcome to Vault Toolbox
                     </Heading>
                     <Text {...TextStyle}>
                         To get started, login to a Vault.

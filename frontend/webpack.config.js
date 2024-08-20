@@ -43,7 +43,7 @@ module.exports = {
           ],
         }),
         new HtmlWebpackPlugin({
-            title: 'Vault Developer Toolbox',
+            title: 'Vault Toolbox',
             filename: 'index.html',
             chunks: ['index']
         }),

@@ -326,8 +326,8 @@ export default function useQueryBuilder({ setCode }) {
 
                     whereClause += `(${filter?.field?.value} ${filter.operator.value} (${filterValue}))`
                 } else {
-                    if (filter?.field.fieldType === 'String' || filter?.field.fieldType === 'Date' || filter?.field.fieldType === 'DateTime') {
-                        // Wrap all String/Date/DateTime values in a string
+                    if (filter?.field.fieldType === 'String' || filter?.field.fieldType === 'Date' || filter?.field.fieldType === 'DateTime' || filter?.field.fieldType === 'ID') {
+                        // Wrap all String/Date/DateTime/ID values in a string
                         whereClause += `(${filter?.field?.value} ${filter.operator.value} '${filter.value}')`
                     } else if (filter?.field.fieldType === 'Picklist') {
                         // Wrap all Picklists values in their own string

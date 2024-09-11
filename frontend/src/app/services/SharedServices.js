@@ -1,13 +1,16 @@
 import { VAULT_API_VERSION } from './vapil/VaultRequest';
 
 /**
- * Determines if user is logged into a Production Vault
- * @returns true if logged into a Production Vault, otherwise false
+ * Determines if user is logged into a Production Vault (excluding DEV/PVM domains). Used to protect against
+ * irreversible actions in Production Vaults (e.g. Delete Jobs, MDL changes).
+ * @returns true if logged into a Production Vault (excluded DEV/PVM domains), otherwise false
  */
 export function isProductionVault() {
     const domainType = sessionStorage.getItem('domainType');
-    if (domainType && domainType === 'Production'){
-        return true;
+    if (domainType && domainType === 'Production') {
+        if (!isVaultDevOrPVMDomain()) {
+            return true;
+        }
     }
     return false;
 }
@@ -75,4 +78,15 @@ export function getVaultApiVersion() {
     } else {
         return VAULT_API_VERSION;
     }
+}
+
+/**
+ * Determines if Vault is on DEV/PVM domain
+ * @returns {boolean}
+ */
+function isVaultDevOrPVMDomain() {
+    const vaultDNS = sessionStorage.getItem('vaultDNS');
+    const domains = ['vaultdev.com', 'vaultpvm.com'];
+
+    return domains.some(domain => vaultDNS.includes(domain));
 }

@@ -1,6 +1,6 @@
 {
     "name": "vault-toolbox",
-    "version": "24.1.2",
+    "version": "24.2.0",
     "main": "index.js",
     "scripts": {
         "build": "webpack"

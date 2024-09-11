@@ -160,7 +160,7 @@ export const MdlDarkModeTheme = {
         },
         {
             token: 'entity.mdl.checksum',
-            foreground: '1B2F54'
+            foreground: 'F2F2F2'
         },
         {
             token: 'entity.mdl.boolean',

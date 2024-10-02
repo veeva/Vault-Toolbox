@@ -69,12 +69,15 @@ export default function QueryFilterRow({
                                 onChange={(newValue) => handleSelectedFilterEdits(newValue, filterRowIndex, 'value')}
                             />
                         </Box>
-                        : <Input
-                            placeholder={operator.value === 'CONTAINS' ? `Enter comma-separated values (${fieldType})` : (fieldType) ? `Value (${fieldType})` : 'Value'}
-                            value={filter.value}
-                            onChange={(event) => handleSelectedFilterEdits(event.target.value, filterRowIndex, 'value')}
-                            {...InputStyle}
-                        />
+                        : <>
+                            { filter?.operator.value !== "IS NULL" && filter?.operator.value !== "IS NOT NULL" && 
+                            ( <Input 
+                                placeholder={operator.value === 'CONTAINS' ? `Enter comma-separated values (${fieldType})` : (fieldType) ? `Value (${fieldType})` : 'Value'}
+                                value={filter.value}
+                                onChange={(event) => handleSelectedFilterEdits(event.target.value, filterRowIndex, 'value')}
+                                {...InputStyle} 
+                            /> )}
+                        </>
                     }
                 </>
             }

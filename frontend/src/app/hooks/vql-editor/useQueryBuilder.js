@@ -325,6 +325,10 @@ export default function useQueryBuilder({ setCode }) {
                     }
 
                     whereClause += `(${filter?.field?.value} ${filter.operator.value} (${filterValue}))`
+                } else if (filter?.operator.value == "IS NULL") {
+                    whereClause += `(${filter?.field?.value} == null)`
+                } else if (filter?.operator.value == "IS NOT NULL") {
+                    whereClause += `(${filter?.field?.value} != null)`
                 } else {
                     if (filter?.field.fieldType === 'String' || filter?.field.fieldType === 'Date' || filter?.field.fieldType === 'DateTime' || filter?.field.fieldType === 'ID') {
                         // Wrap all String/Date/DateTime/ID values in a string
@@ -363,7 +367,25 @@ export default function useQueryBuilder({ setCode }) {
 
         if (selectedFilters?.length > 0) {
             selectedFilters.forEach((filter, index) => {
-                if (!filter?.field || !filter?.operator || !filter?.value) { canBuild = false; }
+                if (!filter?.field) {
+                    canBuild = false;
+                    return;
+                }
+
+                if (!filter?.operator) {
+                    canBuild = false;
+                    return;
+                }
+
+                if (filter?.operator.value == 'IS NULL' ||filter?.operator.value == 'IS NOT NULL') {
+                    canBuild = true;
+                    return;
+                }
+
+                if (!filter?.value) { 
+                    canBuild = false; 
+                    return;
+                }
             })
         }
 

@@ -1,6 +1,6 @@
 export default function VqlDefinitions() {
 
-    const defaultOperators = ['=', '!=', '<', '>', '<=', '>=', 'CONTAINS', 'LIKE'];
+    const defaultOperators = ['=', '!=', '<', '>', '<=', '>=', 'CONTAINS', 'LIKE', 'IS NULL', 'IS NOT NULL'];
     const booleanValues = ['true', 'false'];
 
     const attachmentsQueryTarget = {

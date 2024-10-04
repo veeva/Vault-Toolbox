@@ -3,7 +3,8 @@
     "version": "24.2.0",
     "main": "index.js",
     "scripts": {
-        "build": "webpack"
+        "build": "webpack",
+        "dev": "webpack --watch --config webpack.config.dev.js"
     },
     "dependencies": {
         "@chakra-ui/react": "^2.8.1",
@@ -15,6 +16,7 @@
         "dotenv": "^16.3.1",
         "file-loader": "^6.2.0",
         "framer-motion": "^10.16.4",
+        "monaco-editor": "^0.52.0",
         "monaco-editor-core": "^0.47.0",
         "monaco-editor-webpack-plugin": "^7.1.0",
         "react": "^18.2.0",
@@ -30,7 +32,8 @@
         "webpack-cli": "^5.1.4"
     },
     "devDependencies": {
-        "@babel/preset-env": "^7.22.20",
+        "@babel/core": "^7.25.2",
+        "@babel/preset-env": "^7.25.4",
         "@babel/preset-react": "^7.22.15",
         "copy-webpack-plugin": "^11.0.0",
         "html-webpack-plugin": "^5.5.3"

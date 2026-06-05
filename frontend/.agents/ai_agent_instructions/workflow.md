@@ -1,8 +1,8 @@
-# The Toolbox Workshop Workflow (8 Phases)
+# The Toolbox Designer Workflow (8 Phases)
 
 Every feature or fix MUST proceed through these 8 phases.
 
-### 🔌 Skill Loading Protocol
+### Skill Loading Protocol
 When any phase or command references `Skill: <name>`, you MUST immediately read `.agents/skills/<name>/SKILL.md` and follow ALL instructions in it before proceeding.
 
 1. **Phase 1: Brainstorm (`vault-brainstormer`)**

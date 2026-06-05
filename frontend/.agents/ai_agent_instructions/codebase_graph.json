@@ -1,15 +1,9 @@
 {
   "metadata": {
-    "generatedAt": "2026-05-13T10:04:37.365Z",
-    "fileCount": 199
+    "generatedAt": "2026-06-05T07:05:49.659Z",
+    "fileCount": 206
   },
   "nodes": [
-    {
-      "id": "src/setupTests.js",
-      "type": "FILE",
-      "extension": ".js",
-      "exports": []
-    },
     {
       "id": "src/background/background.js",
       "type": "FILE",
@@ -18,12 +12,6 @@
     },
     {
       "id": "src/app/index.jsx",
-      "type": "FILE",
-      "extension": ".jsx",
-      "exports": []
-    },
-    {
-      "id": "src/app/App.test.jsx",
       "type": "FILE",
       "extension": ".jsx",
       "exports": []
@@ -149,6 +137,10 @@
       "extension": ".ts",
       "exports": [
         {
+          "name": "MAX_FAVORITE_TOOLS",
+          "type": "COMPONENT"
+        },
+        {
           "name": "defaultSettings",
           "type": "VARIABLE"
         },
@@ -161,6 +153,12 @@
           "type": "COMPONENT"
         }
       ]
+    },
+    {
+      "id": "src/app/utils/settings/VaultToolboxSettings.ts#MAX_FAVORITE_TOOLS",
+      "name": "MAX_FAVORITE_TOOLS",
+      "type": "COMPONENT",
+      "parentFile": "src/app/utils/settings/VaultToolboxSettings.ts"
     },
     {
       "id": "src/app/utils/settings/VaultToolboxSettings.ts#defaultSettings",
@@ -295,6 +293,63 @@
       "parentFile": "src/app/utils/component-editor/MdlLanguageDefinition.ts"
     },
     {
+      "id": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "type": "FILE",
+      "extension": ".ts",
+      "exports": [
+        {
+          "name": "getApiHistory",
+          "type": "FUNCTION"
+        },
+        {
+          "name": "logApiCall",
+          "type": "FUNCTION"
+        },
+        {
+          "name": "buildDisplayedHistoryRow",
+          "type": "FUNCTION"
+        },
+        {
+          "name": "buildPayload",
+          "type": "FUNCTION"
+        },
+        {
+          "name": "buildSortedHeaderList",
+          "type": "FUNCTION"
+        }
+      ]
+    },
+    {
+      "id": "src/app/utils/api-history/ApiHistoryHelper.ts#getApiHistory",
+      "name": "getApiHistory",
+      "type": "FUNCTION",
+      "parentFile": "src/app/utils/api-history/ApiHistoryHelper.ts"
+    },
+    {
+      "id": "src/app/utils/api-history/ApiHistoryHelper.ts#logApiCall",
+      "name": "logApiCall",
+      "type": "FUNCTION",
+      "parentFile": "src/app/utils/api-history/ApiHistoryHelper.ts"
+    },
+    {
+      "id": "src/app/utils/api-history/ApiHistoryHelper.ts#buildDisplayedHistoryRow",
+      "name": "buildDisplayedHistoryRow",
+      "type": "FUNCTION",
+      "parentFile": "src/app/utils/api-history/ApiHistoryHelper.ts"
+    },
+    {
+      "id": "src/app/utils/api-history/ApiHistoryHelper.ts#buildPayload",
+      "name": "buildPayload",
+      "type": "FUNCTION",
+      "parentFile": "src/app/utils/api-history/ApiHistoryHelper.ts"
+    },
+    {
+      "id": "src/app/utils/api-history/ApiHistoryHelper.ts#buildSortedHeaderList",
+      "name": "buildSortedHeaderList",
+      "type": "FUNCTION",
+      "parentFile": "src/app/utils/api-history/ApiHistoryHelper.ts"
+    },
+    {
       "id": "src/app/services/SharedServices.ts",
       "type": "FILE",
       "extension": ".ts",
@@ -333,6 +388,10 @@
         },
         {
           "name": "getVaultApiVersion",
+          "type": "FUNCTION"
+        },
+        {
+          "name": "getCustomApiHeadersFromStorage",
           "type": "FUNCTION"
         },
         {
@@ -408,6 +467,12 @@
     {
       "id": "src/app/services/SharedServices.ts#getVaultApiVersion",
       "name": "getVaultApiVersion",
+      "type": "FUNCTION",
+      "parentFile": "src/app/services/SharedServices.ts"
+    },
+    {
+      "id": "src/app/services/SharedServices.ts#getCustomApiHeadersFromStorage",
+      "name": "getCustomApiHeadersFromStorage",
       "type": "FUNCTION",
       "parentFile": "src/app/services/SharedServices.ts"
     },
@@ -1622,6 +1687,23 @@
       "parentFile": "src/app/hooks/shared/useVaultSession.ts"
     },
     {
+      "id": "src/app/hooks/shared/useToolSearch.ts",
+      "type": "FILE",
+      "extension": ".ts",
+      "exports": [
+        {
+          "name": "useToolSearch",
+          "type": "HOOK"
+        }
+      ]
+    },
+    {
+      "id": "src/app/hooks/shared/useToolSearch.ts#useToolSearch",
+      "name": "useToolSearch",
+      "type": "HOOK",
+      "parentFile": "src/app/hooks/shared/useToolSearch.ts"
+    },
+    {
       "id": "src/app/hooks/shared/useRemainingHeight.ts",
       "type": "FILE",
       "extension": ".ts",
@@ -1673,6 +1755,23 @@
       "parentFile": "src/app/hooks/shared/useIdleTimer.ts"
     },
     {
+      "id": "src/app/hooks/shared/useFavoriteTools.ts",
+      "type": "FILE",
+      "extension": ".ts",
+      "exports": [
+        {
+          "name": "useFavoriteTools",
+          "type": "HOOK"
+        }
+      ]
+    },
+    {
+      "id": "src/app/hooks/shared/useFavoriteTools.ts#useFavoriteTools",
+      "name": "useFavoriteTools",
+      "type": "HOOK",
+      "parentFile": "src/app/hooks/shared/useFavoriteTools.ts"
+    },
+    {
       "id": "src/app/hooks/shared/useElementHeight.ts",
       "type": "FILE",
       "extension": ".ts",
@@ -1705,6 +1804,40 @@
       "name": "useEditApiVersion",
       "type": "HOOK",
       "parentFile": "src/app/hooks/shared/useEditApiVersion.ts"
+    },
+    {
+      "id": "src/app/hooks/shared/useCustomApiHeaders.ts",
+      "type": "FILE",
+      "extension": ".ts",
+      "exports": [
+        {
+          "name": "useCustomApiHeaders",
+          "type": "HOOK"
+        }
+      ]
+    },
+    {
+      "id": "src/app/hooks/shared/useCustomApiHeaders.ts#useCustomApiHeaders",
+      "name": "useCustomApiHeaders",
+      "type": "HOOK",
+      "parentFile": "src/app/hooks/shared/useCustomApiHeaders.ts"
+    },
+    {
+      "id": "src/app/hooks/shared/useApiHistory.ts",
+      "type": "FILE",
+      "extension": ".ts",
+      "exports": [
+        {
+          "name": "useApiHistory",
+          "type": "HOOK"
+        }
+      ]
+    },
+    {
+      "id": "src/app/hooks/shared/useApiHistory.ts#useApiHistory",
+      "name": "useApiHistory",
+      "type": "HOOK",
+      "parentFile": "src/app/hooks/shared/useApiHistory.ts"
     },
     {
       "id": "src/app/hooks/settings/usePageSettings.ts",
@@ -2773,23 +2906,6 @@
       "parentFile": "src/app/components/shared/VerticalResizeHandle.jsx"
     },
     {
-      "id": "src/app/components/shared/VaultInfoIsland.tsx",
-      "type": "FILE",
-      "extension": ".tsx",
-      "exports": [
-        {
-          "name": "VaultInfoIsland",
-          "type": "COMPONENT"
-        }
-      ]
-    },
-    {
-      "id": "src/app/components/shared/VaultInfoIsland.tsx#VaultInfoIsland",
-      "name": "VaultInfoIsland",
-      "type": "COMPONENT",
-      "parentFile": "src/app/components/shared/VaultInfoIsland.tsx"
-    },
-    {
       "id": "src/app/components/shared/TelemetryData.jsx",
       "type": "FILE",
       "extension": ".jsx",
@@ -2807,26 +2923,15 @@
       "parentFile": "src/app/components/shared/TelemetryData.jsx"
     },
     {
-      "id": "src/app/components/shared/SidebarItem.jsx",
+      "id": "src/app/components/shared/SidebarItem.tsx",
       "type": "FILE",
-      "extension": ".jsx",
-      "exports": [
-        {
-          "name": "SidebarItem",
-          "type": "COMPONENT"
-        }
-      ]
+      "extension": ".tsx",
+      "exports": []
     },
     {
-      "id": "src/app/components/shared/SidebarItem.jsx#SidebarItem",
-      "name": "SidebarItem",
-      "type": "COMPONENT",
-      "parentFile": "src/app/components/shared/SidebarItem.jsx"
-    },
-    {
-      "id": "src/app/components/shared/Sidebar.jsx",
+      "id": "src/app/components/shared/Sidebar.tsx",
       "type": "FILE",
-      "extension": ".jsx",
+      "extension": ".tsx",
       "exports": [
         {
           "name": "Sidebar",
@@ -2835,10 +2940,10 @@
       ]
     },
     {
-      "id": "src/app/components/shared/Sidebar.jsx#Sidebar",
+      "id": "src/app/components/shared/Sidebar.tsx#Sidebar",
       "name": "Sidebar",
       "type": "COMPONENT",
-      "parentFile": "src/app/components/shared/Sidebar.jsx"
+      "parentFile": "src/app/components/shared/Sidebar.tsx"
     },
     {
       "id": "src/app/components/shared/ProtectedRoute.jsx",
@@ -2892,9 +2997,9 @@
       "parentFile": "src/app/components/shared/Layout.jsx"
     },
     {
-      "id": "src/app/components/shared/JsonSyntaxHighlighter.jsx",
+      "id": "src/app/components/shared/JsonSyntaxHighlighter.tsx",
       "type": "FILE",
-      "extension": ".jsx",
+      "extension": ".tsx",
       "exports": [
         {
           "name": "default",
@@ -2903,10 +3008,10 @@
       ]
     },
     {
-      "id": "src/app/components/shared/JsonSyntaxHighlighter.jsx#default",
+      "id": "src/app/components/shared/JsonSyntaxHighlighter.tsx#default",
       "name": "default",
       "type": "UNKNOWN",
-      "parentFile": "src/app/components/shared/JsonSyntaxHighlighter.jsx"
+      "parentFile": "src/app/components/shared/JsonSyntaxHighlighter.tsx"
     },
     {
       "id": "src/app/components/shared/IdleWarningDialog.jsx",
@@ -2960,26 +3065,26 @@
       "parentFile": "src/app/components/shared/ErrorBoundaryCard.tsx"
     },
     {
-      "id": "src/app/components/shared/EditApiVersionModal.jsx",
+      "id": "src/app/components/shared/DrawerSidebarItem.tsx",
       "type": "FILE",
-      "extension": ".jsx",
+      "extension": ".tsx",
       "exports": [
         {
-          "name": "EditApiVersionModal",
+          "name": "DrawerSidebarItem",
           "type": "COMPONENT"
         }
       ]
     },
     {
-      "id": "src/app/components/shared/EditApiVersionModal.jsx#EditApiVersionModal",
-      "name": "EditApiVersionModal",
+      "id": "src/app/components/shared/DrawerSidebarItem.tsx#DrawerSidebarItem",
+      "name": "DrawerSidebarItem",
       "type": "COMPONENT",
-      "parentFile": "src/app/components/shared/EditApiVersionModal.jsx"
+      "parentFile": "src/app/components/shared/DrawerSidebarItem.tsx"
     },
     {
-      "id": "src/app/components/shared/DrawerSidebar.jsx",
+      "id": "src/app/components/shared/DrawerSidebar.tsx",
       "type": "FILE",
-      "extension": ".jsx",
+      "extension": ".tsx",
       "exports": [
         {
           "name": "DrawerSidebar",
@@ -2988,10 +3093,10 @@
       ]
     },
     {
-      "id": "src/app/components/shared/DrawerSidebar.jsx#DrawerSidebar",
+      "id": "src/app/components/shared/DrawerSidebar.tsx#DrawerSidebar",
       "name": "DrawerSidebar",
       "type": "COMPONENT",
-      "parentFile": "src/app/components/shared/DrawerSidebar.jsx"
+      "parentFile": "src/app/components/shared/DrawerSidebar.tsx"
     },
     {
       "id": "src/app/components/shared/CustomSelect.jsx",
@@ -3028,9 +3133,9 @@
       "parentFile": "src/app/components/shared/ContextualHelpButton.jsx"
     },
     {
-      "id": "src/app/components/shared/CollapsedSidebar.jsx",
+      "id": "src/app/components/shared/CollapsedSidebar.tsx",
       "type": "FILE",
-      "extension": ".jsx",
+      "extension": ".tsx",
       "exports": [
         {
           "name": "CollapsedSidebar",
@@ -3039,10 +3144,10 @@
       ]
     },
     {
-      "id": "src/app/components/shared/CollapsedSidebar.jsx#CollapsedSidebar",
+      "id": "src/app/components/shared/CollapsedSidebar.tsx#CollapsedSidebar",
       "name": "CollapsedSidebar",
       "type": "COMPONENT",
-      "parentFile": "src/app/components/shared/CollapsedSidebar.jsx"
+      "parentFile": "src/app/components/shared/CollapsedSidebar.tsx"
     },
     {
       "id": "src/app/components/shared/CodeEditor.jsx",
@@ -3062,6 +3167,40 @@
       "parentFile": "src/app/components/shared/CodeEditor.jsx"
     },
     {
+      "id": "src/app/components/shared/ApiHistoryExpandedRow.tsx",
+      "type": "FILE",
+      "extension": ".tsx",
+      "exports": [
+        {
+          "name": "ApiHistoryExpandedRow",
+          "type": "COMPONENT"
+        }
+      ]
+    },
+    {
+      "id": "src/app/components/shared/ApiHistoryExpandedRow.tsx#ApiHistoryExpandedRow",
+      "name": "ApiHistoryExpandedRow",
+      "type": "COMPONENT",
+      "parentFile": "src/app/components/shared/ApiHistoryExpandedRow.tsx"
+    },
+    {
+      "id": "src/app/components/shared/ApiHistory.tsx",
+      "type": "FILE",
+      "extension": ".tsx",
+      "exports": [
+        {
+          "name": "ApiHistory",
+          "type": "COMPONENT"
+        }
+      ]
+    },
+    {
+      "id": "src/app/components/shared/ApiHistory.tsx#ApiHistory",
+      "name": "ApiHistory",
+      "type": "COMPONENT",
+      "parentFile": "src/app/components/shared/ApiHistory.tsx"
+    },
+    {
       "id": "src/app/components/shared/ApiErrorMessageCard.tsx",
       "type": "FILE",
       "extension": ".tsx",
@@ -3077,6 +3216,74 @@
       "name": "ApiErrorMessageCard",
       "type": "COMPONENT",
       "parentFile": "src/app/components/shared/ApiErrorMessageCard.tsx"
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
+      "type": "FILE",
+      "extension": ".tsx",
+      "exports": [
+        {
+          "name": "VaultInfoIsland",
+          "type": "COMPONENT"
+        }
+      ]
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx#VaultInfoIsland",
+      "name": "VaultInfoIsland",
+      "type": "COMPONENT",
+      "parentFile": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx"
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/CustomApiHeadersSection.tsx",
+      "type": "FILE",
+      "extension": ".tsx",
+      "exports": [
+        {
+          "name": "CustomApiHeadersSection",
+          "type": "COMPONENT"
+        }
+      ]
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/CustomApiHeadersSection.tsx#CustomApiHeadersSection",
+      "name": "CustomApiHeadersSection",
+      "type": "COMPONENT",
+      "parentFile": "src/app/components/shared/vault-info-island/CustomApiHeadersSection.tsx"
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx",
+      "type": "FILE",
+      "extension": ".tsx",
+      "exports": [
+        {
+          "name": "ApiVersionSection",
+          "type": "COMPONENT"
+        }
+      ]
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx#ApiVersionSection",
+      "name": "ApiVersionSection",
+      "type": "COMPONENT",
+      "parentFile": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx"
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "type": "FILE",
+      "extension": ".tsx",
+      "exports": [
+        {
+          "name": "ApiSettingsModal",
+          "type": "COMPONENT"
+        }
+      ]
+    },
+    {
+      "id": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx#ApiSettingsModal",
+      "name": "ApiSettingsModal",
+      "type": "COMPONENT",
+      "parentFile": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx"
     },
     {
       "id": "src/app/components/shared/ui-components/tooltip.tsx",
@@ -5015,23 +5222,6 @@
       "name": "ComponentConsole",
       "type": "COMPONENT",
       "parentFile": "src/app/components/component-editor/ComponentConsole.jsx"
-    },
-    {
-      "id": "src/app/components/api-history/ApiHistory.jsx",
-      "type": "FILE",
-      "extension": ".jsx",
-      "exports": [
-        {
-          "name": "ApiHistory",
-          "type": "COMPONENT"
-        }
-      ]
-    },
-    {
-      "id": "src/app/components/api-history/ApiHistory.jsx#ApiHistory",
-      "name": "ApiHistory",
-      "type": "COMPONENT",
-      "parentFile": "src/app/components/api-history/ApiHistory.jsx"
     }
   ],
   "edges": [
@@ -5053,11 +5243,6 @@
     {
       "source": "src/app/index.jsx",
       "target": "src/app/utils/shared/VeevaTheme.ts",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/App.test.jsx",
-      "target": "src/app/App.jsx",
       "relation": "IMPORTS"
     },
     {
@@ -5157,6 +5342,11 @@
     },
     {
       "source": "src/app/utils/settings/VaultToolboxSettings.ts",
+      "target": "src/app/utils/settings/VaultToolboxSettings.ts#MAX_FAVORITE_TOOLS",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/utils/settings/VaultToolboxSettings.ts",
       "target": "src/app/utils/settings/VaultToolboxSettings.ts#defaultSettings",
       "relation": "DEFINES"
     },
@@ -5226,6 +5416,36 @@
       "relation": "DEFINES"
     },
     {
+      "source": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "target": "src/app/services/SharedServices.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts#getApiHistory",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts#logApiCall",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts#buildDisplayedHistoryRow",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts#buildPayload",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts#buildSortedHeaderList",
+      "relation": "DEFINES"
+    },
+    {
       "source": "src/app/services/SharedServices.ts",
       "target": "src/app/services/vapil/VaultRequest.js",
       "relation": "IMPORTS"
@@ -5233,6 +5453,11 @@
     {
       "source": "src/app/services/SharedServices.ts",
       "target": "src/app/services/ApiService.js",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/services/SharedServices.ts",
+      "target": "src/app/hooks/shared/useCustomApiHeaders.ts",
       "relation": "IMPORTS"
     },
     {
@@ -5278,6 +5503,11 @@
     {
       "source": "src/app/services/SharedServices.ts",
       "target": "src/app/services/SharedServices.ts#getVaultApiVersion",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/services/SharedServices.ts",
+      "target": "src/app/services/SharedServices.ts#getCustomApiHeadersFromStorage",
       "relation": "DEFINES"
     },
     {
@@ -5524,6 +5754,11 @@
       "source": "src/app/services/ApiService.js",
       "target": "src/app/services/ApiService.js#handleErrors",
       "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/services/vapil/VaultRequest.js",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "relation": "IMPORTS"
     },
     {
       "source": "src/app/services/vapil/VaultRequest.js",
@@ -5902,7 +6137,7 @@
     },
     {
       "source": "src/app/pages/VqlEditorPage.jsx",
-      "target": "src/app/components/api-history/ApiHistory.jsx",
+      "target": "src/app/components/shared/ApiHistory.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -5917,12 +6152,12 @@
     },
     {
       "source": "src/app/pages/VqlEditorPage.jsx",
-      "target": "src/app/components/shared/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/VerticalResizeHandle.jsx",
       "relation": "IMPORTS"
     },
     {
       "source": "src/app/pages/VqlEditorPage.jsx",
-      "target": "src/app/components/shared/VerticalResizeHandle.jsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -5987,6 +6222,11 @@
     },
     {
       "source": "src/app/pages/VaultInfoPage.tsx",
+      "target": "src/app/components/shared/ApiHistory.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/pages/VaultInfoPage.tsx",
       "target": "src/app/components/shared/NotOfficialVeevaProductAlert.tsx",
       "relation": "IMPORTS"
     },
@@ -6007,6 +6247,16 @@
     },
     {
       "source": "src/app/pages/VaultInfoPage.tsx",
+      "target": "src/app/components/shared/ContextualHelpButton.jsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/pages/VaultInfoPage.tsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/pages/VaultInfoPage.tsx",
       "target": "src/app/pages/VaultInfoPage.tsx#VaultInfoPage",
       "relation": "DEFINES"
     },
@@ -6022,7 +6272,12 @@
     },
     {
       "source": "src/app/pages/SettingsPage.tsx",
-      "target": "src/app/components/shared/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/pages/SettingsPage.tsx",
+      "target": "src/app/components/shared/ApiHistory.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -6042,11 +6297,6 @@
     },
     {
       "source": "src/app/pages/FileBrowserPage.jsx",
-      "target": "src/app/components/api-history/ApiHistory.jsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/pages/FileBrowserPage.jsx",
       "target": "src/app/components/file-browser/FileBrowserDirectoryPanel.jsx",
       "relation": "IMPORTS"
     },
@@ -6062,12 +6312,17 @@
     },
     {
       "source": "src/app/pages/FileBrowserPage.jsx",
+      "target": "src/app/components/shared/ApiHistory.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/pages/FileBrowserPage.jsx",
       "target": "src/app/components/shared/ContextualHelpButton.jsx",
       "relation": "IMPORTS"
     },
     {
       "source": "src/app/pages/FileBrowserPage.jsx",
-      "target": "src/app/components/shared/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -6117,11 +6372,6 @@
     },
     {
       "source": "src/app/pages/DataToolsPage.jsx",
-      "target": "src/app/components/api-history/ApiHistory.jsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/pages/DataToolsPage.jsx",
       "target": "src/app/components/data-tools/DataToolsHeaderRow.jsx",
       "relation": "IMPORTS"
     },
@@ -6132,12 +6382,17 @@
     },
     {
       "source": "src/app/pages/DataToolsPage.jsx",
+      "target": "src/app/components/shared/ApiHistory.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/pages/DataToolsPage.jsx",
       "target": "src/app/components/shared/ContextualHelpButton.jsx",
       "relation": "IMPORTS"
     },
     {
       "source": "src/app/pages/DataToolsPage.jsx",
-      "target": "src/app/components/shared/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -6157,7 +6412,7 @@
     },
     {
       "source": "src/app/pages/DataNavigatorPage.tsx",
-      "target": "src/app/components/shared/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -6177,18 +6432,13 @@
     },
     {
       "source": "src/app/pages/DataNavigatorPage.tsx",
-      "target": "src/app/components/api-history/ApiHistory.jsx",
+      "target": "src/app/components/shared/ApiHistory.tsx",
       "relation": "IMPORTS"
     },
     {
       "source": "src/app/pages/DataNavigatorPage.tsx",
       "target": "src/app/pages/DataNavigatorPage.tsx#DataNavigatorPage",
       "relation": "DEFINES"
-    },
-    {
-      "source": "src/app/pages/ComponentEditorPage.jsx",
-      "target": "src/app/components/api-history/ApiHistory.jsx",
-      "relation": "IMPORTS"
     },
     {
       "source": "src/app/pages/ComponentEditorPage.jsx",
@@ -6212,6 +6462,11 @@
     },
     {
       "source": "src/app/pages/ComponentEditorPage.jsx",
+      "target": "src/app/components/shared/ApiHistory.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/pages/ComponentEditorPage.jsx",
       "target": "src/app/components/shared/ContextualHelpButton.jsx",
       "relation": "IMPORTS"
     },
@@ -6222,7 +6477,7 @@
     },
     {
       "source": "src/app/pages/ComponentEditorPage.jsx",
-      "target": "src/app/components/shared/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -6316,6 +6571,16 @@
       "relation": "DEFINES"
     },
     {
+      "source": "src/app/hooks/shared/useToolSearch.ts",
+      "target": "src/app/utils/shared/SidebarItems.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/hooks/shared/useToolSearch.ts",
+      "target": "src/app/hooks/shared/useToolSearch.ts#useToolSearch",
+      "relation": "DEFINES"
+    },
+    {
       "source": "src/app/hooks/shared/useRemainingHeight.ts",
       "target": "src/app/hooks/shared/useRemainingHeight.ts#useRemainingHeight",
       "relation": "DEFINES"
@@ -6341,6 +6606,26 @@
       "relation": "DEFINES"
     },
     {
+      "source": "src/app/hooks/shared/useFavoriteTools.ts",
+      "target": "src/app/context/SettingsContext.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/hooks/shared/useFavoriteTools.ts",
+      "target": "src/app/utils/shared/SidebarItems.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/hooks/shared/useFavoriteTools.ts",
+      "target": "src/app/utils/settings/VaultToolboxSettings.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/hooks/shared/useFavoriteTools.ts",
+      "target": "src/app/hooks/shared/useFavoriteTools.ts#useFavoriteTools",
+      "relation": "DEFINES"
+    },
+    {
       "source": "src/app/hooks/shared/useElementHeight.ts",
       "target": "src/app/hooks/shared/useElementHeight.ts#useElementHeight",
       "relation": "DEFINES"
@@ -6363,6 +6648,26 @@
     {
       "source": "src/app/hooks/shared/useEditApiVersion.ts",
       "target": "src/app/hooks/shared/useEditApiVersion.ts#useEditApiVersion",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/hooks/shared/useCustomApiHeaders.ts",
+      "target": "src/app/services/SharedServices.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/hooks/shared/useCustomApiHeaders.ts",
+      "target": "src/app/hooks/shared/useCustomApiHeaders.ts#useCustomApiHeaders",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/hooks/shared/useApiHistory.ts",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/hooks/shared/useApiHistory.ts",
+      "target": "src/app/hooks/shared/useApiHistory.ts#useApiHistory",
       "relation": "DEFINES"
     },
     {
@@ -6867,7 +7172,7 @@
     },
     {
       "source": "src/app/components/vql-editor/VqlConsole.jsx",
-      "target": "src/app/components/shared/JsonSyntaxHighlighter.jsx",
+      "target": "src/app/components/shared/JsonSyntaxHighlighter.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -7086,63 +7391,28 @@
       "relation": "DEFINES"
     },
     {
-      "source": "src/app/components/shared/VaultInfoIsland.tsx",
-      "target": "src/app/services/SharedServices.ts",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/VaultInfoIsland.tsx",
-      "target": "src/app/components/shared/EditApiVersionModal.jsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/VaultInfoIsland.tsx",
-      "target": "src/app/components/shared/ui-components/tooltip.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/VaultInfoIsland.tsx",
-      "target": "src/app/components/shared/VaultInfoIsland.tsx#VaultInfoIsland",
-      "relation": "DEFINES"
-    },
-    {
       "source": "src/app/components/shared/TelemetryData.jsx",
       "target": "src/app/components/shared/TelemetryData.jsx#TelemetryData",
       "relation": "DEFINES"
     },
     {
-      "source": "src/app/components/shared/SidebarItem.jsx",
-      "target": "src/app/context/SettingsContext.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/SidebarItem.jsx",
-      "target": "src/app/components/shared/ui-components/tooltip.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/SidebarItem.jsx",
-      "target": "src/app/components/shared/SidebarItem.jsx#SidebarItem",
-      "relation": "DEFINES"
-    },
-    {
-      "source": "src/app/components/shared/Sidebar.jsx",
+      "source": "src/app/components/shared/Sidebar.tsx",
       "target": "src/app/hooks/shared/useLogout.ts",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/Sidebar.jsx",
-      "target": "src/app/components/shared/CollapsedSidebar.jsx",
+      "source": "src/app/components/shared/Sidebar.tsx",
+      "target": "src/app/components/shared/CollapsedSidebar.tsx",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/Sidebar.jsx",
-      "target": "src/app/components/shared/DrawerSidebar.jsx",
+      "source": "src/app/components/shared/Sidebar.tsx",
+      "target": "src/app/components/shared/DrawerSidebar.tsx",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/Sidebar.jsx",
-      "target": "src/app/components/shared/Sidebar.jsx#Sidebar",
+      "source": "src/app/components/shared/Sidebar.tsx",
+      "target": "src/app/components/shared/Sidebar.tsx#Sidebar",
       "relation": "DEFINES"
     },
     {
@@ -7182,7 +7452,7 @@
     },
     {
       "source": "src/app/components/shared/Layout.jsx",
-      "target": "src/app/components/shared/Sidebar.jsx",
+      "target": "src/app/components/shared/Sidebar.tsx",
       "relation": "IMPORTS"
     },
     {
@@ -7191,13 +7461,13 @@
       "relation": "DEFINES"
     },
     {
-      "source": "src/app/components/shared/JsonSyntaxHighlighter.jsx",
+      "source": "src/app/components/shared/JsonSyntaxHighlighter.tsx",
       "target": "src/app/components/shared/ui-components/color-mode.tsx",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/JsonSyntaxHighlighter.jsx",
-      "target": "src/app/components/shared/JsonSyntaxHighlighter.jsx#default",
+      "source": "src/app/components/shared/JsonSyntaxHighlighter.tsx",
+      "target": "src/app/components/shared/JsonSyntaxHighlighter.tsx#default",
       "relation": "DEFINES"
     },
     {
@@ -7221,58 +7491,68 @@
       "relation": "DEFINES"
     },
     {
-      "source": "src/app/components/shared/EditApiVersionModal.jsx",
-      "target": "src/app/hooks/shared/useEditApiVersion.ts",
+      "source": "src/app/components/shared/DrawerSidebarItem.tsx",
+      "target": "src/app/hooks/shared/useFavoriteTools.ts",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/EditApiVersionModal.jsx",
-      "target": "src/app/components/shared/ApiErrorMessageCard.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/EditApiVersionModal.jsx",
-      "target": "src/app/components/shared/CustomSelect.jsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/EditApiVersionModal.jsx",
-      "target": "src/app/components/shared/ui-components/dialog.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/EditApiVersionModal.jsx",
-      "target": "src/app/components/shared/EditApiVersionModal.jsx#EditApiVersionModal",
-      "relation": "DEFINES"
-    },
-    {
-      "source": "src/app/components/shared/DrawerSidebar.jsx",
-      "target": "src/images/veeva-logo.png",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/DrawerSidebar.jsx",
+      "source": "src/app/components/shared/DrawerSidebarItem.tsx",
       "target": "src/app/utils/shared/SidebarItems.ts",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/DrawerSidebar.jsx",
-      "target": "src/app/components/shared/SidebarItem.jsx",
+      "source": "src/app/components/shared/DrawerSidebarItem.tsx",
+      "target": "src/app/components/shared/SidebarItem.tsx",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/DrawerSidebar.jsx",
-      "target": "src/app/components/shared/ui-components/drawer.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/shared/DrawerSidebar.jsx",
+      "source": "src/app/components/shared/DrawerSidebarItem.tsx",
       "target": "src/app/components/shared/ui-components/tooltip.tsx",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/DrawerSidebar.jsx",
-      "target": "src/app/components/shared/DrawerSidebar.jsx#DrawerSidebar",
+      "source": "src/app/components/shared/DrawerSidebarItem.tsx",
+      "target": "src/app/utils/settings/VaultToolboxSettings.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebarItem.tsx",
+      "target": "src/app/components/shared/DrawerSidebarItem.tsx#DrawerSidebarItem",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebar.tsx",
+      "target": "src/images/veeva-logo.png",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebar.tsx",
+      "target": "src/app/hooks/shared/useToolSearch.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebar.tsx",
+      "target": "src/app/hooks/shared/useFavoriteTools.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebar.tsx",
+      "target": "src/app/components/shared/DrawerSidebarItem.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebar.tsx",
+      "target": "src/app/components/shared/ui-components/drawer.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebar.tsx",
+      "target": "src/app/components/shared/ui-components/tooltip.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/DrawerSidebar.tsx",
+      "target": "src/app/components/shared/DrawerSidebar.tsx#DrawerSidebar",
       "relation": "DEFINES"
     },
     {
@@ -7291,23 +7571,23 @@
       "relation": "DEFINES"
     },
     {
-      "source": "src/app/components/shared/CollapsedSidebar.jsx",
-      "target": "src/app/utils/shared/SidebarItems.ts",
+      "source": "src/app/components/shared/CollapsedSidebar.tsx",
+      "target": "src/app/hooks/shared/useFavoriteTools.ts",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/CollapsedSidebar.jsx",
-      "target": "src/app/components/shared/SidebarItem.jsx",
+      "source": "src/app/components/shared/CollapsedSidebar.tsx",
+      "target": "src/app/components/shared/SidebarItem.tsx",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/CollapsedSidebar.jsx",
+      "source": "src/app/components/shared/CollapsedSidebar.tsx",
       "target": "src/app/components/shared/ui-components/tooltip.tsx",
       "relation": "IMPORTS"
     },
     {
-      "source": "src/app/components/shared/CollapsedSidebar.jsx",
-      "target": "src/app/components/shared/CollapsedSidebar.jsx#CollapsedSidebar",
+      "source": "src/app/components/shared/CollapsedSidebar.tsx",
+      "target": "src/app/components/shared/CollapsedSidebar.tsx#CollapsedSidebar",
       "relation": "DEFINES"
     },
     {
@@ -7316,8 +7596,128 @@
       "relation": "DEFINES"
     },
     {
+      "source": "src/app/components/shared/ApiHistoryExpandedRow.tsx",
+      "target": "src/app/utils/api-history/ApiHistoryHelper.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/ApiHistoryExpandedRow.tsx",
+      "target": "src/app/components/shared/JsonSyntaxHighlighter.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/ApiHistoryExpandedRow.tsx",
+      "target": "src/app/components/shared/ApiHistoryExpandedRow.tsx#ApiHistoryExpandedRow",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/components/shared/ApiHistory.tsx",
+      "target": "src/app/hooks/shared/useApiHistory.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/ApiHistory.tsx",
+      "target": "src/app/components/shared/ApiHistoryExpandedRow.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/ApiHistory.tsx",
+      "target": "src/app/components/shared/ui-components/dialog.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/ApiHistory.tsx",
+      "target": "src/app/components/shared/ui-components/tooltip.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/ApiHistory.tsx",
+      "target": "src/app/components/shared/ApiHistory.tsx#ApiHistory",
+      "relation": "DEFINES"
+    },
+    {
       "source": "src/app/components/shared/ApiErrorMessageCard.tsx",
       "target": "src/app/components/shared/ApiErrorMessageCard.tsx#ApiErrorMessageCard",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
+      "target": "src/app/services/SharedServices.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/ui-components/tooltip.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx",
+      "target": "src/app/components/shared/vault-info-island/VaultInfoIsland.tsx#VaultInfoIsland",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/CustomApiHeadersSection.tsx",
+      "target": "src/app/hooks/shared/useCustomApiHeaders.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/CustomApiHeadersSection.tsx",
+      "target": "src/app/components/shared/vault-info-island/CustomApiHeadersSection.tsx#CustomApiHeadersSection",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx",
+      "target": "src/app/components/shared/ApiErrorMessageCard.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx",
+      "target": "src/app/components/shared/CustomSelect.jsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx",
+      "target": "src/app/services/SharedServices.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx",
+      "target": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx#ApiVersionSection",
+      "relation": "DEFINES"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "target": "src/app/hooks/shared/useEditApiVersion.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "target": "src/app/components/shared/ui-components/dialog.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "target": "src/app/components/shared/vault-info-island/ApiVersionSection.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "target": "src/app/components/shared/vault-info-island/CustomApiHeadersSection.tsx",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "target": "src/app/hooks/shared/useCustomApiHeaders.ts",
+      "relation": "IMPORTS"
+    },
+    {
+      "source": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx",
+      "target": "src/app/components/shared/vault-info-island/ApiSettingsModal.tsx#ApiSettingsModal",
       "relation": "DEFINES"
     },
     {
@@ -8897,27 +9297,12 @@
     },
     {
       "source": "src/app/components/component-editor/ComponentConsole.jsx",
-      "target": "src/app/components/shared/JsonSyntaxHighlighter.jsx",
+      "target": "src/app/components/shared/JsonSyntaxHighlighter.tsx",
       "relation": "IMPORTS"
     },
     {
       "source": "src/app/components/component-editor/ComponentConsole.jsx",
       "target": "src/app/components/component-editor/ComponentConsole.jsx#ComponentConsole",
-      "relation": "DEFINES"
-    },
-    {
-      "source": "src/app/components/api-history/ApiHistory.jsx",
-      "target": "src/app/components/shared/ui-components/close-button.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/api-history/ApiHistory.jsx",
-      "target": "src/app/components/shared/ui-components/tooltip.tsx",
-      "relation": "IMPORTS"
-    },
-    {
-      "source": "src/app/components/api-history/ApiHistory.jsx",
-      "target": "src/app/components/api-history/ApiHistory.jsx#ApiHistory",
       "relation": "DEFINES"
     }
   ]

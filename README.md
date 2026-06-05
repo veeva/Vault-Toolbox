@@ -8,21 +8,21 @@ Vault Toolbox is available for installation via the [Chrome Web Store](https://c
 
 For more details on Vault Toolbox, including getting started instructions and tool-specific user guides, please refer to our [official documentation](https://general.veevavault.dev/vault-toolbox/browser-extension/overview).
 
-## Toolbox Workshop
+## Toolbox Designer
 
-Toolbox Workshop is a dedicated _LLM Agent Instruction Package_ within the Vault Toolbox repository that turns you into a Product Manager with its very own "Vault and Toolbox Expert Engineering Team." Learn more at [Toolbox Workshop](https://general.veevavault.dev/vault-toolbox/toolbox-workshop).
+Toolbox Designer is a dedicated _LLM Agent Instruction Package_ within the Vault Toolbox repository that turns you into a Product Manager with its very own "Vault and Toolbox Expert Engineering Team." Learn more at [Toolbox Designer](https://general.veevavault.dev/vault-toolbox/toolbox-designer).
 
-### You Design, Workshop Builds
-In the past, building a custom tool required deep knowledge of React, API integration, and complex state management aside from knowledge of Vault, its APIs, and best practices. Now with the help of Workshop and using Vault Toolbox as a platform, the barrier to entry has vanished:
+### Your Design with Our Expertise
+In the past, building a custom tool required deep knowledge of React, API integration, and complex state management aside from knowledge of Vault, its APIs, and best practices. Now with the help of Toolbox Designer and using Vault Toolbox as a platform, the barrier to entry has vanished:
 
-* **Be the Product Manager**: You provide the vision and answer the AI's design questions. Workshop acts as your knowledgeable "engineering team."
-* **Powered by the Vault Developer Docs MCP**: The Workshop relies on the Vault Developer MCP to ensure the tools it builds use the correct APIs and syntax.
+* **Be the Product Manager**: You provide the vision and answer the AI's design questions. Designer acts as your knowledgeable "engineering team."
+* **Powered by the Vault Developer Docs MCP**: The Designer relies on the Vault Developer MCP to ensure the tools it builds use the correct APIs and syntax.
 
-* **Quality by Default**: Every tool built in the Workshop follows a rigorous 8-phase lifecycle, including automated Test-Driven Development (TDD) and architectural audits.
+* **Quality by Default**: Every tool built in the Designer follows a rigorous 8-phase lifecycle, including automated Test-Driven Development (TDD) and architectural audits.
 * **Production Safety**: Built-in guardrails automatically prevent destructive operations in Production environments.
 
 ### How to Get Started
-**Enter Toolbox Workshop**  
+**Launch Toolbox Designer**  
 Download the Vault Toolbox repository, open the `frontend` folder in an AI-powered terminal (like Claude Code or Gemini CLI), and run the onboarding command:
 `:onboard`
 

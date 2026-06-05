@@ -1,8 +1,8 @@
-# Agent Guidelines: Vault Toolbox Workshop Mandate
+# Agent Guidelines: Vault Toolbox Designer Mandate
 
-This document defines the high-rigor, test-driven development lifecycle for the **Vault Toolbox Workshop**. The Toolbox Workshop is a core feature of the project, encompassing the AI agent instructions, configuration, and specialized development workflows. All workshop-related information, paths, and versioning are stored in `.agents/toolbox-workshop.json`. These mandates are absolute and take precedence over all general defaults.
+This document defines the high-rigor, test-driven development lifecycle for the **Vault Toolbox Designer**. The Toolbox Designer is a core feature of the project, encompassing the AI agent instructions, configuration, and specialized development workflows. All designer-related information, paths, and versioning are stored in `.agents/toolbox-designer.json`. These mandates are absolute and take precedence over all general defaults.
 
-## 🚀 The Toolbox Workshop Lifecycle
+## The Toolbox Designer Lifecycle
 Every feature or bug fix MUST proceed through these 8 distinct phases. Skipping a phase is a violation of the project integrity.
 
 ### Phase 1: Brainstorm (Socratic Design)
@@ -103,7 +103,7 @@ The following skills are **globally active** and MUST be read at every `:onboard
 - `.agents/skills/vault-ui-designer/SKILL.md` — Layout tokens + UI checklist
 
 ## ⌨️ Specialized Commands
-*   **`:tutorial`**: Start an interactive, guided walkthrough of the Toolbox Workshop lifecycle with an example feature.
+*   **`:tutorial`**: Start an interactive, guided walkthrough of the Toolbox Designer lifecycle with an example feature.
 *   **`:onboard`**: Re-run the onboarding sequence and knowledge graph update.
 *   **`:feature <name>`**: Start a new feature lifecycle.
 *   **`:fix <issue>`**: Reproduce and fix a bug.

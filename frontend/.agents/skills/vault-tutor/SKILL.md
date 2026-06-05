@@ -1,6 +1,6 @@
 ---
 name: vault-tutor
-description: Provides a guided, step-by-step tutorial for the Toolbox Workshop lifecycle.
+description: Provides a guided, step-by-step tutorial for the Toolbox Designer lifecycle.
 triggers:
   - tutorial
   - onboarding
@@ -13,7 +13,7 @@ This skill is active during the `:tutorial` command. It simplifies the high-rigo
 
 ## The Tutorial Script
 
-### 1. Introduction: "The Toolbox Workshop Way"
+### 1. Introduction: "The Toolbox Designer Way"
 Explain that we don't just "write code"—we "engineer solutions."
 - **Analogy:** "Think of me as a senior engineer and you as the product owner. We talk, we plan, we test, then we code."
 
@@ -37,7 +37,7 @@ The exact prompt content to render is:
 When presenting it to the user, render it with triple-backtick fences (no language tag is needed), exactly as above but with ``` fences. Do not add quotation marks around it.
 
 ### 4. The Tutor's "Cheat Sheet" (Phase-Specific Data)
-During the tutorial, as you follow the Toolbox Workshop Lifecycle, you MUST present these details to the user so they can "provide" them to you when you ask (as per the `vault-api-integration` and `vault-brainstormer` mandates).
+During the tutorial, as you follow the Toolbox Designer Lifecycle, you MUST present these details to the user so they can "provide" them to you when you ask (as per the `vault-api-integration` and `vault-brainstormer` mandates).
 
 **Rendering Rule (mandatory):** Every pasteable payload below — VQL queries, endpoint strings, request payloads, JSON samples — MUST be rendered to the user inside its own fenced code block with the appropriate language tag (`sql`, `http`, `json`, etc.). Explanatory/framing prose MAY use a blockquote callout, but the pasteable payload itself MUST NOT live inside a blockquote, inline code, or surrounding quotes. See `AGENTS.md` → *Output Formatting & Copy-Paste Hygiene*.
 

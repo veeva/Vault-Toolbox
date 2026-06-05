@@ -1,11 +1,11 @@
 {
-  "name": "Toolbox Workshop",
+  "name": "Toolbox Designer",
   "version": "26.1.1",
   "optimized_agents": [
     "claude_code",
     "gemini_cli"
   ],
-  "toolbox_workshop_paths": [
+  "toolbox_designer_paths": [
     ".agents/*",
     ".claude/*",
     ".gemini/*",
@@ -18,7 +18,7 @@
   ],
   "update_protocols": {
     "default_mode": "UPSERT",
-    "instructions": "The agent MUST scan all source folders and subfolders identified in 'toolbox_workshop_paths' recursively to identify files for update. When updating Toolbox Workshop in other branches or locations, the agent MUST ask the user to choose between UPSERT and REPLACE modes.",
+    "instructions": "The agent MUST scan all source folders and subfolders identified in 'toolbox_designer_paths' recursively to identify files for update. When updating Toolbox Designer in other branches or locations, the agent MUST ask the user to choose between UPSERT and REPLACE modes.",
     "modes": {
       "UPSERT": {
         "description": "Additive & Non-destructive. For every path listed, recursively traverse all subfolders in the source. Any file found in the source is copied to the target, overwriting existing files with the same name. Files or subfolders present in the target but NOT in the source are PRESERVED.",
@@ -26,7 +26,7 @@
       },
       "REPLACE": {
         "description": "Recursive Mirror & Archive. For every folder path listed, the target folder and ALL its subfolders are synchronized to exactly match the source. Any file or subfolder present in the target but NOT in the source is MOVED to '.agents/ignored' (created if it doesn't exist). These moved files MUST also be added to '.geminiignore', '.claudeignore', and '.cursorignore'.",
-        "recommendation": "Mirroring with backup. Use when a clean synchronization to the workshop baseline is required while preserving orphaned local files in an archive."
+        "recommendation": "Mirroring with backup. Use when a clean synchronization to the designer baseline is required while preserving orphaned local files in an archive."
       }
     }
   }

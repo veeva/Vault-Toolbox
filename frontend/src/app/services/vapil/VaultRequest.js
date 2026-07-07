@@ -1,9 +1,9 @@
 import { logApiCall } from '../../utils/api-history/ApiHistoryHelper';
 import { VAULT_CLIENT_ID, getVaultDNS } from '../ApiService.js';
-import { getVaultApiVersion, getCustomApiHeadersFromStorage } from '../SharedServices';
+import { getVaultApiVersion, getCustomApiHeadersFromStorage, isDevBuild } from '../SharedServices';
 
 export const VAULT_API_VERSION = 'v26.1';
-export const VAULT_DEVELOPER_TOOLBOX_VERSION = 'v26.1.1';
+export const VAULT_DEVELOPER_TOOLBOX_VERSION = 'v26.1.2';
 
 export const HTTP_HEADER_CONTENT_TYPE = 'Content-Type';
 export const HTTP_HEADER_ACCEPT = 'Accept';
@@ -55,22 +55,36 @@ async function fetchAndLogToHistory(url, fetchOptions) {
     try {
         const fetchResponse = await fetch(url, fetchOptions);
 
-        // Log asynchronously off a clone so the caller is not blocked while we read the body.
-        fetchResponse
-            .clone()
-            .text()
-            .then((responseBodyText) => {
-                logApiCall({
-                    method: requestMethod,
-                    url,
-                    durationMs: performance.now() - requestStartTime,
-                    requestHeaders,
-                    requestBody,
-                    responseStatus: fetchResponse.status,
-                    responseHeaders: fetchResponse.headers,
-                    responseBody: responseBodyText,
+        // The response payload is only captured in dev builds; production builds never read or store it.
+        if (isDevBuild()) {
+            // Log asynchronously off a clone so the caller is not blocked while we read the body.
+            fetchResponse
+                .clone()
+                .text()
+                .then((responseBodyText) => {
+                    logApiCall({
+                        method: requestMethod,
+                        url,
+                        durationMs: performance.now() - requestStartTime,
+                        requestHeaders,
+                        requestBody,
+                        responseStatus: fetchResponse.status,
+                        responseHeaders: fetchResponse.headers,
+                        responseBody: responseBodyText,
+                    });
                 });
+        } else {
+            logApiCall({
+                method: requestMethod,
+                url,
+                durationMs: performance.now() - requestStartTime,
+                requestHeaders,
+                requestBody,
+                responseStatus: fetchResponse.status,
+                responseHeaders: fetchResponse.headers,
+                responseBody: '',
             });
+        }
 
         return fetchResponse;
     } catch (networkError) {

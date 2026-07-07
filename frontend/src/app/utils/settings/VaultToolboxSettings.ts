@@ -48,6 +48,9 @@ export const defaultSettings: VaultToolboxSettings = {
             showVaultAdminLinks: true,
         },
     },
+    workflowActivityLogInspector: {
+        enabled: true,
+    },
 };
 
 interface SettingsMetadataItem {
@@ -61,6 +64,7 @@ type PageSettingsMetadataType = {
     dataTools: SettingsMetadataItem;
     fileBrowser: SettingsMetadataItem;
     dataNavigator: SettingsMetadataItem;
+    workflowActivityLogInspector: SettingsMetadataItem;
 };
 
 export const PageSettingsMetadata: PageSettingsMetadataType = {
@@ -84,6 +88,10 @@ export const PageSettingsMetadata: PageSettingsMetadataType = {
         label: 'Data Navigator',
         infoText:
             'Allows you to <b>View</b> all record field values and <b>Navigate</b> to related records in those fields.',
+    },
+    workflowActivityLogInspector: {
+        label: 'Workflow Activity Log Inspector',
+        infoText: 'Allows you to <b>Analyze</b> and <b>Visualize</b> Workflow Activity logs.',
     },
 };
 

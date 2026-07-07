@@ -1,6 +1,6 @@
 # Vault Unit Tester: Boilerplate Templates
 
-## Testing a Utility Function (`[Util].test.ts`)
+## Testing a Utility Function ([Util].test.ts)
 
 ```typescript
 import { describe, it, expect } from 'vitest';
@@ -17,7 +17,7 @@ describe('ApiService Error Handling', () => {
 });
 ```
 
-## Testing a Custom Hook (`[Hook].test.tsx`)
+## Testing a Custom Hook ([Hook].test.tsx)
 
 ```tsx
 import { renderHook, waitFor } from '@testing-library/react';

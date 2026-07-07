@@ -22,7 +22,7 @@ interface ApiHistoryExpandedRowProps {
 export default function ApiHistoryExpandedRow({ details }: ApiHistoryExpandedRowProps) {
     return (
         <Flex {...ParentFlexStyle}>
-            <Tabs.Root {...TabsRootStyle}>
+            <Tabs.Root {...TabsRootStyle} defaultValue={details.defaultTabValue}>
                 <Flex {...TabsListFlexStyle}>
                     <Tabs.List {...TabListStyle}>
                         <Tabs.Trigger value='request-headers' {...TabLabelStyle}>
@@ -40,11 +40,13 @@ export default function ApiHistoryExpandedRow({ details }: ApiHistoryExpandedRow
                                 Response Headers
                             </Flex>
                         </Tabs.Trigger>
-                        <Tabs.Trigger value='response-payload' {...TabLabelStyle}>
-                            <Flex width='180px' alignItems='center' justifyContent='center'>
-                                Response Payload
-                            </Flex>
-                        </Tabs.Trigger>
+                        {details.responsePayload && (
+                            <Tabs.Trigger value='response-payload' {...TabLabelStyle}>
+                                <Flex width='180px' alignItems='center' justifyContent='center'>
+                                    Response Payload
+                                </Flex>
+                            </Tabs.Trigger>
+                        )}
                         <Tabs.Indicator {...TabIndicatorStyle} />
                     </Tabs.List>
                 </Flex>
@@ -108,26 +110,28 @@ export default function ApiHistoryExpandedRow({ details }: ApiHistoryExpandedRow
                         </Box>
                     )}
                 </Tabs.Content>
-                <Tabs.Content value='response-payload' padding={0}>
-                    {details.responsePayload.isEmpty ? (
-                        <Box {...PanelEmptyStateStyle}>
-                            <Text color='veeva_dark_gray_text_color_mode'>No response body recorded.</Text>
-                        </Box>
-                    ) : details.responsePayload.language === 'json' ? (
-                        <Box {...PayloadContainerStyle}>
-                            <JsonSyntaxHighlighter dataToDisplay={details.responsePayload.rawText} />
-                        </Box>
-                    ) : (
-                        <Box
-                            {...PayloadContainerStyle}
-                            padding='12px'
-                            fontFamily='mono'
-                            backgroundColor='beige_color_mode'
-                        >
-                            <pre style={PlaintextPreStyle}>{details.responsePayload.rawText}</pre>
-                        </Box>
-                    )}
-                </Tabs.Content>
+                {details.responsePayload && (
+                    <Tabs.Content value='response-payload' padding={0}>
+                        {details.responsePayload.isEmpty ? (
+                            <Box {...PanelEmptyStateStyle}>
+                                <Text color='veeva_dark_gray_text_color_mode'>No response body recorded.</Text>
+                            </Box>
+                        ) : details.responsePayload.language === 'json' ? (
+                            <Box {...PayloadContainerStyle}>
+                                <JsonSyntaxHighlighter dataToDisplay={details.responsePayload.rawText} />
+                            </Box>
+                        ) : (
+                            <Box
+                                {...PayloadContainerStyle}
+                                padding='12px'
+                                fontFamily='mono'
+                                backgroundColor='beige_color_mode'
+                            >
+                                <pre style={PlaintextPreStyle}>{details.responsePayload.rawText}</pre>
+                            </Box>
+                        )}
+                    </Tabs.Content>
+                )}
             </Tabs.Root>
         </Flex>
     );
@@ -153,7 +157,6 @@ const TabsListFlexStyle: FlexProps = {
 };
 
 const TabsRootStyle: TabsRootProps = {
-    defaultValue: 'response-payload',
     variant: 'plain',
     size: 'lg',
     height: '100%',

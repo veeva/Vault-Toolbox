@@ -1,6 +1,6 @@
 ---
 name: vault-code-reviewer
-description: Performs an automated "Self-Review" of code. Use this at the end of every task in TODO.md to ensure compliance with standards.
+description: Performs an automated self-audit of code and metadata. Use this at the end of every task to ensure compliance with standards.
 triggers:
   - ui-check
   - review
@@ -8,41 +8,36 @@ triggers:
   - checklist
 ---
 
-# Vault Code Reviewer
+# Vault Code Reviewer (Base)
 
-This skill acts as an automated "Self-Audit" for any new or modified code. It ensures that the project's high standards are met before work is considered complete.
+This skill acts as an automated self-audit for any new or modified code. It ensures that the project's high standards are met before work is considered complete.
 
-## UI Review (Island Architecture)
-Check all new or modified UI components against the 19-point Island Architecture Checklist:
-- **Pillars:** Header, Island, Status, and Context Panel.
-- **Tokens:** Correct semantic tokens (`white_color_mode`, etc.).
-- **Hierarchy:** Pages MUST use the `VStack` template.
-- **Accessibility:** Tooltips on all icons; high-contrast borders for checkboxes in Dark Mode.
-- **Consistency:** Tabs (60px height), indicators, and margins.
-- **Visibility:** Tool MUST be integrated into the application menu bar and have an ON/OFF toggle in the Settings page.
-- **Production Protection:** Confirm that modifying controls are disabled in Production with appropriate tooltip messaging.
+## 1. Operational Review
 
-## API & Data Review (Pattern Compliance)
-Check all service/hook changes against the `ApiService` patterns:
-- **Auth:** Sessions retrieved via cookies (Manifest V3 pattern).
-- **Error Handling:** Use of `handleErrors` normalization.
-- **Telemetry:** Presence of execution time and size metrics in responses.
-- **No Direct Fetch:** All Vault calls MUST use the `vapil` request builders.
-- **Logging:** Verify presence of `console.log` during development phases and its removal in Phase 8 (if requested).
-- **Production Protection:** Verify that modifying API calls are gated by `isProductionVault()` checks.
+### Evidence-First Audit
+- Verify that any field access marked as "assumed" is identified and flagged for confirmation against real data.
+- Check that parsers for external data include logging for unexpected or empty results.
+- Confirm that test fixtures are derived from real response payloads, not hand-crafted.
 
-## Architectural Review (SDD & YAGNI)
-- **Impact Check:** Ensure no unrelated code was refactored.
-- **YAGNI Audit:** Confirm no "dead code" or "just-in-case" logic was added.
-- **Dryness:** Check for reuse of shared components (`<VirtualizedTable />`, `<CodeEditor />`).
+### TDD and Quality
+- Confirm that new logic is covered by Vitest (Frontend) or JUnit (Backend) tests.
+- Audit for redundant code or over-engineering (YAGNI).
+- Verify that development logs are present and ready for removal only in Phase 8.
+- **Failures and Catch Blocks:** Audit all catch blocks and async handlers to ensure they do not fail silently. Swallowed errors (logging to console without presenting a visual notification, toast, or alert to the user) are a blocker.
+- **Variable & Parameter Naming:** Verify that single-character variable names (e.g., `e`, `i`, `n`...) are NEVER used. Ensure variables are named descriptively to clearly communicate their purpose (e.g., avoid vague names like `layoutedNodes`).
 
-## Output: Review Report
-At the end of a task, provide a brief summary of the audit:
-- **✅ PASS:** [Areas where the code is perfect]
-- **⚠️ REFACTOR:** [Minor deviations from naming or styling standards]
-- **❌ BLOCKED:** [Critical violations of Island Architecture or TDD mandates]
+### Express Debt Audit
+- For features built via the Express Lane (`:feature-express`), run `node .agents/scripts/express_guard.js <featureDir>` and surface every residual `@express-*` tag and `it.todo` / `describe.skip` stub.
+- Any open express debt is a **BLOCKED** result until graduated via `:promote`. (See `vault-express-mode`.)
 
-## Rules to Follow
-- **Be Critical:** Do not rubber-stamp a review. If a standard is missed, point it out.
-- **Reference Document:** Use the 19-point checklist as the primary authority.
-- **Self-Correction:** If you find a violation in your own code, fix it IMMEDIATELY and re-review.
+## 2. Environment Safety
+- Verify that operations that modify data include checks (e.g., isProductionVault()) to ensure they are not running in a Production environment unless specifically authorized.
+
+## 3. API Pattern Compliance
+- **Status Check Audit:** The automated code review MUST verify that API response handling explicitly checks for `FAILURE` and does not rigidly require `SUCCESS`. This accounts for Vault API returning `WARNING` for valid data retrieval.
+
+## 4. Output: Review Report
+At the end of an audit, provide a brief summary:
+- PASS: Standards met.
+- REFACTOR: Minor deviations from naming or styling standards.
+- BLOCKED: Critical violations (e.g., missing tests, framework violations, security risks).

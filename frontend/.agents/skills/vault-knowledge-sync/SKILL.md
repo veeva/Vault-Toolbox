@@ -1,6 +1,6 @@
 ---
 name: vault-knowledge-sync
-description: Guides the systematic updating of the project's "Source of Truth" documentation. Use after implementing new features or refactoring.
+description: Synchronizes project documentation, the codebase knowledge graph, and the skills manifest. Use after implementing features or refactoring.
 triggers:
   - sync
   - documentation
@@ -8,37 +8,40 @@ triggers:
   - repo_map
 ---
 
-# Vault Knowledge Sync
+# Vault Knowledge Sync (Base)
 
 This skill ensures that the project's "Source of Truth" documents and the automated knowledge graph accurately reflect the current state of the codebase.
 
-## Core Workflow
+## 1. Documentation Update
+When project architecture, standards, or workflows change:
+- Update foundational files in .agents/ (toolbox-designer-identity.md, toolbox-designer-workflow.md, toolbox-designer-standards.md).
+- Update app-specific foundational files in .agents/ (<app_name>-architecture.md, <app_name>-standards.md).
+- Ensure new feature design or implementation documents are archived in .agents/features/.
 
-### 1. Identify Impacted Documents
-Depending on the change, identify which markdown files in `.agents/ai_agent_instructions/` need updates:
-- **New Feature:** `identity.md` (Description) and create a new file in `features/`.
-- **Architectural Change:** `architecture.md`.
-- **API Update:** `architecture.md` or `standards.md`.
-- **Workflow/Testing Change:** `workflow.md`.
-- **UI/Layout Change:** `vault-ui-designer/SKILL.md` or `standards.md`.
+## 2. Graph and Repo Map Synchronization (MANDATORY)
+The knowledge graph is the backbone of autonomous navigation. Rebuild it after any significant code or metadata change:
+- Rebuild Command: Run the app-specific generation command (e.g., `node .agents/scripts/generate_graph.js`).
+- Verify Output:
+  - Check codebase_graph.json for new file nodes and relationships.
+  - Inspect repo_map.md to ensure high-rank components are correctly identified.
 
-### 2. Update the Content
-Apply surgical updates to the identified files. Maintain the existing tone, formatting, and level of detail.
+## 3. Skills Manifest Synchronization
+The skills manifest (skills.md) is automatically generated from SKILL.md frontmatter:
+- Validation: Ensure all SKILL.md files have valid YAML frontmatter including name, description, and applicable_apps.
+- Discovery: The manifest facets skills by application for efficient AI discovery.
 
-### 3. Synchronize the Knowledge Graph, Repo Map & Skills Manifest
-Ensure the automated graph reflects the new dependencies:
-- Run `npm run graph:gen` to rebuild `codebase_graph.json`, the PageRank-weighted `repo_map.md`, and the `skills.md` manifest.
-- **Progressive Disclosure Validation:** Verify that all `SKILL.md` files have valid YAML frontmatter (name, description, triggers).
-- Verify the update by:
-    1. Inspecting `skills.md` to ensure new skills are correctly indexed.
-    2. Inspecting `repo_map.md` to ensure new/modified files appear with their expected exports.
-    3. Searching for new/modified symbols in the JSON graph: `node .agents/ai_agent_instructions/scripts/search_graph.js "SymbolName"`.
+## 4. Finalization Guard (Express Mode)
+Before a feature may be marked **finalized** (Phase 8), the Express merge guard MUST pass:
+- Run `node .agents/scripts/express_guard.js <featureDir>`.
+- A non-zero exit (any residual `@express-*` tag or `it.todo` / `describe.skip` stub) **hard-blocks** finalization. Graduate the feature via `:promote` first.
+- This gate is mandatory because express code is not physically isolated; the guard is what prevents deferred-rigor code from shipping un-backfilled. (See `vault-express-mode`.)
+
+## 5. Knowledge Verification
+Use the search script to verify the graph's understanding of new symbols:
+- Search Command: node .agents/scripts/search_graph.js <SymbolName>
+- Confirm both Inbound (usage) and Outbound (dependency) relationships.
+
+---
 
 ## Reference Materials
-- **[sync-checklist.md](references/sync-checklist.md)**: A quick checklist to run after any significant task.
-
-## Rules to Follow
-- **No Guessing:** If unsure about a dependency, consult `codebase_graph.json` or run the search script.
-- **Tone Consistency:** Keep descriptions technical, concise, and focused on "How it works" and "Why."
-- **Surgical Edits:** Only update the sections directly impacted by your changes.
-- **Verification:** After updating, summarize which documents were modified and confirm the graph was regenerated.
+- references/sync-checklist.md: Task completion checklist.

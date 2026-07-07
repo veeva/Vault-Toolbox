@@ -1,5 +1,5 @@
 # Heavy JSON graph - Too large for context
-.agents/ai_agent_instructions/codebase_graph.json
+.agents/meta/codebase_graph.json
 
 # Dependencies
 node_modules/

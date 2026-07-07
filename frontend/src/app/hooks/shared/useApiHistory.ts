@@ -1,5 +1,6 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { isDevBuild } from '../../services/SharedServices';
 import {
     ApiHistoryEntry,
     ApiHistoryExpandedDetails,
@@ -64,9 +65,11 @@ export default function useApiHistory(): UseApiHistoryReturn {
 
         return {
             requestPayload: buildPayload(matchingEntry.requestPayload),
-            responsePayload: buildPayload(matchingEntry.responseBody),
+            // The response payload is only captured and shown in dev builds.
+            responsePayload: isDevBuild() ? buildPayload(matchingEntry.responseBody) : null,
             allRequestHeaders: buildSortedHeaderList(matchingEntry.requestHeaders),
             allResponseHeaders: buildSortedHeaderList(matchingEntry.responseHeaders),
+            defaultTabValue: isDevBuild() ? 'response-payload' : 'response-headers',
         };
     }, [expandedEntryId, historyEntries]);
 

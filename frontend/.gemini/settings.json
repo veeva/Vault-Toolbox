@@ -5,8 +5,7 @@
       "GEMINI.md"
     ],
     "includeDirectories": [
-      ".agents/ai_agent_instructions",
-      ".agents/features"
+      ".agents/"
     ]
   },
   "mcpServers": {

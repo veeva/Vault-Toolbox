@@ -1,6 +1,6 @@
 ---
 name: vault-tool-builder
-description: Guides the structural scaffolding of new features. Use when generating initial files (Page, Island, Hook).
+description: Universal methodology for scaffolding new features using Toolbox Designer.
 triggers:
   - scaffold
   - blueprint
@@ -8,21 +8,17 @@ triggers:
   - island
 ---
 
-# Vault Tool Builder
+# Vault Tool Builder (Base)
 
-This skill handles the creation and wiring of new feature files. It focuses on the structural organization and defers all layout and styling details to the **`vault-ui-designer`** skill.
+This skill provides the universal methodology for the initial creation and organization of new feature assets.
 
-## End-to-End Tool Wiring Guide
-Follow these 4 steps to integrate a new feature into the shell:
+## 1. Structural Organization
+Before writing business logic or styling, you MUST establish the structural foundation of the feature:
+- Define the directory structure within the appropriate domain.
+- Create the core entry point (Page) and main functional component (Island).
+- Initialize the state management hook.
 
-1. **Register Route (`App.jsx`):** Add the page to the main router within the `<Layout />`.
-2. **Navigation Sidebar (`SidebarItems.ts`):** Add an entry with an appropriate `PiIcon` and `pageId`.
-3. **Register in Settings (`VaultToolboxSettings.ts`):** 
-    - Add to `defaultSettings` (enabled: true).
-    - Add to `PageSettingsMetadata` (Label & InfoText).
-4. **Layout Verification:** Compare side-by-side with **Component Editor** to ensure **Nested Pillar** consistency.
-
-## Rules to Follow
-- **Shared Components Only:** Always use `<VirtualizedTable />`, `<CodeEditor />`, and `<CustomSelect />` from `src/app/components/shared/`.
-- **Snippet Enforcement:** Import standard UI components from `.../shared/ui-components/` ONLY.
-- **Background Messaging:** For cross-origin or persistent tasks, use `chrome.runtime.sendMessage` to communicate with `background.js`.
+## 2. Methodology
+- Separation of Concerns: Separate presentation (components) from logic (hooks) and data (services).
+- Design Alignment: Ensure the initial scaffold matches the approved Design Document and Definition of Done.
+- Incremental Wiring: Wire the feature into the application shell as the first step to ensure launchability.

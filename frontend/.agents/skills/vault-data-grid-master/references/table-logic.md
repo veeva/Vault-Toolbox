@@ -2,7 +2,7 @@
 
 ## Column Definition Pattern
 
-When defining columns for `TanStack Table`, follow this structure:
+When defining columns for TanStack Table, follow this structure:
 
 ```tsx
 import { useMemo } from 'react';
@@ -32,7 +32,7 @@ export const useColumns = () => {
 
 ## Table Hook Pattern
 
-Use this template in your `use[Feature]Table.ts` hook:
+Use this template in your use[Feature]Table.ts hook:
 
 ```tsx
 import { useReactTable, getCoreRowModel, getSortedRowModel, getFilteredRowModel } from '@tanstack/react-table';

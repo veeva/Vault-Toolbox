@@ -85,6 +85,14 @@ export function getVaultApiVersion(): string {
 }
 
 /**
+ * Whether this is a development build (`npm run dev`) rather than a production build (`npm run build`).
+ * Backed by the IS_DEV_BUILD flag injected per build config via webpack's DefinePlugin.
+ */
+export function isDevBuild(): boolean {
+    return process.env.IS_DEV_BUILD === 'true';
+}
+
+/**
  * Retrieves the value of vaultCustomApiHeaders from session storage
  */
 export function getCustomApiHeadersFromStorage(): CustomApiHeader[] {

@@ -276,9 +276,12 @@ export interface ApiHistoryPayload {
 
 export interface ApiHistoryExpandedDetails {
     requestPayload: ApiHistoryPayload;
-    responsePayload: ApiHistoryPayload;
+    /** Null in production builds, where the response payload is neither captured nor displayed. */
+    responsePayload: ApiHistoryPayload | null;
     allRequestHeaders: ApiHistoryDisplayedHeader[];
     allResponseHeaders: ApiHistoryDisplayedHeader[];
+    /** Tab shown first when a row is expanded. */
+    defaultTabValue: string;
 }
 
 export interface ApiHistoryRow {

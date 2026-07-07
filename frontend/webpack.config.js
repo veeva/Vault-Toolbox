@@ -57,6 +57,7 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env': JSON.stringify(process.env),
+            'process.env.IS_DEV_BUILD': JSON.stringify('false'),
         }),
         new MonacoWebpackPlugin({
             languages: ['javascript'],

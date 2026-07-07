@@ -24,6 +24,7 @@ import {
     listItemsAtAPathByPage as vapilListItemsAtAPathByPage,
 } from './vapil/FileStagingRequest';
 import { retrieveJobStatus as vapilRetrieveJobStatus } from './vapil/JobsRequest';
+import { downloadWorkflowActivityLog as vapilDownloadWorkflowActivityLog } from './vapil/LogRequest';
 import {
     executeMdlScript as vapilExecuteMdlScript,
     executeMdlScriptAsync as vapilExecuteMdlScriptAsync,
@@ -442,6 +443,29 @@ export async function retrieveJobStatus(jobId) {
         return response;
     } catch (error) {
         return handleErrors(error);
+    }
+}
+
+/**
+ * Calls the Vault API's Download Workflow Activity Log endpoint.
+ * @returns Vault Response
+ */
+export async function downloadWorkflowActivityLog(date) {
+    try {
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus, responseHeaders } = await vapilDownloadWorkflowActivityLog(date);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime,
+        });
+
+        return { response, responseTelemetry, responseHeaders };
+    } catch (error) {
+        return { response: handleErrors(error) };
     }
 }
 

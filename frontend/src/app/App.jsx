@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import SettingsPage from './pages/SettingsPage';
 import VaultInfoPage from './pages/VaultInfoPage';
 import VqlEditorPage from './pages/VqlEditorPage';
+import WorkflowActivityLogInspectorPage from './pages/WorkflowActivityLogInspectorPage';
 
 function App() {
     return (
@@ -24,6 +25,10 @@ function App() {
                             <Route path='data-tools' element={<DataToolsPage />} />
                             <Route path='file-browser' element={<FileBrowserPage />} />
                             <Route path='data-navigator' element={<DataNavigatorPage />} />
+                            <Route
+                                path='workflow-activity-log-inspector'
+                                element={<WorkflowActivityLogInspectorPage />}
+                            />
                             <Route path='settings' element={<SettingsPage />} />
                         </Route>
                     </Route>

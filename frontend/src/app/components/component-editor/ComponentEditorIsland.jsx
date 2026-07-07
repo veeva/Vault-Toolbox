@@ -25,9 +25,9 @@ export default function ComponentEditorIsland({ consoleOutput, code, setCode, is
             <PanelGroup direction='vertical' autoSaveId='ComponentEditorIsland-PanelGroup'>
                 <Panel defaultSize={70} minSize={30}>
                     <Flex flexDirection='column' height='100%' width='100%'>
-                        <Tabs.Root {...TabsStyle}>
+                        <Tabs.Root {...TabsStyle} defaultValue='mdl'>
                             <Tabs.List {...TabListStyle}>
-                                <Tabs.Trigger {...TabStyle}>
+                                <Tabs.Trigger {...TabStyle} value='mdl'>
                                     <Flex width='180px' alignItems='center' justifyContent='center'>
                                         MDL
                                     </Flex>
@@ -100,6 +100,7 @@ const TabStyle = {
     fontSize: 'xl',
     width: '180px',
     height: '100%',
+    background: 'transparent',
 };
 
 const TabIndicatorStyle = {

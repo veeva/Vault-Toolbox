@@ -1,0 +1,61 @@
+{
+  "skill_name": "veeva-vault-deployer",
+  "note": "Adapted on ingestion (2026-06-15) to this project's architecture: packaging is done by scripts (vault-vpk-builder for the all-in-one VPK; package_client.js for client distributions), and ALL API calls go through the authenticated vault_api.js gateway. No sessionId is collected in-conversation. Deployment is gated on vault_api auth. Scripts are Node/JS (no Python runtime).",
+  "evals": [
+    {
+      "id": 0,
+      "name": "package-all-in-one-vpk",
+      "prompt": "Build a deployable VPK for my feature (it has both a Java PageController under server/ and a React custom page under client/). I just want the package — I'll deploy it myself later.",
+      "files": [],
+      "expected_output": "Uses vault-vpk-builder (node .agents/skills/vault-vpk-builder/scripts/vpk.js <NAME>) to produce one all-in-one .vpk under toolbox/vpk/packages/. Does NOT attempt to deploy. Reports the .vpk path.",
+      "assertions": [
+        "Packages via vault-vpk-builder's vpk.js, not a hand-built or javasdk-only VPK",
+        "Auto-detects that both client and server code are present and packages them together",
+        "Does not call any vault_api deploy command (user asked to package only)",
+        "Reports the resulting .vpk path under toolbox/vpk/packages/"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "auth-gate-decline",
+      "prompt": "Deploy my custom page to my Vault.",
+      "files": [],
+      "expected_output": "Runs `node .agents/scripts/vault_api.js status` first. If not authenticated, asks whether the user wants to authenticate. If the user declines, packages the artifact only and stops, telling them how to deploy later. Never prompts for a raw sessionId on the command line as the primary path.",
+      "assertions": [
+        "Runs vault_api.js status before any deploy",
+        "If not authenticated, offers to authenticate via vault_api auth",
+        "If auth is declined, packages only and does not deploy",
+        "Does not collect a sessionId into the conversation/command line as its own auth mechanism"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "vpk-import-deploy-pipeline",
+      "prompt": "I'm authenticated to my dev sandbox via vault_api. Import and deploy toolbox/vpk/packages/MY-FEATURE.vpk.",
+      "files": [],
+      "expected_output": "Drives the vault_api pipeline: import-package --file ... → job-status --id <import_job> --wait → vql lookup of vault_package__v id → (warn about Configuration Mode) → deploy-package --id <pkg> → job-status --id <deploy_job> --wait. Surfaces final SUCCESS/failure and log location.",
+      "assertions": [
+        "Uses vault_api import-package with the .vpk as payload",
+        "Polls the import job with job-status --wait",
+        "Looks up package_id via a vql query on vault_package__v (id, name__v, created_date__v only)",
+        "Warns that Configuration Mode is recommended before deploy",
+        "Uses vault_api deploy-package then polls the deploy job",
+        "Defaults to incremental deployment; does not silently use replace_all/delete_all"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "client-direct-deploy",
+      "prompt": "Just push my custom page client bundle and register the Page — no full VPK. I'm authenticated.",
+      "files": [],
+      "expected_output": "package_client.js builds + zips the bundle (dist/ prefix) and generates page.mdl, then vault_api upload-distribution uploads the zip, then vault_api execute-mdl runs the Page MDL (upload BEFORE execute). Surfaces the absolute page URL.",
+      "assertions": [
+        "Packages with package_client.js (no network in the packaging step)",
+        "Zip keeps the dist/ prefix matching distribution-manifest.json",
+        "Uploads via vault_api upload-distribution before executing the Page MDL",
+        "Runs the Page MDL via vault_api execute-mdl",
+        "Surfaces the https://<dns>/ui/#custom/page/<url_path_name> URL"
+      ]
+    }
+  ]
+}

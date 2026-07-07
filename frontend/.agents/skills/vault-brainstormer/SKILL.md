@@ -1,6 +1,6 @@
 ---
 name: vault-brainstormer
-description: Guides the "Brainstorming" and "Socratic Design" phase (Phase 1). Use this to refine requirements and explore multiple implementation paths.
+description: Guides the Brainstorming and Socratic Design phase. Use this at the start of any new feature to explore architectural paths.
 triggers:
   - brainstorm
   - socratic
@@ -8,33 +8,30 @@ triggers:
   - yagni
 ---
 
-# Vault Brainstormer
+# Vault Brainstormer (Base)
 
-This skill is designed to prevent "premature implementation" by forcing a rigorous design exploration before any code is written. It uses a Socratic approach to uncover hidden complexities and enforce YAGNI.
+This skill prevents premature implementation through aggressive Socratic exploration. The goal is to identify anti-patterns, verify architectural feasibility, and ensure every line of code has a clear purpose.
 
-## Socratic Questioning Strategy
-When triggered, you MUST ask the user at least 3 deep-dive questions. Examples:
-- "What happens if this API returns a 429 rate limit error during this operation?"
-- "Is this feature strictly necessary for the core MVP, or is it a 'nice-to-have' that we can skip (YAGNI)?"
-- "How does this scale if the user has 10,000 documents instead of 10?"
+## 1. Socratic Questioning Strategy
+When a new feature or fix is proposed, you MUST adopt a critical, analytical posture. Ask the user at least 3 deep-dive questions to uncover hidden complexities.
 
-## Three Paths Methodology
-You MUST propose 3 distinct implementation alternatives to the user:
+### Examples:
+- What happens if this API returns a 429 rate limit error?
+- Is this feature strictly necessary for the core MVP, or is it a "nice-to-have" (YAGNI)?
+- How does this scale if the user has 10,000 records instead of 10?
 
-1. **Path A: Minimal (The YAGNI Path):** The simplest, most direct implementation that meets the core requirement with the least code.
-2. **Path B: Scalable (The Robust Path):** A more structured approach with advanced error handling, virtualization, and performance optimizations.
-3. **Path C: Experimental (The High-Value Path):** A path that explores a novel UI interaction or uses a more advanced API capability (e.g., async polling).
+### Anti-Pattern Detection
+- Look for "loops within loops," redundant API calls, or "God Controllers" that do too much.
+- Verify environment safety and how the feature behaves in Production.
 
-## Output: Brainstorm Summary
-End the brainstorming phase by summarizing the user's choices in a brief list:
-- **Selected Path:** [A/B/C]
-- **Key Refinements:** [Any changes made during Socratic questioning]
-- **Discarded Features (YAGNI):** [What we agreed NOT to build]
+## 2. Three Paths Methodology
+Only once all Socratic questions are resolved, propose 3 distinct implementation alternatives:
 
-## Rules to Follow
-- **No Implementation:** Never suggest code in this phase. Focus exclusively on intent and architecture.
-- **VQL Query Tester:** VQL queries must be exact. You MUST strictly request the user to provide the VQL Query to be used.
-    - If you (the agent) suggest a query, ask the user to **prototype it in the Vault Toolbox's VQL Editor** first.
-    - Ask the user to provide the exact query string and a sample JSON response that confirms it returns the desired data.
-- **Challenge Assumptions:** If a user asks for something that violates Island Architecture, you MUST point it out and suggest an alternative.
-- **Wait for Selection:** Do not proceed to the Design phase until the user has explicitly chosen a path.
+1. Path A: Minimal (The YAGNI Path) - The simplest, most direct implementation with the least code.
+2. Path B: Scalable (The Robust Path) - A structured approach with advanced error handling and performance optimizations.
+3. Path C: Experimental (The High-Value Path) - Explores novel UI interactions or advanced API capabilities.
+
+## 3. Operational Rules
+- No Implementation: Never suggest code in this phase. Focus exclusively on intent and architecture.
+- YAGNI Enforcement: Explicitly identify and suggest removal of redundant features.
+- Wait for Selection: Do not proceed to the Design phase until the user has explicitly chosen a Path.

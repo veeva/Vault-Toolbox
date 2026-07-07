@@ -19,9 +19,9 @@ export default function DataToolsIsland({
             <PanelGroup direction='vertical'>
                 <Panel defaultSize={60} minSize={10}>
                     <Flex flexDirection='column' height='100%' width='100%'>
-                        <Tabs.Root {...TabsStyle}>
+                        <Tabs.Root {...TabsStyle} defaultValue='selectData'>
                             <Tabs.List {...TabListStyle}>
-                                <Tabs.Trigger {...TabStyle}>
+                                <Tabs.Trigger {...TabStyle} value='selectData'>
                                     <Flex width='180px' alignItems='center' justifyContent='center'>
                                         Select Data
                                     </Flex>

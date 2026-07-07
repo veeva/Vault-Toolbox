@@ -1,5 +1,13 @@
 import { IconType } from 'react-icons';
-import { PiInfo, PiCodesandboxLogo, PiMagnifyingGlass, PiDatabase, PiFolder, PiCompass } from 'react-icons/pi';
+import {
+    PiInfo,
+    PiCodesandboxLogo,
+    PiMagnifyingGlass,
+    PiDatabase,
+    PiFolder,
+    PiCompass,
+    PiTreeStructure,
+} from 'react-icons/pi';
 
 export interface SidebarItem {
     name: string;
@@ -45,6 +53,12 @@ const SidebarItems: SidebarItem[] = [
         icon: PiCompass,
         route: 'data-navigator',
         pageId: 'dataNavigator',
+    },
+    {
+        name: 'Workflow Activity Log Inspector',
+        icon: PiTreeStructure,
+        route: 'workflow-activity-log-inspector',
+        pageId: 'workflowActivityLogInspector',
     },
 ];
 

@@ -1,6 +1,6 @@
 # Vault Data Grid: Virtualization Pattern
 
-When implementing row virtualization with `TanStack Virtual`, follow this standardized pattern.
+When implementing row virtualization with TanStack Virtual, follow this standardized pattern.
 
 ## Implementation Guide
 
@@ -63,5 +63,5 @@ const getSuffixHeight = () => {
 ```
 
 ## When to use Virtualization
-- **Mandatory:** For any list or table displaying over 50 items.
-- **Recommended:** For tables with complex cell renderers (e.g., icons, buttons, or conditional logic) even at smaller counts (30+).
+- Mandatory: For any list or table displaying over 50 items.
+- Recommended: For tables with complex cell renderers (e.g., icons, buttons, or conditional logic) even at smaller counts (30+).

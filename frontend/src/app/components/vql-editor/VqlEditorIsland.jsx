@@ -43,9 +43,9 @@ export default function VqlEditorIsland({
                 <Panel defaultSize={40} minSize={10}>
                     <Flex flexDirection='column' height='100%' width='100%'>
                         <Flex alignItems='center' borderBottom='solid 3px' borderBottomColor='gray.400'>
-                            <Tabs.Root {...TabsStyle}>
+                            <Tabs.Root {...TabsStyle} defaultValue='vql'>
                                 <Tabs.List {...TabListStyle} flexGrow={1}>
-                                    <Tabs.Trigger {...TabStyle}>
+                                    <Tabs.Trigger {...TabStyle} value='vql'>
                                         <Flex width='180px' alignItems='center' justifyContent='center'>
                                             VQL
                                         </Flex>
@@ -133,6 +133,7 @@ const TabStyle = {
     fontSize: 'xl',
     width: '180px',
     height: '100%',
+    background: 'transparent',
 };
 
 const TabIndicatorStyle = {

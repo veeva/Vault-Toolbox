@@ -137,6 +137,24 @@ export default createSystem(defaultConfig, {
                         _dark: '#2a2a2a',
                     },
                 },
+                workflow_log_card_hover_color_mode: {
+                    value: {
+                        base: '#fff9ee',
+                        _dark: '#3b4654',
+                    },
+                },
+                error_background_color_mode: {
+                    value: {
+                        base: '{colors.red.100}',
+                        _dark: '#3d2224',
+                    },
+                },
+                error_background_hover_color_mode: {
+                    value: {
+                        base: '#fbd0cb',
+                        _dark: '#48292b',
+                    },
+                },
                 yellow_color_mode: {
                     value: {
                         base: '{colors.yellow.100}',

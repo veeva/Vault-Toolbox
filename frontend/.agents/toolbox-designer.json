@@ -1,6 +1,6 @@
 {
   "name": "Toolbox Designer",
-  "version": "26.1.1",
+  "version": "26.1.2",
   "optimized_agents": [
     "claude_code",
     "gemini_cli"
@@ -14,7 +14,8 @@
     ".cursorignore",
     ".mcp.json",
     "AGENTS.md",
-    "CLAUDE.md"
+    "CLAUDE.md",
+    "GEMINI.md"
   ],
   "update_protocols": {
     "default_mode": "UPSERT",

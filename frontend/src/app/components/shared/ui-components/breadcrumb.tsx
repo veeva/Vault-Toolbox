@@ -31,5 +31,6 @@ export const BreadcrumbRoot = React.forwardRef<HTMLDivElement, BreadcrumbRootPro
 );
 
 export const BreadcrumbLink = Breadcrumb.Link;
+export type BreadcrumbLinkProps = Breadcrumb.LinkProps;
 export const BreadcrumbCurrentLink = Breadcrumb.CurrentLink;
 export const BreadcrumbEllipsis = Breadcrumb.Ellipsis;

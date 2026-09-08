@@ -1,8 +1,9 @@
-import { Box, Flex, List, Text } from '@chakra-ui/react';
-import { useMemo } from 'react';
+import { Box, Flex, IconButton, List, Text } from '@chakra-ui/react';
+import { useMemo, useState } from 'react';
 import { ControlledTreeEnvironment, InteractionMode, Tree } from 'react-complex-tree';
 import 'react-complex-tree/lib/style-modern.css';
-import { PiCaretDownBold, PiCaretRightBold, PiFolder } from 'react-icons/pi';
+import { PiCaretDownBold, PiCaretRightBold, PiDownloadSimple, PiFolder } from 'react-icons/pi';
+import { Tooltip } from '../../shared/ui-components/tooltip';
 
 export default function FileStagingTree({
     fileStagingTree,
@@ -11,8 +12,11 @@ export default function FileStagingTree({
     expandedFileStagingTreeItems,
     setExpandedFileStagingTreeItems,
     handleFileStagingFolderClick,
+    handleExportFileStagingFolder,
+    exportingFolderPath,
 }) {
     const items = useMemo(() => fileStagingTree, [fileStagingTree]);
+    const [hoveredFolderIndex, setHoveredFolderIndex] = useState(null);
 
     /**
      * Provides custom styling and sets the appropriate icon for expand/collapse options.
@@ -49,6 +53,8 @@ export default function FileStagingTree({
             }
         };
 
+        const isExporting = exportingFolderPath === item.data?.path?.slice(1);
+
         return (
             <>
                 {item.isFolder ? (
@@ -66,6 +72,8 @@ export default function FileStagingTree({
                                 cursor: 'pointer',
                                 backgroundColor: context.isSelected ? undefined : 'light_gray_color_mode',
                             }}
+                            onMouseEnter={() => setHoveredFolderIndex(item.index)}
+                            onMouseLeave={() => setHoveredFolderIndex(null)}
                             {...context.itemContainerWithChildrenProps}
                             {...context.itemContainerWithoutChildrenProps}
                             {...context.interactiveElementProps}
@@ -75,6 +83,22 @@ export default function FileStagingTree({
                                 <PiFolder style={{ width: 28, height: 20 }} />
                             </List.Indicator>
                             <Text {...TextStyle}>{title}</Text>
+                            <Flex alignItems='center' marginRight='4px'>
+                                <Tooltip content='Export this folder to CSV' openDelay={0} positioning={{ placement: 'top' }}>
+                                    <IconButton
+                                        {...FolderActionButtonStyle}
+                                        aria-label='Export folder listing'
+                                        loading={isExporting}
+                                        style={folderActionStyle(hoveredFolderIndex === item.index || isExporting)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleExportFileStagingFolder(item.data?.path?.slice(1));
+                                        }}
+                                    >
+                                        <PiDownloadSimple size={16} />
+                                    </IconButton>
+                                </Tooltip>
+                            </Flex>
                         </Flex>
                     </List.Item>
                 ) : null}
@@ -146,4 +170,22 @@ const TextStyle = {
     marginY: 2,
     marginX: '5px',
     fontSize: '15px',
+};
+
+const folderActionStyle = (isVisible) => ({
+    visibility: isVisible ? 'visible' : 'hidden',
+    opacity: isVisible ? 1 : 0,
+    transition: 'opacity 0.2s ease-in-out, visibility 0.2s',
+});
+
+const FolderActionButtonStyle = {
+    variant: 'ghost',
+    color: 'inherit',
+    borderRadius: '6px',
+    height: 'auto',
+    minWidth: 'auto',
+    padding: '4px',
+    _hover: {
+        backgroundColor: 'yellow_color_mode',
+    },
 };

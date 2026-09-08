@@ -75,6 +75,12 @@ export default createSystem(defaultConfig, {
                         _dark: 'white',
                     },
                 },
+                dimmed_text_color_mode: {
+                    value: {
+                        base: '{colors.light_gray.500}',
+                        _dark: '{colors.veeva_dark_gray.500}',
+                    },
+                },
                 veeva_sunset_yellow: {
                     five_percent_opacity: {
                         value: {

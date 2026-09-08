@@ -1,11 +1,48 @@
-import { Box, Table, Icon, IconButton } from '@chakra-ui/react';
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import {
+    Box,
+    type BoxProps,
+    Icon,
+    IconButton,
+    type IconButtonProps,
+    type SystemStyleObject,
+    Table,
+    type TableColumnHeaderProps,
+    type TableRootProps,
+} from '@chakra-ui/react';
+import {
+    CellContext,
+    ColumnDef,
+    flexRender,
+    getCoreRowModel,
+    useReactTable,
+} from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useMemo, useRef, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useMemo, useRef, useEffect, useState } from 'react';
 import { PiFolder, PiFileText, PiDownloadSimple, PiCopy, PiTrash } from 'react-icons/pi';
-import { formatBytesToUserFriendlyFormat, formatDateTime } from '../../../services/SharedServices';
+import { formatBytesToUserFriendlyFormat, formatDateTime, isProductionVault } from '../../../services/SharedServices';
+import { FileStagingItem } from '../../../utils/file-browser/FileBrowserHelper';
 import { toaster } from '../../shared/ui-components/toaster';
 import { Tooltip } from '../../shared/ui-components/tooltip';
+
+// A rendered row carries the shared node shape plus the original list index used
+// to scroll to / highlight search results.
+type FileStagingRow = FileStagingItem & { index?: number };
+
+interface FileStagingVirtualizedTableProps {
+    headers: string[];
+    data: FileStagingRow[];
+    handleFileStagingFolderClick: (folder: FileStagingRow) => void;
+    tableHeight: string | number;
+    handleDownloadFileStagingItemClick: (
+        item: FileStagingRow,
+        setIsFileDownloadModalOpen: Dispatch<SetStateAction<boolean>>,
+    ) => void;
+    setIsConfirmDeleteModalOpen: Dispatch<SetStateAction<boolean>>;
+    setDeletedItem: Dispatch<SetStateAction<FileStagingRow | null>>;
+    selectedFileStagingSearchResult: FileStagingRow | null;
+    selectedFileStagingFolder: FileStagingItem | null;
+    setIsFileDownloadModalOpen: Dispatch<SetStateAction<boolean>>;
+}
 
 /**
  * Renders a high-performance table with row virtualization
@@ -21,30 +58,30 @@ export default function FileStagingVirtualizedTable({
     selectedFileStagingSearchResult,
     selectedFileStagingFolder,
     setIsFileDownloadModalOpen,
-}) {
-    const parentRef = useRef(null);
-    const [highlightedRowId, setHighlightedRowId] = useState(null);
-    const [hoveredRow, setHoveredRow] = useState(null);
+}: FileStagingVirtualizedTableProps) {
+    const parentRef = useRef<HTMLDivElement>(null);
+    const [highlightedRowId, setHighlightedRowId] = useState<string | null>(null);
+    const [hoveredRow, setHoveredRow] = useState<string | null>(null);
 
     // Memoized table configuration
-    const tableColumns = useMemo(() => {
+    const tableColumns = useMemo<ColumnDef<FileStagingRow>[]>(() => {
         const dataColumns = headers.map((header) => {
             if (header.toLowerCase() === 'size') {
                 return {
                     header: header,
                     accessorKey: `data.${header}`,
-                    cell: (info) => {
+                    cell: (info: CellContext<FileStagingRow, unknown>) => {
                         const value = info.getValue();
-                        return value ? formatBytesToUserFriendlyFormat(value) : '-';
+                        return value ? formatBytesToUserFriendlyFormat(value as number) : '-';
                     },
                 };
             } else if (header.toLowerCase() === 'modified_date') {
                 return {
                     header: header,
                     accessorKey: `data.${header}`,
-                    cell: (info) => {
+                    cell: (info: CellContext<FileStagingRow, unknown>) => {
                         const value = info.getValue();
-                        return value ? formatDateTime(value) : '-';
+                        return value ? formatDateTime(value as string) : '-';
                     },
                 };
             }
@@ -61,7 +98,7 @@ export default function FileStagingVirtualizedTable({
                 id: 'actions',
                 header: '',
                 size: 80,
-                cell: (info) => {
+                cell: (info: CellContext<FileStagingRow, unknown>) => {
                     const originalRowData = info.row.original;
                     const item = info.row.original;
 
@@ -69,8 +106,13 @@ export default function FileStagingVirtualizedTable({
 
                     return (
                         <>
-                            <Tooltip content='Delete item' openDelay={0} positioning={{ placement: 'top' }}>
+                            <Tooltip
+                                content={isProductionVault() ? 'This feature is not available in Production.' : 'Delete item'}
+                                openDelay={0}
+                                positioning={{ placement: 'top' }}
+                            >
                                 <IconButton
+                                    disabled={isProductionVault()}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         setIsConfirmDeleteModalOpen(true);
@@ -97,13 +139,10 @@ export default function FileStagingVirtualizedTable({
                                     }}
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        navigator.clipboard.writeText(item.data.path);
+                                        navigator.clipboard.writeText(item.data?.path ?? '');
                                         toaster.success({
                                             title: 'Path Copied!',
-                                            status: 'success',
                                             duration: 2000,
-                                            isClosable: true,
-                                            position: 'top',
                                         });
                                     }}
                                     aria-label='Copy path'
@@ -137,7 +176,7 @@ export default function FileStagingVirtualizedTable({
                     );
                 },
             },
-        ];
+        ] as ColumnDef<FileStagingRow>[];
     }, [
         headers,
         handleDownloadFileStagingItemClick,
@@ -147,7 +186,7 @@ export default function FileStagingVirtualizedTable({
         setIsFileDownloadModalOpen,
     ]);
 
-    const table = useReactTable({
+    const table = useReactTable<FileStagingRow>({
         data: data,
         columns: tableColumns,
         getCoreRowModel: getCoreRowModel(),
@@ -211,7 +250,8 @@ export default function FileStagingVirtualizedTable({
                     {...TableStyle}
                     backgroundColor='veeva_sunset_yellow.five_percent_opacity'
                     size='md'
-                    variant='simple'
+                    // previously had variant='simple' (which is invalid in Chakra v3) 
+                    css={{ '& tbody tr': { bg: 'transparent' }, '& th': { borderBottomWidth: 0 } }}
                     stickyHeader
                 >
                     <Table.Header>
@@ -233,7 +273,7 @@ export default function FileStagingVirtualizedTable({
                     <Table.Body>
                         {data.length === 0 ? (
                             <Table.Row>
-                                <Table.Cell {...TdStyle} colSpan='5' textAlign='center'>
+                                <Table.Cell {...TdStyle} colSpan={5} textAlign='center'>
                                     NO ITEMS FOUND
                                 </Table.Cell>
                             </Table.Row>
@@ -297,27 +337,26 @@ export default function FileStagingVirtualizedTable({
     );
 }
 
-const BoxStyle = {
+const BoxStyle: BoxProps = {
     overflow: 'auto',
     width: '100%',
     border: 'none',
     fontSize: 'md',
 };
 
-const TableStyle = {
+const TableStyle: TableRootProps = {
     width: '100%',
-    layout: 'fixed',
 };
 
-const TdStyle = {
+const TdStyle: SystemStyleObject = {
     borderBottom: 'solid thin',
     borderColor: 'gray.300',
-    verticalAlign: 'center',
+    verticalAlign: 'middle',
     fontSize: '16px',
     whiteSpace: 'nowrap',
 };
 
-const IconButtonStyle = {
+const IconButtonStyle: IconButtonProps = {
     _hover: {
         backgroundColor: 'yellow_color_mode',
     },
@@ -326,7 +365,7 @@ const IconButtonStyle = {
     variant: 'ghost',
 };
 
-const ThStyle = {
+const ThStyle: TableColumnHeaderProps = {
     color: 'white',
     textAlign: 'left',
     width: '1%',

@@ -32,6 +32,8 @@ export default function FileBrowserPage() {
         fileStagingTreeError,
         loadingFileStagingTreeFolder,
         handleReloadFileStagingTreeFolder,
+        handleExportFileStagingFolder,
+        exportingFolderPath,
     } = useFileStagingTree({ isActive: activeTab === FILE_STAGING && showFileStaging });
 
     const {
@@ -112,6 +114,8 @@ export default function FileBrowserPage() {
                             expandedFileStagingTreeItems={expandedFileStagingTreeItems}
                             setExpandedFileStagingTreeItems={setExpandedFileStagingTreeItems}
                             handleFileStagingFolderClick={handleFileStagingFolderClick}
+                            handleExportFileStagingFolder={handleExportFileStagingFolder}
+                            exportingFolderPath={exportingFolderPath}
                             fileStagingTreeError={fileStagingTreeError}
                             loadingFileStagingTree={loadingFileStagingTree}
                             directDataTree={directDataTree}

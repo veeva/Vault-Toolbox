@@ -13,6 +13,8 @@ export default function FileBrowserDirectoryPanel({
     expandedFileStagingTreeItems,
     setExpandedFileStagingTreeItems,
     handleFileStagingFolderClick,
+    handleExportFileStagingFolder,
+    exportingFolderPath,
     fileStagingTreeError,
     loadingFileStagingTree,
     directDataTree,
@@ -71,6 +73,8 @@ export default function FileBrowserDirectoryPanel({
                                     expandedFileStagingTreeItems={expandedFileStagingTreeItems}
                                     setExpandedFileStagingTreeItems={setExpandedFileStagingTreeItems}
                                     handleFileStagingFolderClick={handleFileStagingFolderClick}
+                                    handleExportFileStagingFolder={handleExportFileStagingFolder}
+                                    exportingFolderPath={exportingFolderPath}
                                 />
                             </Box>
                         )}

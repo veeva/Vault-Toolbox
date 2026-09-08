@@ -108,9 +108,10 @@ export async function downloadItemContent(item) {
  * @param {String} kind - the type of the item, either FILE or FOLDER
  * @param {String} path - path of the item
  * @param {File} file - file object when kind is FILE
+ * @param {Boolean} overwrite - when kind is FILE, whether to overwrite an existing file with the same name. Defaults to false.
  * @returns - FileStagingItemResponse, ResponseHeaders
  */
-export async function createFolderOrFile(kind, path, file = null) {
+export async function createFolderOrFile(kind, path, file = null, overwrite = false) {
     const url = getAPIEndpoint(URL_FILE_STAGING_CREATE_FILE_OR_FOLDER);
     const authorizationHeader = await getAuthorizationHeader();
 
@@ -126,6 +127,10 @@ export async function createFolderOrFile(kind, path, file = null) {
 
     if (file !== null) {
         formdata.append('file', file);
+    }
+
+    if (overwrite && kind === 'FILE') {
+        formdata.append('overwrite', overwrite);
     }
 
     const requestOptions = {

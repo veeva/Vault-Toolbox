@@ -102,6 +102,7 @@ export default function useFileStagingBrowser({
                     tmpSearchOptions.push({
                         value: item.index,
                         label: item.data?.name || item.index,
+                        path: item.index.split('/').slice(0, -1).join('/') || '/',
                     });
                 }
             });

@@ -208,9 +208,9 @@ export async function downloadItemContent(path) {
  * Calls the Vault API's Create Folder or File endpoint.
  * @returns Vault Response
  */
-export async function createFolderOrFile(kind, path, file) {
+export async function createFolderOrFile(kind, path, file, overwrite = false) {
     try {
-        const { response } = await vapilCreateFolderOrFile(kind, path, file);
+        const { response } = await vapilCreateFolderOrFile(kind, path, file, overwrite);
         return response;
     } catch (error) {
         return handleErrors(error);

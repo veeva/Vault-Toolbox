@@ -5,6 +5,7 @@ import { SettingsProvider } from './context/SettingsContext';
 import ComponentEditorPage from './pages/ComponentEditorPage';
 import DataNavigatorPage from './pages/DataNavigatorPage';
 import DataToolsPage from './pages/DataToolsPage';
+import ErdExplorerPage from './pages/ErdExplorerPage';
 import FileBrowserPage from './pages/FileBrowserPage';
 import LoginPage from './pages/LoginPage';
 import SettingsPage from './pages/SettingsPage';
@@ -25,6 +26,7 @@ function App() {
                             <Route path='data-tools' element={<DataToolsPage />} />
                             <Route path='file-browser' element={<FileBrowserPage />} />
                             <Route path='data-navigator' element={<DataNavigatorPage />} />
+                            <Route path='erd-explorer' element={<ErdExplorerPage />} />
                             <Route
                                 path='workflow-activity-log-inspector'
                                 element={<WorkflowActivityLogInspectorPage />}

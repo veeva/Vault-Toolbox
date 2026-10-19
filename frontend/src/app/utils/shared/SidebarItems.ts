@@ -7,6 +7,7 @@ import {
     PiFolder,
     PiCompass,
     PiTreeStructure,
+    PiGraph,
 } from 'react-icons/pi';
 
 export interface SidebarItem {
@@ -53,6 +54,12 @@ const SidebarItems: SidebarItem[] = [
         icon: PiCompass,
         route: 'data-navigator',
         pageId: 'dataNavigator',
+    },
+    {
+        name: 'ERD Explorer',
+        icon: PiGraph,
+        route: 'erd-explorer',
+        pageId: 'erdExplorer',
     },
     {
         name: 'Workflow Activity Log Inspector',

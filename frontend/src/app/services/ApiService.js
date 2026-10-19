@@ -36,7 +36,7 @@ import {
     retrieveObjectMetadata as vapilRetrieveObjectMetadata,
 } from './vapil/MetaDataRequest';
 import { retrievePicklistValues as vapilRetrievePicklistValues } from './vapil/PicklistRequest';
-import { query as vapilQuery, queryByPage as vapilQueryByPage } from './vapil/QueryRequest';
+import { query as vapilQuery, queryByPage as vapilQueryByPage, queryComponents as vapilQueryComponents } from './vapil/QueryRequest';
 import { retrieveUserMetadata as vapilRetrieveUserMetadata } from './vapil/UserRequest';
 import { getAPIEndpoint, HTTP_HEADER_AUTHORIZATION } from './vapil/VaultRequest';
 
@@ -143,6 +143,30 @@ export async function query(queryString) {
 }
 
 /**
+ * Calls the Vault API's Component Definition Query endpoint (POST /query/components). Required to query
+ * mdl_definition__v / json_definition__v on vault_component__v (the regular query endpoint rejects them).
+ * @returns Vault Response
+ */
+export async function queryComponents(queryString) {
+    try {
+        const apiExecutionStartTime = performance.now();
+        const { response, responseStatus } = await vapilQueryComponents(queryString);
+        const apiExecutionEndTime = performance.now();
+
+        const responseTelemetry = getTelemetryData({
+            response,
+            responseStatus,
+            apiExecutionStartTime,
+            apiExecutionEndTime,
+        });
+
+        return { queryResponse: response, responseTelemetry };
+    } catch (error) {
+        return { queryResponse: handleErrors(error) };
+    }
+}
+
+/**
  * Calls the Vault API's Query By Page endpoint.
  * @returns Vault Response
  */
@@ -161,7 +185,7 @@ export async function queryByPage(pageUrl) {
 
         return { queryResponse: response, responseTelemetry };
     } catch (error) {
-        return handleErrors(error);
+        return { queryResponse: handleErrors(error) };
     }
 }
 

@@ -11,6 +11,7 @@ import {
 } from './VaultRequest.js';
 
 const URL_QUERY = '/query';
+const URL_QUERY_COMPONENTS = '/query/components';
 
 const HTTP_HEADER_VAULT_DESCRIBE_QUERY = 'X-VaultAPI-DescribeQuery';
 
@@ -29,6 +30,40 @@ export async function query(query) {
         ...authorizationHeader,
         [HTTP_HEADER_CONTENT_TYPE]: [HTTP_CONTENT_TYPE_XFORM],
         [HTTP_HEADER_VAULT_DESCRIBE_QUERY]: true,
+    };
+    const method = RequestMethod.POST;
+    const urlencoded = new URLSearchParams();
+    urlencoded.append('q', query);
+
+    const requestOptions = {
+        headers,
+        method,
+        body: urlencoded,
+    };
+
+    const queryResponse = await request(url, requestOptions);
+    const responseHeaders = queryResponse?.headers;
+    const responseStatus = queryResponse?.status;
+    const response = await queryResponse.json();
+
+    return { response, responseHeaders, responseStatus };
+}
+
+/**
+ * Perform a Component Definition Query. This is a DISTINCT endpoint (POST /api/{version}/query/components)
+ * from the regular /query endpoint — the `mdl_definition__v` / `json_definition__v` fields on
+ * `vault_component__v` are ONLY queryable here (querying them via /query fails with "Unknown field").
+ * @param {String} query
+ * @returns QueryResponse, ResponseHeaders
+ */
+export async function queryComponents(query) {
+    const url = getAPIEndpoint(URL_QUERY_COMPONENTS);
+    const authorizationHeader = await getAuthorizationHeader();
+
+    const headers = {
+        ...authorizationHeader,
+        [HTTP_HEADER_ACCEPT]: [HTTP_CONTENT_TYPE_JSON],
+        [HTTP_HEADER_CONTENT_TYPE]: [HTTP_CONTENT_TYPE_XFORM],
     };
     const method = RequestMethod.POST;
     const urlencoded = new URLSearchParams();

@@ -12,5 +12,6 @@
         "types": ["vitest/globals", "chrome"],
         "lib": ["ES2020", "DOM", "DOM.Iterable"]
     },
-    "include": ["./src/"]
+    "include": ["./src/"],
+    "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }

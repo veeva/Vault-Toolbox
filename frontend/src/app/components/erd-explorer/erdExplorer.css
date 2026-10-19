@@ -1,0 +1,53 @@
+/*
+ * ERD Explorer canvas overrides.
+ * Hide React Flow's post-selection group box (the rectangle drawn around multiple selected nodes). We
+ * indicate selection with each node's own highlight instead, so drag-selecting leaves the objects
+ * selected without a leftover box.
+ */
+.react-flow__nodesselection,
+.react-flow__nodesselection-rect {
+    display: none !important;
+}
+
+/*
+ * Edge relationship-label background. Driven by a CSS variable that flips with the color-mode class so it
+ * updates INSTANTLY (no React re-render) — important for image export, where we briefly switch themes and
+ * capture before the JS-computed styles would catch up.
+ */
+:root {
+    --erd-label-bg: #ffffff;
+}
+.dark {
+    --erd-label-bg: #2d2d2d;
+}
+
+/*
+ * The relationship label is a multi-line Outbound/Inbound/Type box, large enough that it frequently
+ * lands on top of a node card (e.g. self-loop edges label right next to their own node). React Flow
+ * renders EdgeLabelRenderer before the node layer, so without this it would sit BEHIND node cards and
+ * get clipped/unreadable wherever it overlapped one — hence the override, high enough to clear even a
+ * selected node's elevated z-index (@xyflow/react bumps selected nodes by 1000).
+ */
+.react-flow__edgelabel-renderer {
+    z-index: 1500;
+}
+
+/*
+ * Match the zoom/fit-view controls' corner radius, background, and shadow to the other canvas
+ * action buttons (undo/redo/search), which use the 'white_color_mode' token: white in light mode,
+ * #303841 in dark mode.
+ */
+.react-flow__controls {
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+.react-flow__controls-button {
+    background-color: white;
+    border-color: #e2e2e2;
+}
+.dark .react-flow__controls-button {
+    background-color: #303841;
+    border-color: #4a525c;
+    color: #f8f8f8;
+}

@@ -1,4 +1,5 @@
 import {
+    Box,
     Button,
     Input,
     InputProps,
@@ -49,51 +50,60 @@ export default function DrawerSidebar({ open, onClose, currentRoute, logout }: D
                             <Text {...DevToolsTextStyle}>Vault Tools</Text>
                         </Flex>
                         <Input
+                            flexShrink={0}
                             {...SearchInputStyle}
                             value={userSearchInput}
                             onChange={(event) => setUserSearchInput(event.target.value)}
                             placeholder='Search tools...'
                         />
-                        {visibleAlwaysShownTools.length > 0 && (
-                            <Stack gap={0} marginTop={0}>
-                                {visibleAlwaysShownTools.map((tool) => (
-                                    <DrawerSidebarItem
-                                        key={tool.name}
-                                        tool={tool}
-                                        currentRoute={currentRoute}
-                                        onClose={onClose}
-                                    />
-                                ))}
-                            </Stack>
-                        )}
-                        {visibleFavoriteTools.length > 0 && (
-                            <Stack gap={0} marginTop={4}>
-                                <Text {...SectionHeaderStyle}>Favorites</Text>
-                                {visibleFavoriteTools.map((tool) => (
-                                    <DrawerSidebarItem
-                                        key={tool.name}
-                                        tool={tool}
-                                        currentRoute={currentRoute}
-                                        onClose={onClose}
-                                    />
-                                ))}
-                            </Stack>
-                        )}
-                        {visibleRemainingTools.length > 0 && (
-                            <Stack gap={0} marginTop={4}>
-                                <Text {...SectionHeaderStyle}>All Tools</Text>
-                                {visibleRemainingTools.map((tool) => (
-                                    <DrawerSidebarItem
-                                        key={tool.name}
-                                        tool={tool}
-                                        currentRoute={currentRoute}
-                                        onClose={onClose}
-                                    />
-                                ))}
-                            </Stack>
-                        )}
+                        <Box minHeight='0' overflowY='auto'>
+                            {visibleAlwaysShownTools.length > 0 && (
+                                <Stack gap={0} marginTop={0}>
+                                    {visibleAlwaysShownTools.map((tool) => (
+                                        <DrawerSidebarItem
+                                            key={tool.name}
+                                            tool={tool}
+                                            currentRoute={currentRoute}
+                                            onClose={onClose}
+                                        />
+                                    ))}
+                                </Stack>
+                            )}
+                            {visibleFavoriteTools.length > 0 && (
+                                <Stack gap={0} marginTop={4}>
+                                    <Text {...SectionHeaderStyle}>Favorites</Text>
+                                    {visibleFavoriteTools.map((tool) => (
+                                        <DrawerSidebarItem
+                                            key={tool.name}
+                                            tool={tool}
+                                            currentRoute={currentRoute}
+                                            onClose={onClose}
+                                        />
+                                    ))}
+                                </Stack>
+                            )}
+                            {visibleRemainingTools.length > 0 && (
+                                <Stack gap={0} marginTop={4}>
+                                    <Text {...SectionHeaderStyle}>All Tools</Text>
+                                    {visibleRemainingTools.map((tool) => (
+                                        <DrawerSidebarItem
+                                            key={tool.name}
+                                            tool={tool}
+                                            currentRoute={currentRoute}
+                                            onClose={onClose}
+                                        />
+                                    ))}
+                                </Stack>
+                            )}
+                        </Box>
                         <Spacer />
-                        <Link asChild onClick={onClose} _hover={{ textDecoration: 'none' }} focusRing='none'>
+                        <Link
+                            asChild
+                            flexShrink={0}
+                            onClick={onClose}
+                            _hover={{ textDecoration: 'none' }}
+                            focusRing='none'
+                        >
                             <RouteLink to='/settings'>
                                 <Tooltip content='Settings' openDelay={0} positioning={{ placement: 'right' }}>
                                     <Flex
@@ -110,7 +120,7 @@ export default function DrawerSidebar({ open, onClose, currentRoute, logout }: D
                                 </Tooltip>
                             </RouteLink>
                         </Link>
-                        <Flex width='100%' paddingX='5px'>
+                        <Flex width='100%' paddingX='5px' flexShrink={0}>
                             <Separator
                                 css={{
                                     width: '100%',
@@ -136,6 +146,7 @@ export default function DrawerSidebar({ open, onClose, currentRoute, logout }: D
 const DevToolsFlexStyle: FlexProps = {
     width: '100%',
     height: '58px',
+    flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
 };
@@ -150,6 +161,7 @@ const SearchInputStyle: InputProps = {
     size: 'sm',
     marginY: '5px',
     borderRadius: '8px',
+    borderColor: 'light_gray_color_mode',
 };
 
 const SectionHeaderStyle: TextProps = {
@@ -171,6 +183,7 @@ const LogoutBtnStyle: ButtonProps = {
     fontSize: 'md',
     variant: 'subtle',
     height: '42px',
+    flexShrink: 0,
     padding: '5px',
     marginX: 0,
     marginY: '10px',

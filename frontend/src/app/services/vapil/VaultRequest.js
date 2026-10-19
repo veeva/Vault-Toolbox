@@ -3,7 +3,7 @@ import { VAULT_CLIENT_ID, getVaultDNS } from '../ApiService.js';
 import { getVaultApiVersion, getCustomApiHeadersFromStorage, isDevBuild } from '../SharedServices';
 
 export const VAULT_API_VERSION = 'v26.2';
-export const VAULT_DEVELOPER_TOOLBOX_VERSION = 'v26.2.0';
+export const VAULT_DEVELOPER_TOOLBOX_VERSION = 'v26.2.1';
 
 export const HTTP_HEADER_CONTENT_TYPE = 'Content-Type';
 export const HTTP_HEADER_ACCEPT = 'Accept';

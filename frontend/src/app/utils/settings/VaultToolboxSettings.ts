@@ -48,6 +48,9 @@ export const defaultSettings: VaultToolboxSettings = {
             showVaultAdminLinks: true,
         },
     },
+    erdExplorer: {
+        enabled: true,
+    },
     workflowActivityLogInspector: {
         enabled: true,
     },
@@ -64,6 +67,7 @@ type PageSettingsMetadataType = {
     dataTools: SettingsMetadataItem;
     fileBrowser: SettingsMetadataItem;
     dataNavigator: SettingsMetadataItem;
+    erdExplorer: SettingsMetadataItem;
     workflowActivityLogInspector: SettingsMetadataItem;
 };
 
@@ -88,6 +92,11 @@ export const PageSettingsMetadata: PageSettingsMetadataType = {
         label: 'Data Navigator',
         infoText:
             'Allows you to <b>View</b> all record field values and <b>Navigate</b> to related records in those fields.',
+    },
+    erdExplorer: {
+        label: 'ERD Explorer',
+        infoText:
+            'Allows you to <b>Visualize</b> Vault object relationships as an interactive entity diagram and <b>Explore</b> inbound/outbound relationships.',
     },
     workflowActivityLogInspector: {
         label: 'Workflow Activity Log Inspector',

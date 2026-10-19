@@ -1,20 +1,21 @@
 import { Dialog as ChakraDialog, Portal } from '@chakra-ui/react';
-import { CloseButton } from './close-button';
+import { CloseButton, type CloseButtonProps } from './close-button';
 import * as React from 'react';
 
 export interface DialogContentProps extends ChakraDialog.ContentProps {
     portalled?: boolean;
-    portalRef?: React.RefObject<HTMLElement>;
+    portalRef?: React.RefObject<HTMLElement | null>;
     backdrop?: boolean;
+    positionerProps?: ChakraDialog.PositionerProps;
 }
 
 export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(function DialogContent(props, ref) {
-    const { children, portalled = true, portalRef, backdrop = true, ...rest } = props;
+    const { children, portalled = true, portalRef, backdrop = true, positionerProps, ...rest } = props;
 
     return (
         <Portal disabled={!portalled} container={portalRef}>
             {backdrop && <ChakraDialog.Backdrop />}
-            <ChakraDialog.Positioner>
+            <ChakraDialog.Positioner {...positionerProps}>
                 <ChakraDialog.Content ref={ref} {...rest} asChild={false}>
                     {children}
                 </ChakraDialog.Content>
@@ -23,11 +24,15 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
     );
 });
 
-export const DialogCloseTrigger = React.forwardRef<HTMLButtonElement, ChakraDialog.CloseTriggerProps>(
-    function DialogCloseTrigger(props, ref) {
+export interface DialogCloseTriggerProps extends ChakraDialog.CloseTriggerProps {
+    buttonSize?: CloseButtonProps['size'];
+}
+
+export const DialogCloseTrigger = React.forwardRef<HTMLButtonElement, DialogCloseTriggerProps>(
+    function DialogCloseTrigger({ buttonSize = 'sm', ...props }, ref) {
         return (
             <ChakraDialog.CloseTrigger position='absolute' top='2' insetEnd='2' {...props} asChild>
-                <CloseButton size='sm' ref={ref}>
+                <CloseButton size={buttonSize} ref={ref}>
                     {props.children}
                 </CloseButton>
             </ChakraDialog.CloseTrigger>
